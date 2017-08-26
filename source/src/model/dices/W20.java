@@ -1,5 +1,8 @@
 package model.dices;
 
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class W20 implements Dice{
 
     private int value;
@@ -11,22 +14,29 @@ public class W20 implements Dice{
     @Override
     public int roll() {
 
-        this.setValue((int)Math.floor(
-
-                (Math.random() + 1)*6
-
-        ));
+        this.setValue(
+                ThreadLocalRandom.current().nextInt(1, 6 + 1)
+        );
 
         return this.getValue();
     }
 
-    public boolean againstValue(int value){
-        boolean result = false;
-        return result;
+    @Override
+    public boolean againstValue(int x) {
+        if(x > this.roll()){
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public boolean againstValues(int... x) {
+    public boolean againstValues(List<Integer> list) {
+        int value = this.roll();
+        for(int x : list){
+            if(x > value){
+                return true;
+            }
+        }
         return false;
     }
 

@@ -25,3 +25,4 @@ hs_err_pid*
 /source/source.iml
 testing/
 !/source/src/
+/source/tests.iml
