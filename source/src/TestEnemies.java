@@ -14,7 +14,7 @@ public class TestEnemies extends Application{
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("gui/mainGui.fxml"));
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Game of Life");
+        primaryStage.setTitle("Pen and Paper : Enemy Tester");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
