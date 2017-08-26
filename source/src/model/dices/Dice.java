@@ -7,4 +7,5 @@ public interface Dice {
     public boolean againstValue(int x);
 
     public boolean againstValues(int... x);
+
 }
