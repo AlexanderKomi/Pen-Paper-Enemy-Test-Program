@@ -2,8 +2,6 @@ package model.enemies;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
-
 public class EnemyTest {
     final Enemy e = new Enemy(
             "Balthazar",

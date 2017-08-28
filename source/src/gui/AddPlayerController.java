@@ -6,7 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
-public class AddPlayerController {
+public class AddPlayerController{
 
     @FXML
     TextField nameField, lifePointsField, damageField, attackChanceField, defenseField;

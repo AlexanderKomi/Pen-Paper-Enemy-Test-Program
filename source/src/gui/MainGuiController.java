@@ -1,7 +1,5 @@
 package gui;
 
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,11 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import model.enemies.Enemy;
 import model.player.Player;
 
-import javax.xml.soap.Text;
 import java.util.List;
 
 public class MainGuiController {
@@ -39,19 +35,26 @@ public class MainGuiController {
 
     //------------------------------------------ MEMBERS ------------------------------------------
 
-    private int iterations_done;
-    private List<? extends Player> playerList;
-    private List<? extends Enemy> enemyList;
+    private int iterations_done;                // Counts how many iterations are done
+    private List<? extends Player> playerList;  // Contains all Players for the simulation
+    private List<? extends Enemy> enemyList;    // Contains all Enemies for the simulation
+
+    private AddPlayerController playerCon = new AddPlayerController();
+    private AddEnemyController enemyCon = new AddEnemyController();
+    private PresetWindowController presetWindowCon = new PresetWindowController();
 
     //Stages
-
-    private Stage addPlayerStage = createPlayerStage();
+    private Stage addPlayerStage = createPlayerStage(); //Pops up, when a Player should be added
     private Stage addEnemyStage = createEnemyStage();
+    private Stage presetWindow = createPresetWindow();
+
+
     //---------------------------------------- FXML METHODS ----------------------------------------
 
     @FXML
     public void addPlayerButtonClicked(){
-        this.addPlayerStage.show();
+
+        this.addPlayerStage.show(); //
     }
 
     @FXML
@@ -130,6 +133,31 @@ public class MainGuiController {
         return stage;
     }
 
+
+    private Stage createPresetWindow() {
+        Stage stage = new Stage();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("PresetWindow.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        stage.setTitle("Choose a preset");
+
+        /*
+        stage.setOnHiding((WindowEvent event) -> {
+            Platform.runLater(() -> {
+                System.out.println("Enemy stage is only hiding, not exiting . ");
+                stage.hide();
+            });
+        });
+        */
+
+        return stage;
+    }
     //---------------------------------------- GETTER AND SETTER ----------------------------------------
 
     public List<? extends Player> getPlayerList() {
