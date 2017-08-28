@@ -30,6 +30,11 @@ public class Enemy {
         this.bonus = bonus;
     }
 
+    public Enemy(){
+        this.name = "";
+        this.bonus = "";
+    }
+
 
     //OVERLOADED METHODS
 

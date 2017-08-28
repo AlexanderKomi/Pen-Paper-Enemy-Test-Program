@@ -41,8 +41,8 @@ public class MainGuiController {
     private List<? extends Enemy> enemyList;    // Contains all Enemies for the simulation
 
     public AddPlayerController playerCon;
-    private AddEnemyController enemyCon;
-    private PresetWindowController presetWindowCon;
+    public AddEnemyController enemyCon;
+    public PresetWindowController presetWindowCon;
 
     //TODO : Stages are here only used for showing the gui. The Controllers must be mapped to this file, to work.
     private Stage addPlayerStage ; //Pops up, when a Player should be added
@@ -60,6 +60,7 @@ public class MainGuiController {
     }
 
     //----------------
+
     @FXML
     public void addPlayerButtonClicked(){
         addPlayerStage.show();
@@ -88,8 +89,8 @@ public class MainGuiController {
     @FXML
     public void removeEnemyButtonClicked(){}
 
-    //---------------------------------------- PRIVATE METHODS -----------------------------------------
 
+    //---------------------------------------- PRIVATE METHODS -----------------------------------------
 
 
     private void createPlayerStage(){
@@ -97,6 +98,7 @@ public class MainGuiController {
 
         try {
             Parent root = loader.load();
+            playerCon = (AddPlayerController) loader.getController();
             Scene s = new Scene(root);
             addPlayerStage = new Stage();
             addPlayerStage.setScene(s);
@@ -122,6 +124,7 @@ public class MainGuiController {
 
         try {
             Parent root = loader.load();
+            enemyCon = loader.getController();
             Scene s = new Scene(root);
             addEnemyStage = new Stage();
             addEnemyStage.setScene(s);
@@ -146,6 +149,7 @@ public class MainGuiController {
 
         try {
             Parent root = loader.load();
+            presetWindowCon = loader.getController();
             Scene s = new Scene(root);
             presetWindow = new Stage();
             presetWindow.setScene(s);
@@ -165,7 +169,10 @@ public class MainGuiController {
         */
 
     }
+
+
     //---------------------------------------- GETTER AND SETTER ----------------------------------------
+
 
     public List<? extends Player> getPlayerList() {
         return playerList;

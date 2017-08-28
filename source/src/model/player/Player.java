@@ -16,6 +16,23 @@ public class Player {
         this.defense = defense;
     }
 
+    public Player(){
+        this.name = "";
+        this.lp = 0;
+        this.damage = 0;
+        this.attackChance = 0;
+        this.defense = 0;
+    }
+
+    @Override
+    public String toString(){
+        String s = "Player : \t\t" + this.getName() + "\n\t" +
+                "LP: \t\t" + this.getLp() + "\n\t" +
+                "Defense: \t" + this.getDefense() + "\n\t" +
+                "Damage: \t" + this.getDamage() + "\n\t" +
+                "Attack Chance: \t" + this.getAttackChance();
+        return s;
+    }
 
     // GETTER AND SETTER
 
