@@ -1,5 +1,7 @@
 package gui;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.enemies.Enemy;
 import model.player.Player;
 
@@ -40,23 +43,15 @@ public class MainGuiController {
     private List<? extends Player> playerList;
     private List<? extends Enemy> enemyList;
 
+    //Stages
+
+    private Stage addPlayerStage = createPlayerStage();
+    private Stage addEnemyStage = createEnemyStage();
     //---------------------------------------- FXML METHODS ----------------------------------------
 
     @FXML
     public void addPlayerButtonClicked(){
-
-        try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("addPlayer.fxml"));
-            Scene scene = new Scene(root);
-            stage.setTitle("Create a new Player");
-            stage.setScene(scene);
-            stage.show();
-        }catch(Exception e){
-            e.printStackTrace();
-            System.exit(1);
-        }
-
+        this.addPlayerStage.show();
     }
 
     @FXML
@@ -72,7 +67,9 @@ public class MainGuiController {
     public void iterationsFieldChanged(){}
 
     @FXML
-    public void addEnemyButtonClicked(){}
+    public void addEnemyButtonClicked(){
+        this.addEnemyStage.show();
+    }
 
     @FXML
     public void enemyPresetsButtonClicked(){}
@@ -80,6 +77,58 @@ public class MainGuiController {
     @FXML
     public void removeEnemyButtonClicked(){}
 
+
+    //---------------------------------------- PRIVATE METHODS -----------------------------------------
+
+    private Stage createPlayerStage(){
+        Stage stage = new Stage();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("addPlayer.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        stage.setTitle("Create a new Player");
+
+        /*
+        stage.setOnHiding((WindowEvent event) -> {
+            Platform.runLater(() -> {
+                System.out.println("Player stage is only hiding, not exiting . ");
+                stage.hide();
+            });
+        });
+        */
+
+        return stage;
+    }
+
+    private Stage createEnemyStage(){
+        Stage stage = new Stage();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("addEnemy.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        stage.setTitle("Create a new Enemy");
+
+        /*
+        stage.setOnHiding((WindowEvent event) -> {
+            Platform.runLater(() -> {
+                System.out.println("Enemy stage is only hiding, not exiting . ");
+                stage.hide();
+            });
+        });
+        */
+
+        return stage;
+    }
 
     //---------------------------------------- GETTER AND SETTER ----------------------------------------
 
@@ -105,5 +154,17 @@ public class MainGuiController {
 
     public void setIterations_done(int iterations_done) {
         this.iterations_done = iterations_done;
+    }
+
+    public void setAddPlayerStage(Stage addPlayerStage) {
+        this.addPlayerStage = addPlayerStage;
+    }
+
+    public Stage getAddEnemyStage() {
+        return addEnemyStage;
+    }
+
+    public void setAddEnemyStage(Stage addEnemyStage) {
+        this.addEnemyStage = addEnemyStage;
     }
 }

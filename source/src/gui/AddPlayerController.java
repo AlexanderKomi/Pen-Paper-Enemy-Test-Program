@@ -9,37 +9,13 @@ import javafx.scene.control.TextField;
 public class AddPlayerController {
 
     @FXML
-    TextField nameField;
-
-    @FXML
-    TextField lifePointsField;
-
-    @FXML
-    TextField damageField;
-
-    @FXML
-    TextField attackChanceField;
-
-    @FXML
-    TextField defenseField;
+    TextField nameField, lifePointsField, damageField, attackChanceField, defenseField;
 
     @FXML
     TextArea bonusTextField;
 
     @FXML
-    Button createPlayerButton;
-
-    @FXML
-    Button replacePlayerButton;
-
-    @FXML
-    Button loadPresetButton;
-
-    @FXML
-    Button savePresetButton;
-
-    @FXML
-    Button cancelButton;
+    Button createPlayerButton, replacePlayerButton, loadPresetButton, savePresetButton, cancelButton;
 
 
     @FXML
