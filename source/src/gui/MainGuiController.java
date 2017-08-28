@@ -1,8 +1,12 @@
 package gui;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import model.enemies.Enemy;
 import model.player.Player;
 
@@ -39,7 +43,21 @@ public class MainGuiController {
     //---------------------------------------- FXML METHODS ----------------------------------------
 
     @FXML
-    public void addPlayerButtonClicked(){}
+    public void addPlayerButtonClicked(){
+
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("addPlayer.fxml"));
+            Scene scene = new Scene(root);
+            stage.setTitle("Create a new Player");
+            stage.setScene(scene);
+            stage.show();
+        }catch(Exception e){
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+    }
 
     @FXML
     public void playerPresetsButtonClicked(){}
