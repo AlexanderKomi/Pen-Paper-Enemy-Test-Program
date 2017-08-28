@@ -1,12 +1,13 @@
-package gui;
+package gui.fxml_controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 
 
-public class AddPlayerController{
+public class AddPlayerController extends BorderPane{
 
     @FXML
     TextField nameField, lifePointsField, damageField, attackChanceField, defenseField;
@@ -16,7 +17,6 @@ public class AddPlayerController{
 
     @FXML
     Button createPlayerButton, replacePlayerButton, loadPresetButton, savePresetButton, cancelButton;
-
 
     @FXML
     public void savePresetButtonPressed(){}

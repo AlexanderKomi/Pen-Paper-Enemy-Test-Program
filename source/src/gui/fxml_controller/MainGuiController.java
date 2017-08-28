@@ -1,4 +1,4 @@
-package gui;
+package gui.fxml_controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import model.enemies.Enemy;
 import model.player.Player;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MainGuiController {
@@ -39,22 +40,29 @@ public class MainGuiController {
     private List<? extends Player> playerList;  // Contains all Players for the simulation
     private List<? extends Enemy> enemyList;    // Contains all Enemies for the simulation
 
-    private AddPlayerController playerCon = new AddPlayerController();
-    private AddEnemyController enemyCon = new AddEnemyController();
-    private PresetWindowController presetWindowCon = new PresetWindowController();
+    public AddPlayerController playerCon;
+    private AddEnemyController enemyCon;
+    private PresetWindowController presetWindowCon;
 
-    //Stages
-    private Stage addPlayerStage = createPlayerStage(); //Pops up, when a Player should be added
-    private Stage addEnemyStage = createEnemyStage();
-    private Stage presetWindow = createPresetWindow();
+    //TODO : Stages are here only used for showing the gui. The Controllers must be mapped to this file, to work.
+    private Stage addPlayerStage ; //Pops up, when a Player should be added
+    private Stage addEnemyStage ;
+    private Stage presetWindow;
 
 
     //---------------------------------------- FXML METHODS ----------------------------------------
 
     @FXML
-    public void addPlayerButtonClicked(){
+    public void initialize(){
+        createPlayerStage();
+        createEnemyStage();
+        createPresetWindow();
+    }
 
-        this.addPlayerStage.show(); //
+    //----------------
+    @FXML
+    public void addPlayerButtonClicked(){
+        addPlayerStage.show();
     }
 
     @FXML
@@ -80,21 +88,23 @@ public class MainGuiController {
     @FXML
     public void removeEnemyButtonClicked(){}
 
-
     //---------------------------------------- PRIVATE METHODS -----------------------------------------
 
-    private Stage createPlayerStage(){
-        Stage stage = new Stage();
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("addPlayer.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
 
-        stage.setTitle("Create a new Player");
+
+    private void createPlayerStage(){
+        FXMLLoader loader = new FXMLLoader(AddPlayerController.class.getResource("../fxml/addPlayer.fxml"));
+
+        try {
+            Parent root = loader.load();
+            Scene s = new Scene(root);
+            addPlayerStage = new Stage();
+            addPlayerStage.setScene(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        addPlayerStage.setTitle("Create a new Player");
 
         /*
         stage.setOnHiding((WindowEvent event) -> {
@@ -105,58 +115,55 @@ public class MainGuiController {
         });
         */
 
-        return stage;
     }
 
-    private Stage createEnemyStage(){
-        Stage stage = new Stage();
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("addEnemy.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+    private void createEnemyStage(){
+        FXMLLoader loader = new FXMLLoader(AddEnemyController.class.getResource("../fxml/addEnemy.fxml"));
 
-        stage.setTitle("Create a new Enemy");
+        try {
+            Parent root = loader.load();
+            Scene s = new Scene(root);
+            addEnemyStage = new Stage();
+            addEnemyStage.setScene(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        addEnemyStage.setTitle("Create a new Enemy");
 
         /*
         stage.setOnHiding((WindowEvent event) -> {
             Platform.runLater(() -> {
-                System.out.println("Enemy stage is only hiding, not exiting . ");
+                System.out.println("Player stage is only hiding, not exiting . ");
+                stage.hide();
+            });
+        });
+        */
+    }
+
+    private void createPresetWindow() {
+        FXMLLoader loader = new FXMLLoader(PresetWindowController.class.getResource("../fxml/PresetWindow.fxml"));
+
+        try {
+            Parent root = loader.load();
+            Scene s = new Scene(root);
+            presetWindow = new Stage();
+            presetWindow.setScene(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        presetWindow.setTitle("Choose a preset");
+
+        /*
+        stage.setOnHiding((WindowEvent event) -> {
+            Platform.runLater(() -> {
+                System.out.println("Player stage is only hiding, not exiting . ");
                 stage.hide();
             });
         });
         */
 
-        return stage;
-    }
-
-
-    private Stage createPresetWindow() {
-        Stage stage = new Stage();
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("PresetWindow.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-
-        stage.setTitle("Choose a preset");
-
-        /*
-        stage.setOnHiding((WindowEvent event) -> {
-            Platform.runLater(() -> {
-                System.out.println("Enemy stage is only hiding, not exiting . ");
-                stage.hide();
-            });
-        });
-        */
-
-        return stage;
     }
     //---------------------------------------- GETTER AND SETTER ----------------------------------------
 
@@ -184,15 +191,4 @@ public class MainGuiController {
         this.iterations_done = iterations_done;
     }
 
-    public void setAddPlayerStage(Stage addPlayerStage) {
-        this.addPlayerStage = addPlayerStage;
-    }
-
-    public Stage getAddEnemyStage() {
-        return addEnemyStage;
-    }
-
-    public void setAddEnemyStage(Stage addEnemyStage) {
-        this.addEnemyStage = addEnemyStage;
-    }
 }

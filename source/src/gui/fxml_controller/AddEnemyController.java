@@ -1,4 +1,4 @@
-package gui;
+package gui.fxml_controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -6,7 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
-public class AddEnemyController {
+public class AddEnemyController{
 
     @FXML
     TextField nameField, lifePointsField, damageField, attackChanceField, defenseField, armorField;
@@ -16,6 +16,8 @@ public class AddEnemyController {
 
     @FXML
     Button createEnemyButton, replaceEnemyButton, loadPresetButton, savePresetButton, cancelButton;
+
+
 
     @FXML
     public void createEnemyButtonPressed(){}

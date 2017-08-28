@@ -12,7 +12,7 @@ public class TestEnemies extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("gui/mainGui.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("gui/fxml/mainGui.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("Pen and Paper : Enemy Tester");
         primaryStage.setScene(scene);
