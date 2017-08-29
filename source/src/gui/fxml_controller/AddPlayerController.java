@@ -45,13 +45,12 @@ public class AddPlayerController extends BorderPane{
     public void replacePlayerButtonPressed(){}
 
     @FXML
-    public void cancelButtonPressed(){
-
-    }
+    public void cancelButtonPressed(){}
 
     @FXML
     public Player createPlayerButtonPressed(){
         Player p = new Player();
+
         try {
             p = new Player(
                     nameField.getText(),
@@ -102,6 +101,16 @@ public class AddPlayerController extends BorderPane{
             }
 
         });
+    }
+
+    public String playerListAsString(){
+        StringBuilder s = new StringBuilder();
+
+        for(Player p : this.playerList){
+            s.append(p.toString()).append("\n");
+        }
+
+        return s.toString();
     }
 
     //----------------------------------GETTER AND SETTER ----------------------------------

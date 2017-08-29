@@ -96,6 +96,15 @@ public class AddEnemyController{
         });
     }
 
+    public String enemyListAsString(){
+        StringBuilder s = new StringBuilder();
+
+        for(Enemy e : this.enemyList){
+            s.append(e.toString()).append("\n");
+        }
+
+        return s.toString();
+    }
 
 
     public List<Enemy> getEnemyList() {

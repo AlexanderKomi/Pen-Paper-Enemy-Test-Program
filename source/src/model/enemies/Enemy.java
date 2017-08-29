@@ -50,13 +50,11 @@ public class Enemy {
     public String toString(){
 
 
-        String s =  "Enemy : \t\t" + this.getName() + "\n\t" +
-                    "LP: \t\t" + this.getLp() + "\n\t" +
-                    "Defense: \t" + this.getDefense() + "\n\t" +
-                    "Armor: \t\t" + this.getArmor() + "\n\t" +
-                    "Damage: \t" + this.getDamage() + "\n\t" +
-                    "Attack Chance: \t" + this.getAttackChance()
-                ;
+        String s = "Name : " + this.getName() + "\t, LP: " + this.getLp() +
+                "\t, Defense: " + this.getDefense() + "\t, Armor: " + this.getArmor()+
+                "\t, Damage: " + this.getDamage() +
+                "\t, Attack Chance: " + this.getAttackChance();
+
 
         if(!this.getBonus().equals("")){
             s += "\n\tBonus: " + this.getBonus();

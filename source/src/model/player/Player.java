@@ -36,11 +36,9 @@ public class Player {
 
     @Override
     public String toString(){
-        String s = "Player : \t\t" + this.getName() + "\n\t" +
-                "LP: \t\t" + this.getLp() + "\n\t" +
-                "Defense: \t" + this.getDefense() + "\n\t" +
-                "Damage: \t" + this.getDamage() + "\n\t" +
-                "Attack Chance: \t" + this.getAttackChance();
+        String s = "Name : " + this.getName() + "\t, LP: " + this.getLp() +
+                "\t, Defense: " + this.getDefense() + "\t, Damage: " + this.getDamage() +
+                "\t, Attack Chance: " + this.getAttackChance();
         return s;
     }
 

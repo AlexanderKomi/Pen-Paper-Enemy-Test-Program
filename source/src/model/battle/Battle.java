@@ -22,7 +22,7 @@ public class Battle implements Runnable {
     @Override
     public void run(){
         String s = this.simulate();
-        System.out.println("Simulation finished : \n" + s);
+        System.out.println("Simulation finished : \n\nResults : \n" + s);
     }
 
     private String simulate(){
@@ -39,7 +39,7 @@ public class Battle implements Runnable {
 
                 for(Player p : this.getPlayers()){
 
-                    sb.append(p.attack( enemyIter.next() ));
+                    sb.append(p.attack( enemyIter.next() )); // TODO : Implement any type of battle here ...
 
                 }
             }
@@ -48,7 +48,7 @@ public class Battle implements Runnable {
                 playerIter = this.players.listIterator();
 
                 for(Enemy e : this.getEnemies()){
-                    sb.append(e.attack( playerIter.next() ));
+                    sb.append(e.attack( playerIter.next() )); // TODO : AND here.
                 }
 
             }
@@ -72,7 +72,7 @@ public class Battle implements Runnable {
 
         sb.append("\n---------------------------------------------------------------------\n\n");
 
-        sb.append("Enemies in the Battle: \n");
+        sb.append("Enemies in the Battle: \n\t");
         for(Enemy e : this.getEnemies()){
             sb.append(e + "\n\t");
         }

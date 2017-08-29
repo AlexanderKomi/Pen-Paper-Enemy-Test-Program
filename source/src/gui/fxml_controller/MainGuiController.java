@@ -45,13 +45,10 @@ public class MainGuiController {
 
     @FXML
     public void initialize(){
-
         createStages();
-
         initialize_TextFields();
+        initialize_TextAreas();
     }
-
-
 
     //----------------
 
@@ -66,11 +63,7 @@ public class MainGuiController {
     }
 
     @FXML
-    public void removePlayerButtonClicked(){}
-
-    @FXML
     public void startButtonClicked(){
-
 
         if(this.playerCon.getPlayerList().isEmpty()){
             System.out.println("Player list is empty, so simulation has not been started.");
@@ -104,9 +97,6 @@ public class MainGuiController {
     @FXML
     public void enemyPresetsButtonClicked(){}
 
-    @FXML
-    public void removeEnemyButtonClicked(){}
-
 
     //---------------------------------------- PRIVATE METHODS -----------------------------------------
 
@@ -133,10 +123,15 @@ public class MainGuiController {
 
 
         addPlayerStage.setOnHiding((WindowEvent event) -> {
-            Platform.runLater(() -> {
-
-            });
-        });
+                    Platform.runLater(() -> {
+                                playerListField.setText(
+                                        playerCon.playerListAsString()
+                                );
+                                System.out.println("Should now update.");
+                            }
+                    );
+                }
+        );
 
 
     }
@@ -156,14 +151,16 @@ public class MainGuiController {
         }
         addEnemyStage.setTitle("Create a new Enemy");
 
-        /*
-        stage.setOnHiding((WindowEvent event) -> {
-            Platform.runLater(() -> {
-                System.out.println("Player stage is only hiding, not exiting . ");
-                stage.hide();
-            });
-        });
-        */
+        addEnemyStage.setOnHiding((WindowEvent event) -> {
+                    Platform.runLater(() -> {
+                                enemyListField.setText(
+                                        enemyCon.enemyListAsString()
+                                );
+                                System.out.println("Should now update.");
+                            }
+                    );
+                }
+        );
     }
 
     private void createPresetWindow() {
@@ -195,6 +192,9 @@ public class MainGuiController {
     private void initialize_TextFields(){
         this.setFieldToOnlyNumbers(this.iterationsField);
         this.iterationsField.setText("0");
+    }
+
+    private void initialize_TextAreas() {
     }
 
     private void setFieldToOnlyNumbers(TextField t){
