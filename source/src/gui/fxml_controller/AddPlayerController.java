@@ -7,8 +7,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import model.player.Player;
 
+import java.util.List;
+
 
 public class AddPlayerController extends BorderPane{
+
+    //------------------------------------ FXML MEMBERS -------------------------------------
 
     @FXML
     TextField nameField, lifePointsField, damageField, attackChanceField, defenseField;
@@ -18,6 +22,11 @@ public class AddPlayerController extends BorderPane{
 
     @FXML
     Button createPlayerButton, replacePlayerButton, loadPresetButton, savePresetButton, cancelButton;
+
+
+    private List<Player> playerList;  // Contains all Players for the simulation
+
+    //----------------------------------- FXML METHODS -------------------------------------
 
     @FXML
     public void initialize(){
@@ -34,7 +43,9 @@ public class AddPlayerController extends BorderPane{
     public void replacePlayerButtonPressed(){}
 
     @FXML
-    public void cancelButtonPressed(){}
+    public void cancelButtonPressed(){
+
+    }
 
     @FXML
     public Player createPlayerButtonPressed(){
@@ -52,6 +63,7 @@ public class AddPlayerController extends BorderPane{
             e.printStackTrace();
         }
         System.out.println("new Player : \n"+p+"\n");
+        this.playerList.add(p);
         return p;
     }
 
@@ -79,6 +91,16 @@ public class AddPlayerController extends BorderPane{
             }
 
         });
+    }
+
+    //----------------------------------GETTER AND SETTER ----------------------------------
+
+    public List<? extends Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
     }
 
 }

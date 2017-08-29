@@ -37,7 +37,6 @@ public class MainGuiController {
     //------------------------------------------ MEMBERS ------------------------------------------
 
     private int iterations_done;                // Counts how many iterations are done
-    private List<? extends Player> playerList;  // Contains all Players for the simulation
     private List<? extends Enemy> enemyList;    // Contains all Enemies for the simulation
 
     public AddPlayerController playerCon;
@@ -67,7 +66,9 @@ public class MainGuiController {
     }
 
     @FXML
-    public void playerPresetsButtonClicked(){}
+    public void playerPresetsButtonClicked(){
+        presetWindow.show();
+    }
 
     @FXML
     public void removePlayerButtonClicked(){}
@@ -76,7 +77,9 @@ public class MainGuiController {
     public void startButtonClicked(){}
 
     @FXML
-    public void iterationsFieldChanged(){}
+    public void iterationsFieldChanged(){
+        this.iterationsField.getText();
+    }
 
     @FXML
     public void addEnemyButtonClicked(){
@@ -174,13 +177,6 @@ public class MainGuiController {
     //---------------------------------------- GETTER AND SETTER ----------------------------------------
 
 
-    public List<? extends Player> getPlayerList() {
-        return playerList;
-    }
-
-    public void setPlayerList(List<Player> playerList) {
-        this.playerList = playerList;
-    }
 
     public List<? extends Enemy> getEnemyList() {
         return enemyList;
