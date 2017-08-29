@@ -1,5 +1,7 @@
 package model.player;
 
+import model.enemies.Enemy;
+
 public class Player {
 
     private String name;
@@ -22,6 +24,14 @@ public class Player {
         this.damage = 0;
         this.attackChance = 0;
         this.defense = 0;
+    }
+
+    /**Attacking an enemy.
+     * @param enemy The enemy, who is attacked by the player.
+     * @return Returns the remaining lifepoints of the enemy.
+     * */
+    public int attack(Enemy enemy){
+        return 1;
     }
 
     @Override

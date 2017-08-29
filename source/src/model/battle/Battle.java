@@ -4,6 +4,7 @@ import model.enemies.Enemy;
 import model.player.Player;
 
 import java.util.List;
+import java.util.ListIterator;
 
 public class Battle implements Runnable {
 
@@ -20,29 +21,64 @@ public class Battle implements Runnable {
 
     @Override
     public void run(){
-        simulate();
+        String s = this.simulate();
+        System.out.println("Simulation finished : \n" + s);
     }
 
-    public void simulate(){
+    private String simulate(){
 
-            for(int i = 0 ; i < iterations_max ; i++) {
-                if(i%2 == 0){
-                    for(Player p : this.getPlayers()){
+        StringBuilder sb = new StringBuilder();
+        ListIterator<Enemy> enemyIter;
+        ListIterator<Player> playerIter;
 
-                    }
-                }
-                else{
-                    for(Enemy e : this.getEnemies()){
+        for(int i = 0 ; i < iterations_max ; i++) {
 
-                    }
+            if(i%2 == 0){
+
+                enemyIter = this.enemies.listIterator();
+
+                for(Player p : this.getPlayers()){
+
+                    sb.append(p.attack( enemyIter.next() ));
 
                 }
             }
+            else{
 
+                playerIter = this.players.listIterator();
 
+                for(Enemy e : this.getEnemies()){
+                    sb.append(e.attack( playerIter.next() ));
+                }
+
+            }
+        }
+
+        return sb.toString();
     }
 
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
 
+        sb.append("Battle: \n\t");
+
+        sb.append("Iterations : " + this.getIterations_max() + "\n");
+        sb.append("\n---------------------------------------------------------------------\n\n");
+        sb.append("Players in the Battle:\n\t");
+        for(Player p : this.getPlayers()){
+            sb.append(p + "\n\t");
+        }
+
+        sb.append("\n---------------------------------------------------------------------\n\n");
+
+        sb.append("Enemies in the Battle: \n");
+        for(Enemy e : this.getEnemies()){
+            sb.append(e + "\n\t");
+        }
+
+        return sb.toString();
+    }
 
 
     //---------------------------- GETTER AND SETTER --------------------------

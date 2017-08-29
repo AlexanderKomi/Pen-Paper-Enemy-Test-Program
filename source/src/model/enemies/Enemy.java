@@ -1,5 +1,7 @@
 package model.enemies;
 
+import model.player.Player;
+
 public class Enemy {
 
     private String name;
@@ -35,9 +37,16 @@ public class Enemy {
         this.bonus = "";
     }
 
+    /**Attacking a player.
+     * @param player The player, who is attacked by the player.
+     * @return Returns the remaining lifepoints of the player.
+     * */
+    public int attack(Player player){
+        return 1;
+    }
 
     //OVERLOADED METHODS
-
+    @Override
     public String toString(){
 
 

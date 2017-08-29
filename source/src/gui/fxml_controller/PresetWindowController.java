@@ -15,10 +15,10 @@ public class PresetWindowController {
     Button selectButton, cancelButton;
 
     @FXML
-    VBox playerBox;
+    VBox PlayerBox;
 
     @FXML
-    TextArea textArea;
+    TextArea descriptionField;
 
     @FXML
     CheckBox playerNameCheckBox;
@@ -40,11 +40,11 @@ public class PresetWindowController {
     //--------------------------------- PRIVATE METHODS --------------------------------
 
     public void addToPresetsCheckBoxes(Player p){
-        VBox v = this.playerBox;
+        VBox v = this.PlayerBox;
 
         CheckBox c = new CheckBox(p.getName());
 
-        this.playerBox.getChildren().addAll(c);
+        this.PlayerBox.getChildren().addAll(c);
     }
 
     //--------------------------------- GETTER AND SETTER -------------------------------

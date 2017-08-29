@@ -6,6 +6,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import model.enemies.Enemy;
 
+import java.util.LinkedList;
+import java.util.List;
+
 
 public class AddEnemyController{
 
@@ -19,9 +22,13 @@ public class AddEnemyController{
     Button createEnemyButton, replaceEnemyButton, loadPresetButton, savePresetButton, cancelButton;
 
 
+
+    private List<Enemy> enemyList;    // Contains all Enemies for the simulation
+
     @FXML
     public void initialize(){
         initialize_TextFields();
+        this.enemyList = new LinkedList<>();
     }
 
     @FXML
@@ -42,6 +49,7 @@ public class AddEnemyController{
             e.printStackTrace();
         }
         System.out.println("new Enemy : \n"+enemy+"\n");
+        this.getEnemyList().add(enemy);
         return enemy;
     }
 
@@ -86,6 +94,16 @@ public class AddEnemyController{
             }
 
         });
+    }
+
+
+
+    public List<Enemy> getEnemyList() {
+        return enemyList;
+    }
+
+    public void setEnemyList(List<Enemy> enemyList) {
+        this.enemyList = enemyList;
     }
 
 }

@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import model.player.Player;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -30,6 +31,7 @@ public class AddPlayerController extends BorderPane{
 
     @FXML
     public void initialize(){
+        this.setPlayerList(new LinkedList<>());
         initialize_TextFields();
     }
 
@@ -62,8 +64,17 @@ public class AddPlayerController extends BorderPane{
             System.out.println("Problem to create new Player.");
             e.printStackTrace();
         }
+
         System.out.println("new Player : \n"+p+"\n");
-        this.playerList.add(p);
+
+        try {
+            this.playerList.add(p);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            System.exit(1);
+        }
+
         return p;
     }
 
@@ -95,7 +106,7 @@ public class AddPlayerController extends BorderPane{
 
     //----------------------------------GETTER AND SETTER ----------------------------------
 
-    public List<? extends Player> getPlayerList() {
+    public List<Player> getPlayerList() {
         return playerList;
     }
 

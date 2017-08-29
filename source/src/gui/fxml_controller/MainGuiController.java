@@ -1,44 +1,36 @@
 package gui.fxml_controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.enemies.Enemy;
-import model.player.Player;
+import javafx.stage.WindowEvent;
+import model.battle.Battle;
 
 import java.io.IOException;
-import java.util.List;
 
 public class MainGuiController {
 
     //---------------------------------------- FXML MEMBERS ----------------------------------------
 
     @FXML
-    Button addPlayerButton;
-    @FXML
-    Button playerPresetsButton;
-    @FXML
-    Button removePlayerButton;
-    @FXML
-    Button startButton;
-    @FXML
-    Button addEnemyButton;
-    @FXML
-    Button enemyPresetsButton;
-    @FXML
-    Button removeEnemyButton;
+    Button addPlayerButton, playerPresetsButton,  startButton, addEnemyButton, enemyPresetsButton;
     @FXML
     TextField iterationsField;
+    @FXML
+    TextArea playerListField,enemyListField,summaryField;
 
     //------------------------------------------ MEMBERS ------------------------------------------
 
-    private int iterations_done;                // Counts how many iterations are done
-    private List<? extends Enemy> enemyList;    // Contains all Enemies for the simulation
+    private Battle battle;
 
+
+    //FXML Controller
     public AddPlayerController playerCon;
     public AddEnemyController enemyCon;
     public PresetWindowController presetWindowCon;
@@ -53,10 +45,13 @@ public class MainGuiController {
 
     @FXML
     public void initialize(){
-        createPlayerStage();
-        createEnemyStage();
-        createPresetWindow();
+
+        createStages();
+
+        initialize_TextFields();
     }
+
+
 
     //----------------
 
@@ -74,7 +69,27 @@ public class MainGuiController {
     public void removePlayerButtonClicked(){}
 
     @FXML
-    public void startButtonClicked(){}
+    public void startButtonClicked(){
+
+
+        if(this.playerCon.getPlayerList().isEmpty()){
+            System.out.println("Player list is empty, so simulation has not been started.");
+            return;
+        }
+        if(this.enemyCon.getEnemyList().isEmpty()){
+            System.out.println("Enemy list is empty, so simulation has not been started.");
+            return;
+        }
+
+        this.setBattle(new Battle(
+                this.playerCon.getPlayerList(),
+                this.enemyCon.getEnemyList(),
+                Integer.parseInt(this.iterationsField.getText())
+        ));
+
+        System.out.println("Starting Battle : " + this.getBattle());
+        this.getBattle().run();
+    }
 
     @FXML
     public void iterationsFieldChanged(){
@@ -95,6 +110,11 @@ public class MainGuiController {
 
     //---------------------------------------- PRIVATE METHODS -----------------------------------------
 
+    private void createStages() {
+        createPlayerStage();
+        createEnemyStage();
+        createPresetWindow();
+    }
 
     private void createPlayerStage(){
         FXMLLoader loader = new FXMLLoader(AddPlayerController.class.getResource("../fxml/addPlayer.fxml"));
@@ -111,14 +131,13 @@ public class MainGuiController {
         }
         addPlayerStage.setTitle("Create a new Player");
 
-        /*
-        stage.setOnHiding((WindowEvent event) -> {
+
+        addPlayerStage.setOnHiding((WindowEvent event) -> {
             Platform.runLater(() -> {
-                System.out.println("Player stage is only hiding, not exiting . ");
-                stage.hide();
+
             });
         });
-        */
+
 
     }
 
@@ -173,25 +192,33 @@ public class MainGuiController {
 
     }
 
+    private void initialize_TextFields(){
+        this.setFieldToOnlyNumbers(this.iterationsField);
+        this.iterationsField.setText("0");
+    }
+
+    private void setFieldToOnlyNumbers(TextField t){
+        t.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            if (!newValue.matches("\\d*")) {
+                t.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+            if(t.getText().equals("")){
+                t.setText("0");
+            }
+
+        });
+    }
+
 
     //---------------------------------------- GETTER AND SETTER ----------------------------------------
 
 
-
-    public List<? extends Enemy> getEnemyList() {
-        return enemyList;
+    public Battle getBattle() {
+        return battle;
     }
 
-    public void setEnemyList(List<Enemy> enemyList) {
-        this.enemyList = enemyList;
+    public void setBattle(Battle battle) {
+        this.battle = battle;
     }
-
-    public int getIterations_done() {
-        return iterations_done;
-    }
-
-    public void setIterations_done(int iterations_done) {
-        this.iterations_done = iterations_done;
-    }
-
 }
