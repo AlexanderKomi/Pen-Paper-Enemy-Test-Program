@@ -39,26 +39,24 @@ public class Battle implements Runnable {
         StringBuilder sb = new StringBuilder();
         ListIterator<Enemy> enemyIter;
         ListIterator<Player> playerIter;
+        byte switcher = 0;
 
         for (int i = 0; i < iterations_max; i++) {
 
-            if (i % 2 == 0) {
-
-                enemyIter = this.enemies.listIterator();
+            if (switcher == 0) {
 
                 for (Player p : this.getPlayers()) {
 
-                    sb.append(p.attack(enemyIter.next())); // TODO : Implement any type of battle here ...
+                     // TODO : Implement any type of battle here ...
 
                 }
+                switcher++;
             } else {
 
-                playerIter = this.players.listIterator();
-
                 for (Enemy e : this.getEnemies()) {
-                    sb.append(e.attack(playerIter.next())); // TODO : AND here.
+                     // TODO : AND here.
                 }
-
+                switcher--;
             }
         }
 
