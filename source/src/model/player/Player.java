@@ -36,7 +36,7 @@ public class Player {
         this.defense = 0;
     }
 
-    //--------------------- ATTACK AND DEFENSE ------------------------
+    //--------------------------------------- ATTACK AND DEFENSE ---------------------------------------
 
     /**
      * Attacking an enemy.
@@ -58,7 +58,7 @@ public class Player {
         return 0;
     }
 
-    //-------------------OVERLOADED METHODS ----------------------------------------------
+    //--------------------------------------- OVERLOADED METHODS ---------------------------------------
 
     @Override
     public String toString() {
@@ -69,7 +69,7 @@ public class Player {
         return s;
     }
 
-    // GETTER AND SETTER
+    //--------------------------------------- GETTER AND SETTER -------------------------------------------
 
     public String getName() {
         return name;

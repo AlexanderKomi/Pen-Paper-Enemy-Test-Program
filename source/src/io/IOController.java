@@ -11,12 +11,9 @@ public class IOController {
         this.lo = new LoadOperations();
     }
 
-    public Player loadPlayer() {
-        lo.loadDialog();
-        return null;
-    }
+    // -------------------------------- PLAYER --------------------------------
 
-    public Enemy loadEnemy() {
+    public Player loadPlayer() {
         lo.loadDialog();
         return null;
     }
@@ -25,7 +22,16 @@ public class IOController {
         lo.savePlayer(p);
     }
 
+    // -------------------------------- ENEMY --------------------------------
+
+    public Enemy loadEnemy() {
+        lo.loadDialog();
+        return null;
+    }
+
     public void saveEnemy(Enemy e) {
         lo.saveEnemy(e);
     }
+
+
 }

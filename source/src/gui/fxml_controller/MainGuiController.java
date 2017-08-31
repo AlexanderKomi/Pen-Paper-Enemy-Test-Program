@@ -2,7 +2,6 @@ package gui.fxml_controller;
 
 import gui.fxml_controller.enemy.AddEnemyController;
 import gui.fxml_controller.player.AddPlayerController;
-import io.IOController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -10,36 +10,29 @@ import java.util.List;
 
 public class PlayerPresetWindowController {
 
-    //-------------------------------- FXML MEMBERS ---------------------------------
+    //-------------------------------- FXML MEMBERS -----------------------------------
 
-    @FXML
-    Button selectButton, cancelButton;
+    @FXML Button selectButton, cancelButton;
 
-    @FXML
-    VBox PlayerBox;
+    @FXML VBox PlayerBox;
 
-    @FXML
-    gui.fxml_controller.player.PlayerBoxController PlayerBoxController;
+    @FXML TextArea descriptionField;
 
-    @FXML
-    TextArea descriptionField;
+    //FXML Controller
+    @FXML PlayerBoxController PlayerBoxController;
 
-    //---------------------------------- MEMBERS -------------------------------------
+    //---------------------------------- MEMBERS ---------------------------------------
 
 
     //--------------------------------- FXML METHODS -----------------------------------
 
     @FXML
-    public void playerNameSelected() {
-    }
-
-    @FXML
     public void selectButtonPressed() {
+        System.out.println("Player : " + this.PlayerBoxController.getSelected() + " has been selected");
     }
 
     @FXML
-    public void cancelButtonPressed() {
-    }
+    public void cancelButtonPressed() {cancelButton.getScene().getWindow().hide();}
 
     //--------------------------------- PRIVATE METHODS --------------------------------
 
@@ -57,8 +50,8 @@ public class PlayerPresetWindowController {
         }
 
         this.PlayerBoxController.updateCheckboxes(player);
-
     }
+
 
 
     //--------------------------------- GETTER AND SETTER -------------------------------

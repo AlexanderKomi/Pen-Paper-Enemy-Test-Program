@@ -1,6 +1,5 @@
 package gui.fxml_controller.enemy;
 
-import gui.fxml_controller.player.PlayerPresetWindowController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +17,7 @@ import java.util.List;
 
 public class AddEnemyController {
 
+    //------------------------------------ FXML MEMBERS -------------------------------------
 
     @FXML TextField nameField, lifePointsField, damageField, attackChanceField, defenseField, armorField;
 
@@ -25,13 +25,15 @@ public class AddEnemyController {
 
     @FXML Button createEnemyButton, presetsButton, cancelButton;
 
-
-
-    private Stage presetWindow;
+    //FXML Controller
     @FXML private EnemyPresetWindowController presetWindowCon;
+
+    //------------------------------------------ MEMBERS ------------------------------------------
+    private Stage presetWindow;
 
     private List<Enemy> enemyList;    // Contains all Enemies for the simulation
 
+    //----------------------------------- FXML METHODS -------------------------------------
 
     @FXML
     public void initialize() {
@@ -71,10 +73,6 @@ public class AddEnemyController {
     @FXML
     public void cancelButtonPressed() {cancelButton.getScene().getWindow().hide();}
 
-    @FXML
-    public void armorFieldChanged() {
-    }
-
     //--------------------------- PRIVATE METHODS --------------------------
 
     private void initialize_TextFields() {
@@ -110,7 +108,6 @@ public class AddEnemyController {
             Parent root = loader.load();
             Scene s = new Scene(root);
             this.presetWindowCon = loader.getController();
-
             this.presetWindow = new Stage();
             this.presetWindow.setScene(s);
 
@@ -118,19 +115,10 @@ public class AddEnemyController {
             e.printStackTrace();
             System.exit(1);
         }
-
         this.presetWindow.setTitle("Choose a preset");
-
-        /*
-        stage.setOnHiding((WindowEvent event) -> {
-            Platform.runLater(() -> {
-                System.out.println("Player stage is only hiding, not exiting . ");
-                stage.hide();
-            });
-        });
-        */
-
     }
+
+    //----------------------------------GETTER AND SETTER ----------------------------------
 
     public String enemyListAsString() {
         StringBuilder s = new StringBuilder();

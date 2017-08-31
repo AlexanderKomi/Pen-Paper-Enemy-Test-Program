@@ -31,12 +31,10 @@ public class EnemyPresetWindowController {
     //--------------------------------- FXML METHODS -----------------------------------
 
     @FXML
-    public void selectButtonPressed() {
-    }
+    public void selectButtonPressed() {}
 
     @FXML
-    public void cancelButtonPressed() {
-    }
+    public void cancelButtonPressed() {cancelButton.getScene().getWindow().hide();}
 
     //--------------------------------- PRIVATE METHODS --------------------------------
 

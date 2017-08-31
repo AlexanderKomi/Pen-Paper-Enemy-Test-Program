@@ -1,7 +1,5 @@
 package gui.fxml_controller.player;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
@@ -12,16 +10,20 @@ import java.util.List;
 
 public class PlayerBoxController extends VBox {
 
+
+    //-------------------------------- FXML MEMBERS ---------------------------------
+
+    @FXML VBox PlayerBox;
+
+    //---------------------------------- MEMBERS -------------------------------------
+
     private List<CheckBox> checkboxes;
 
-    @FXML
-    VBox PlayerBox;
-
-
     public PlayerBoxController() {
-
         this.checkboxes = new LinkedList<>();
     }
+
+    //--------------------------------- FXML METHODS -----------------------------------
 
     @FXML
     public void initialize() {
@@ -29,13 +31,7 @@ public class PlayerBoxController extends VBox {
     }
 
 
-    public List<CheckBox> getCheckboxes() {
-        return checkboxes;
-    }
-
-    public void setCheckboxes(List<CheckBox> checkboxes) {
-        this.checkboxes = checkboxes;
-    }
+    // ------------------------------- PUBLIC METHODS ----------------------------------
 
     public void addToCheckboxes(Player player) {
         this.checkboxes.add(new CheckBox(player.getName()));
@@ -59,6 +55,9 @@ public class PlayerBoxController extends VBox {
 
     }
 
+    //--------------------------------- PRIVATE METHODS --------------------------------
+
+
     private void deselectOtherBoxes(CheckBox checky){
         for(CheckBox c : this.getCheckboxes()){
             if(!c.equals(checky)){
@@ -66,7 +65,6 @@ public class PlayerBoxController extends VBox {
             }
         }
     }
-
 
     private boolean isCheckBoxSelectable(CheckBox checky){
 
@@ -81,4 +79,22 @@ public class PlayerBoxController extends VBox {
         return true;
     }
 
+    //--------------------------------- GETTER AND SETTER -------------------------------
+
+    public List<CheckBox> getCheckboxes() {
+        return checkboxes;
+    }
+
+    public void setCheckboxes(List<CheckBox> checkboxes) {
+        this.checkboxes = checkboxes;
+    }
+
+    public String getSelected() {
+        for(CheckBox c : this.checkboxes){
+            if(c.isSelected()){
+                return c.getText();
+            }
+        }
+        return "";
+    }
 }
