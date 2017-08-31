@@ -1,8 +1,11 @@
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class TestEnemies extends Application {
 
@@ -16,6 +19,11 @@ public class TestEnemies extends Application {
         Scene scene = new Scene(root);
         primaryStage.setTitle("Pen and Paper : Enemy Tester");
         primaryStage.setScene(scene);
+
+        primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();
+        });
+
         primaryStage.show();
     }
 }

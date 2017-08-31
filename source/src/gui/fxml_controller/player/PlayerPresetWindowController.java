@@ -1,4 +1,4 @@
-package gui.fxml_controller;
+package gui.fxml_controller.player;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,7 +8,7 @@ import model.player.Player;
 
 import java.util.List;
 
-public class PresetWindowController {
+public class PlayerPresetWindowController {
 
     //-------------------------------- FXML MEMBERS ---------------------------------
 
@@ -19,7 +19,7 @@ public class PresetWindowController {
     VBox PlayerBox;
 
     @FXML
-    PlayerBoxController PlayerBoxController;
+    gui.fxml_controller.player.PlayerBoxController PlayerBoxController;
 
     @FXML
     TextArea descriptionField;

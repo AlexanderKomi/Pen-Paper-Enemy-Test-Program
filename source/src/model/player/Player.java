@@ -9,6 +9,7 @@ public class Player {
     private int damage;
     private int attackChance;
     private int defense;
+    private String description;
 
     public Player(String name, int lp, int damage, int attackChance, int defense) {
         this.name = name;
@@ -16,6 +17,15 @@ public class Player {
         this.damage = damage;
         this.attackChance = attackChance;
         this.defense = defense;
+    }
+
+    public Player(String name, int lp, int damage, int attackChance, int defense, String description) {
+        this.name = name;
+        this.lp = lp;
+        this.damage = damage;
+        this.attackChance = attackChance;
+        this.defense = defense;
+        this.description = description;
     }
 
     public Player() {
@@ -53,8 +63,9 @@ public class Player {
     @Override
     public String toString() {
         String s = "Name : " + this.getName() + "\t, LP: " + this.getLp() +
-                "\t, Defense: " + this.getDefense() + "\t, Damage: " + this.getDamage() +
-                "\t, Attack Chance: " + this.getAttackChance();
+                    "\t, Defense: " + this.getDefense() + "\t, Damage: " + this.getDamage() +
+                    "\t, Attack Chance: " + this.getAttackChance() ;
+
         return s;
     }
 
@@ -98,5 +109,13 @@ public class Player {
 
     public void setDefense(int defense) {
         this.defense = defense;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

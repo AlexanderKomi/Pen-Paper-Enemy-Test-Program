@@ -1,5 +1,8 @@
 package gui.fxml_controller;
 
+import gui.fxml_controller.enemy.AddEnemyController;
+import gui.fxml_controller.player.AddPlayerController;
+import io.IOController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,28 +21,23 @@ public class MainGuiController {
 
     //---------------------------------------- FXML MEMBERS ----------------------------------------
 
-    @FXML
-    Button addPlayerButton, playerPresetsButton, startButton, addEnemyButton, enemyPresetsButton;
-    @FXML
-    TextField iterationsField;
-    @FXML
-    TextArea playerListField, enemyListField, summaryField;
+
+    @FXML Button addPlayerButton, playerPresetsButton, startButton, addEnemyButton, enemyPresetsButton;
+
+    @FXML TextField iterationsField;
+
+    @FXML TextArea playerListField, enemyListField, summaryField;
+
+    //FXML Controller
+    @FXML private AddPlayerController playerCon;
+    @FXML private AddEnemyController enemyCon;
 
     //------------------------------------------ MEMBERS ------------------------------------------
 
     private Battle battle; // Contains the simulation
 
-
-    //FXML Controller
-    @FXML
-    private AddPlayerController playerCon;
-    private AddEnemyController enemyCon;
-    private PresetWindowController presetWindowCon;
-
-    //TODO : Stages are here only used for showing the gui. The Controllers must be mapped to this file, to work.
-    private Stage addPlayerStage; //Pops up, when a Player should be added
+    private Stage addPlayerStage;
     private Stage addEnemyStage;
-    private Stage presetWindow;
 
 
     //---------------------------------------- FXML METHODS ----------------------------------------
@@ -52,16 +50,6 @@ public class MainGuiController {
 
     //----------------
 
-    @FXML
-    public void addPlayerButtonClicked() {
-        addPlayerStage.show();
-    }
-
-    @FXML
-    public void playerPresetsButtonClicked() {
-        presetWindow.show();
-        presetWindowCon.updateCheckboxes(this.playerCon.getPlayerList());
-    }
 
     @FXML
     public void startButtonClicked() {
@@ -87,8 +75,8 @@ public class MainGuiController {
     }
 
     @FXML
-    public void iterationsFieldChanged() {
-        this.iterationsField.getText();
+    public void addPlayerButtonClicked() {
+        this.addPlayerStage.show();
     }
 
     @FXML
@@ -96,21 +84,19 @@ public class MainGuiController {
         this.addEnemyStage.show();
     }
 
-    @FXML
-    public void enemyPresetsButtonClicked() {
-    }
-
 
     //---------------------------------------- PRIVATE METHODS -----------------------------------------
+
+
+    // --------------------------------------- INITIALIZE AND CREATE ----------------------------------
 
     private void createStages() {
         createPlayerStage();
         createEnemyStage();
-        createPresetWindow();
     }
 
     private void createPlayerStage() {
-        FXMLLoader loader = new FXMLLoader(AddPlayerController.class.getResource("../fxml/player/addPlayer.fxml"));
+        FXMLLoader loader = new FXMLLoader(AddPlayerController.class.getResource("../../fxml/player/addPlayer.fxml"));
 
         try {
             Parent root = loader.load();
@@ -139,7 +125,7 @@ public class MainGuiController {
     }
 
     private void createEnemyStage() {
-        FXMLLoader loader = new FXMLLoader(AddEnemyController.class.getResource("../fxml/enemy/addEnemy.fxml"));
+        FXMLLoader loader = new FXMLLoader(AddEnemyController.class.getResource("../../fxml/enemy/addEnemy.fxml"));
 
         try {
             Parent root = loader.load();
@@ -164,35 +150,6 @@ public class MainGuiController {
         );
     }
 
-    private void createPresetWindow() {
-        FXMLLoader loader = new FXMLLoader(PresetWindowController.class.getResource("../fxml/PresetWindow.fxml"));
-
-        try {
-            Parent root = loader.load();
-            Scene s = new Scene(root);
-            this.presetWindowCon = loader.getController();
-
-            this.presetWindow = new Stage();
-            this.presetWindow.setScene(s);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        this.presetWindow.setTitle("Choose a preset");
-
-        /*
-        stage.setOnHiding((WindowEvent event) -> {
-            Platform.runLater(() -> {
-                System.out.println("Player stage is only hiding, not exiting . ");
-                stage.hide();
-            });
-        });
-        */
-
-    }
-
     private void initialize_TextFields() {
         this.setFieldToOnlyNumbers(this.iterationsField);
         this.iterationsField.setText("0");
@@ -211,9 +168,7 @@ public class MainGuiController {
         });
     }
 
-
     //---------------------------------------- GETTER AND SETTER ----------------------------------------
-
 
     public Battle getBattle() {
         return battle;

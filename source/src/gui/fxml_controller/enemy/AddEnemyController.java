@@ -1,33 +1,43 @@
-package gui.fxml_controller;
+package gui.fxml_controller.enemy;
 
+import gui.fxml_controller.player.PlayerPresetWindowController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import model.enemies.Enemy;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class AddEnemyController {
 
-    @FXML
-    TextField nameField, lifePointsField, damageField, attackChanceField, defenseField, armorField;
 
-    @FXML
-    TextArea bonusTextField;
+    @FXML TextField nameField, lifePointsField, damageField, attackChanceField, defenseField, armorField;
 
-    @FXML
-    Button createEnemyButton, replaceEnemyButton, loadPresetButton, savePresetButton, cancelButton;
+    @FXML TextArea bonusTextField;
 
+    @FXML Button createEnemyButton, presetsButton, cancelButton;
+
+
+
+    private Stage presetWindow;
+    @FXML private EnemyPresetWindowController presetWindowCon;
 
     private List<Enemy> enemyList;    // Contains all Enemies for the simulation
+
 
     @FXML
     public void initialize() {
         initialize_TextFields();
         this.enemyList = new LinkedList<>();
+        createPresetWindow();
     }
 
     @FXML
@@ -53,20 +63,13 @@ public class AddEnemyController {
     }
 
     @FXML
-    public void replaceEnemyButtonPressed() {
+    public void presetsButtonPressed() {
+        presetWindow.show();
+        presetWindowCon.updateCheckboxes(this.getEnemyList());
     }
 
     @FXML
-    public void loadPresetButtonPressed() {
-    }
-
-    @FXML
-    public void savePresetButtonPressed() {
-    }
-
-    @FXML
-    public void cancelButtonPressed() {
-    }
+    public void cancelButtonPressed() {cancelButton.getScene().getWindow().hide();}
 
     @FXML
     public void armorFieldChanged() {
@@ -100,6 +103,35 @@ public class AddEnemyController {
         });
     }
 
+    private void createPresetWindow() {
+        FXMLLoader loader = new FXMLLoader(EnemyPresetWindowController.class.getResource("../../fxml/enemy/EnemyPresetWindow.fxml"));
+
+        try {
+            Parent root = loader.load();
+            Scene s = new Scene(root);
+            this.presetWindowCon = loader.getController();
+
+            this.presetWindow = new Stage();
+            this.presetWindow.setScene(s);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        this.presetWindow.setTitle("Choose a preset");
+
+        /*
+        stage.setOnHiding((WindowEvent event) -> {
+            Platform.runLater(() -> {
+                System.out.println("Player stage is only hiding, not exiting . ");
+                stage.hide();
+            });
+        });
+        */
+
+    }
+
     public String enemyListAsString() {
         StringBuilder s = new StringBuilder();
 
@@ -109,7 +141,6 @@ public class AddEnemyController {
 
         return s.toString();
     }
-
 
     public List<Enemy> getEnemyList() {
         return enemyList;

@@ -11,6 +11,7 @@ public class Enemy {
     private int damage;
     private int attackChance;
     private String bonus;
+    private String description = "";
 
     public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance) {
         this.name = name;
@@ -30,6 +31,17 @@ public class Enemy {
         this.damage = damage;
         this.attackChance = attackChance;
         this.bonus = bonus;
+    }
+
+    public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance, String bonus, String description) {
+        this.name = name;
+        this.lp = lp;
+        this.defense = defense;
+        this.armor = armor;
+        this.damage = damage;
+        this.attackChance = attackChance;
+        this.bonus = bonus;
+        this.description = description;
     }
 
     public Enemy() {
@@ -121,5 +133,13 @@ public class Enemy {
 
     public void setBonus(String bonus) {
         this.bonus = bonus;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -1,5 +1,7 @@
-package gui.fxml_controller;
+package gui.fxml_controller.player;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
@@ -43,11 +45,40 @@ public class PlayerBoxController extends VBox {
         this.checkboxes = new LinkedList<>();
 
         for (Player p : list) {
-            this.checkboxes.add(new CheckBox(p.getName()));
+            CheckBox c = new CheckBox(p.getName());
+            c.setSelected(false);
+            c.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                deselectOtherBoxes(c);
+                c.setSelected(newValue);
+            });
+
+            this.checkboxes.add(c);
         }
         PlayerBox.getChildren().clear();
         PlayerBox.getChildren().addAll(checkboxes);
 
+    }
+
+    private void deselectOtherBoxes(CheckBox checky){
+        for(CheckBox c : this.getCheckboxes()){
+            if(!c.equals(checky)){
+                c.setSelected(false);
+            }
+        }
+    }
+
+
+    private boolean isCheckBoxSelectable(CheckBox checky){
+
+        for(CheckBox c : this.getCheckboxes()){
+            if(!c.equals(checky)) {
+                if (c.isSelected()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 }
