@@ -4,14 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import model.player.Player;
 
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class AddPlayerController extends BorderPane{
+public class AddPlayerController {
 
     //------------------------------------ FXML MEMBERS -------------------------------------
 
@@ -30,25 +29,29 @@ public class AddPlayerController extends BorderPane{
     //----------------------------------- FXML METHODS -------------------------------------
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.setPlayerList(new LinkedList<>());
         initialize_TextFields();
     }
 
     @FXML
-    public void savePresetButtonPressed(){}
+    public void savePresetButtonPressed() {
+    }
 
     @FXML
-    public void loadPresetButtonPressed(){}
+    public void loadPresetButtonPressed() {
+    }
 
     @FXML
-    public void replacePlayerButtonPressed(){}
+    public void replacePlayerButtonPressed() {
+    }
 
     @FXML
-    public void cancelButtonPressed(){}
+    public void cancelButtonPressed() {
+    }
 
     @FXML
-    public Player createPlayerButtonPressed(){
+    public Player createPlayerButtonPressed() {
         Player p = new Player();
 
         try {
@@ -59,17 +62,16 @@ public class AddPlayerController extends BorderPane{
                     Integer.parseInt(attackChanceField.getText()),
                     Integer.parseInt(defenseField.getText())
             );
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Problem to create new Player.");
             e.printStackTrace();
         }
 
-        System.out.println("new Player : \n"+p+"\n");
+        System.out.println("new Player : \n" + p + "\n");
 
         try {
             this.playerList.add(p);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
@@ -79,7 +81,7 @@ public class AddPlayerController extends BorderPane{
 
     //--------------------------- PRIVATE METHODS --------------------------
 
-    private void initialize_TextFields(){
+    private void initialize_TextFields() {
         setFieldToOnlyNumbers(lifePointsField);
         setFieldToOnlyNumbers(damageField);
         setFieldToOnlyNumbers(attackChanceField);
@@ -90,23 +92,23 @@ public class AddPlayerController extends BorderPane{
         defenseField.setText("0");
     }
 
-    private void setFieldToOnlyNumbers(TextField t){
+    private void setFieldToOnlyNumbers(TextField t) {
         t.textProperty().addListener((observable, oldValue, newValue) -> {
 
             if (!newValue.matches("\\d*")) {
                 t.setText(newValue.replaceAll("[^\\d]", ""));
             }
-            if(t.getText().equals("")){
+            if (t.getText().equals("")) {
                 t.setText("0");
             }
 
         });
     }
 
-    public String playerListAsString(){
+    public String playerListAsString() {
         StringBuilder s = new StringBuilder();
 
-        for(Player p : this.playerList){
+        for (Player p : this.playerList) {
             s.append(p.toString()).append("\n");
         }
 

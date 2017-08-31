@@ -4,9 +4,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class TestEnemies extends Application{
+public class TestEnemies extends Application {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
 

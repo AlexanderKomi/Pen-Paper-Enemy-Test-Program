@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class AddEnemyController{
+public class AddEnemyController {
 
     @FXML
     TextField nameField, lifePointsField, damageField, attackChanceField, defenseField, armorField;
@@ -22,19 +22,18 @@ public class AddEnemyController{
     Button createEnemyButton, replaceEnemyButton, loadPresetButton, savePresetButton, cancelButton;
 
 
-
     private List<Enemy> enemyList;    // Contains all Enemies for the simulation
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         initialize_TextFields();
         this.enemyList = new LinkedList<>();
     }
 
     @FXML
-    public Enemy createEnemyButtonPressed(){
+    public Enemy createEnemyButtonPressed() {
         Enemy enemy = new Enemy();
-        try{
+        try {
             enemy = new Enemy(
                     this.nameField.getText(),
                     Integer.parseInt(lifePointsField.getText()),
@@ -44,33 +43,38 @@ public class AddEnemyController{
                     Integer.parseInt(armorField.getText()),
                     this.bonusTextField.getText()
             );
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Something went wrong, when creating the Enemy.");
             e.printStackTrace();
         }
-        System.out.println("new Enemy : \n"+enemy+"\n");
+        System.out.println("new Enemy : \n" + enemy + "\n");
         this.getEnemyList().add(enemy);
         return enemy;
     }
 
     @FXML
-    public void replaceEnemyButtonPressed(){}
+    public void replaceEnemyButtonPressed() {
+    }
 
     @FXML
-    public void loadPresetButtonPressed(){}
+    public void loadPresetButtonPressed() {
+    }
 
     @FXML
-    public void savePresetButtonPressed(){}
+    public void savePresetButtonPressed() {
+    }
 
     @FXML
-    public void cancelButtonPressed(){}
+    public void cancelButtonPressed() {
+    }
 
     @FXML
-    public void armorFieldChanged(){}
+    public void armorFieldChanged() {
+    }
 
     //--------------------------- PRIVATE METHODS --------------------------
 
-    private void initialize_TextFields(){
+    private void initialize_TextFields() {
         setFieldToOnlyNumbers(lifePointsField);
         setFieldToOnlyNumbers(damageField);
         setFieldToOnlyNumbers(attackChanceField);
@@ -83,23 +87,23 @@ public class AddEnemyController{
         armorField.setText("0");
     }
 
-    private void setFieldToOnlyNumbers(TextField t){
+    private void setFieldToOnlyNumbers(TextField t) {
         t.textProperty().addListener((observable, oldValue, newValue) -> {
 
             if (!newValue.matches("\\d*")) {
                 t.setText(newValue.replaceAll("[^\\d]", ""));
             }
-            if(t.getText().equals("")){
+            if (t.getText().equals("")) {
                 t.setText("0");
             }
 
         });
     }
 
-    public String enemyListAsString(){
+    public String enemyListAsString() {
         StringBuilder s = new StringBuilder();
 
-        for(Enemy e : this.enemyList){
+        for (Enemy e : this.enemyList) {
             s.append(e.toString()).append("\n");
         }
 

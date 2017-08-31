@@ -12,7 +12,7 @@ public class Enemy {
     private int attackChance;
     private String bonus;
 
-    public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance){
+    public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance) {
         this.name = name;
         this.lp = lp;
         this.defense = defense;
@@ -22,7 +22,7 @@ public class Enemy {
         this.bonus = "";
     }
 
-    public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance, String bonus){
+    public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance, String bonus) {
         this.name = name;
         this.lp = lp;
         this.defense = defense;
@@ -32,31 +32,33 @@ public class Enemy {
         this.bonus = bonus;
     }
 
-    public Enemy(){
+    public Enemy() {
         this.name = "";
         this.bonus = "";
     }
 
-    /**Attacking a player.
+    /**
+     * Attacking a player.
+     *
      * @param player The player, who is attacked by the player.
      * @return Returns the remaining lifepoints of the player.
-     * */
-    public int attack(Player player){
+     */
+    public int attack(Player player) {
         return 1;
     }
 
     //OVERLOADED METHODS
     @Override
-    public String toString(){
+    public String toString() {
 
 
         String s = "Name : " + this.getName() + "\t, LP: " + this.getLp() +
-                "\t, Defense: " + this.getDefense() + "\t, Armor: " + this.getArmor()+
+                "\t, Defense: " + this.getDefense() + "\t, Armor: " + this.getArmor() +
                 "\t, Damage: " + this.getDamage() +
                 "\t, Attack Chance: " + this.getAttackChance();
 
 
-        if(!this.getBonus().equals("")){
+        if (!this.getBonus().equals("")) {
             s += "\n\tBonus: " + this.getBonus();
         }
 

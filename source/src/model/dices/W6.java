@@ -3,7 +3,7 @@ package model.dices;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class W6 implements Dice{
+public class W6 implements Dice {
 
     private int value;
 
@@ -17,7 +17,7 @@ public class W6 implements Dice{
 
     @Override
     public boolean againstValue(int x) {
-        if(x > this.roll()){
+        if (x > this.roll()) {
             return true;
         }
         return false;
@@ -26,8 +26,8 @@ public class W6 implements Dice{
     @Override
     public boolean againstValues(List<Integer> list) {
         int value = this.roll();
-        for(int x : list){
-            if(x > value){
+        for (int x : list) {
+            if (x > value) {
                 return true;
             }
         }

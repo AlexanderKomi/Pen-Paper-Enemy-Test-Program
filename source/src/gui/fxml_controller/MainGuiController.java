@@ -19,57 +19,58 @@ public class MainGuiController {
     //---------------------------------------- FXML MEMBERS ----------------------------------------
 
     @FXML
-    Button addPlayerButton, playerPresetsButton,  startButton, addEnemyButton, enemyPresetsButton;
+    Button addPlayerButton, playerPresetsButton, startButton, addEnemyButton, enemyPresetsButton;
     @FXML
     TextField iterationsField;
     @FXML
-    TextArea playerListField,enemyListField,summaryField;
+    TextArea playerListField, enemyListField, summaryField;
 
     //------------------------------------------ MEMBERS ------------------------------------------
 
-    private Battle battle;
+    private Battle battle; // Contains the simulation
 
 
     //FXML Controller
-    public AddPlayerController playerCon;
-    public AddEnemyController enemyCon;
-    public PresetWindowController presetWindowCon;
+    @FXML
+    private AddPlayerController playerCon;
+    private AddEnemyController enemyCon;
+    private PresetWindowController presetWindowCon;
 
     //TODO : Stages are here only used for showing the gui. The Controllers must be mapped to this file, to work.
-    private Stage addPlayerStage ; //Pops up, when a Player should be added
-    private Stage addEnemyStage ;
+    private Stage addPlayerStage; //Pops up, when a Player should be added
+    private Stage addEnemyStage;
     private Stage presetWindow;
 
 
     //---------------------------------------- FXML METHODS ----------------------------------------
 
     @FXML
-    public void initialize(){
+    private void initialize() {
         createStages();
         initialize_TextFields();
-        initialize_TextAreas();
     }
 
     //----------------
 
     @FXML
-    public void addPlayerButtonClicked(){
+    public void addPlayerButtonClicked() {
         addPlayerStage.show();
     }
 
     @FXML
-    public void playerPresetsButtonClicked(){
+    public void playerPresetsButtonClicked() {
         presetWindow.show();
+        presetWindowCon.updateCheckboxes(this.playerCon.getPlayerList());
     }
 
     @FXML
-    public void startButtonClicked(){
+    public void startButtonClicked() {
 
-        if(this.playerCon.getPlayerList().isEmpty()){
+        if (this.playerCon.getPlayerList().isEmpty()) {
             System.out.println("Player list is empty, so simulation has not been started.");
             return;
         }
-        if(this.enemyCon.getEnemyList().isEmpty()){
+        if (this.enemyCon.getEnemyList().isEmpty()) {
             System.out.println("Enemy list is empty, so simulation has not been started.");
             return;
         }
@@ -80,22 +81,24 @@ public class MainGuiController {
                 Integer.parseInt(this.iterationsField.getText())
         ));
 
-        System.out.println("Starting Battle : " + this.getBattle());
+        //System.out.println("Starting Battle : " + this.getBattle());
         this.getBattle().run();
+        this.summaryField.setText(this.getBattle().getSummary());
     }
 
     @FXML
-    public void iterationsFieldChanged(){
+    public void iterationsFieldChanged() {
         this.iterationsField.getText();
     }
 
     @FXML
-    public void addEnemyButtonClicked(){
+    public void addEnemyButtonClicked() {
         this.addEnemyStage.show();
     }
 
     @FXML
-    public void enemyPresetsButtonClicked(){}
+    public void enemyPresetsButtonClicked() {
+    }
 
 
     //---------------------------------------- PRIVATE METHODS -----------------------------------------
@@ -106,8 +109,8 @@ public class MainGuiController {
         createPresetWindow();
     }
 
-    private void createPlayerStage(){
-        FXMLLoader loader = new FXMLLoader(AddPlayerController.class.getResource("../fxml/addPlayer.fxml"));
+    private void createPlayerStage() {
+        FXMLLoader loader = new FXMLLoader(AddPlayerController.class.getResource("../fxml/player/addPlayer.fxml"));
 
         try {
             Parent root = loader.load();
@@ -127,7 +130,6 @@ public class MainGuiController {
                                 playerListField.setText(
                                         playerCon.playerListAsString()
                                 );
-                                System.out.println("Should now update.");
                             }
                     );
                 }
@@ -136,8 +138,8 @@ public class MainGuiController {
 
     }
 
-    private void createEnemyStage(){
-        FXMLLoader loader = new FXMLLoader(AddEnemyController.class.getResource("../fxml/addEnemy.fxml"));
+    private void createEnemyStage() {
+        FXMLLoader loader = new FXMLLoader(AddEnemyController.class.getResource("../fxml/enemy/addEnemy.fxml"));
 
         try {
             Parent root = loader.load();
@@ -156,7 +158,6 @@ public class MainGuiController {
                                 enemyListField.setText(
                                         enemyCon.enemyListAsString()
                                 );
-                                System.out.println("Should now update.");
                             }
                     );
                 }
@@ -168,15 +169,18 @@ public class MainGuiController {
 
         try {
             Parent root = loader.load();
-            presetWindowCon = loader.getController();
             Scene s = new Scene(root);
-            presetWindow = new Stage();
-            presetWindow.setScene(s);
+            this.presetWindowCon = loader.getController();
+
+            this.presetWindow = new Stage();
+            this.presetWindow.setScene(s);
+
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
         }
-        presetWindow.setTitle("Choose a preset");
+
+        this.presetWindow.setTitle("Choose a preset");
 
         /*
         stage.setOnHiding((WindowEvent event) -> {
@@ -189,21 +193,18 @@ public class MainGuiController {
 
     }
 
-    private void initialize_TextFields(){
+    private void initialize_TextFields() {
         this.setFieldToOnlyNumbers(this.iterationsField);
         this.iterationsField.setText("0");
     }
 
-    private void initialize_TextAreas() {
-    }
-
-    private void setFieldToOnlyNumbers(TextField t){
+    private void setFieldToOnlyNumbers(TextField t) {
         t.textProperty().addListener((observable, oldValue, newValue) -> {
 
             if (!newValue.matches("\\d*")) {
                 t.setText(newValue.replaceAll("[^\\d]", ""));
             }
-            if(t.getText().equals("")){
+            if (t.getText().equals("")) {
                 t.setText("0");
             }
 

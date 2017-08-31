@@ -2,7 +2,7 @@ package model.enemies;
 
 import org.junit.jupiter.api.Test;
 
-public class EnemyTest {
+class EnemyTest {
     final Enemy e = new Enemy(
             "Balthazar",
             500,

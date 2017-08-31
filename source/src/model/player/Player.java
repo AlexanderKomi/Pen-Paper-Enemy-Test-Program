@@ -10,7 +10,7 @@ public class Player {
     private int attackChance;
     private int defense;
 
-    public Player(String name, int lp, int damage, int attackChance, int defense){
+    public Player(String name, int lp, int damage, int attackChance, int defense) {
         this.name = name;
         this.lp = lp;
         this.damage = damage;
@@ -18,7 +18,7 @@ public class Player {
         this.defense = defense;
     }
 
-    public Player(){
+    public Player() {
         this.name = "";
         this.lp = 0;
         this.damage = 0;
@@ -26,16 +26,32 @@ public class Player {
         this.defense = 0;
     }
 
-    /**Attacking an enemy.
+    //--------------------- ATTACK AND DEFENSE ------------------------
+
+    /**
+     * Attacking an enemy.
+     *
      * @param enemy The enemy, who is attacked by the player.
      * @return Returns the remaining lifepoints of the enemy.
-     * */
-    public int attack(Enemy enemy){
+     */
+    public int attack(Enemy enemy) {
         return 1;
     }
 
+    /**
+     * A player defends an attack. Remaining lifepoints are returned.
+     *
+     * @param enemy Enemy, who is attacking the player.
+     * @return The remaining lifepoints of the player.
+     */
+    public int defend(Enemy enemy) {
+        return 0;
+    }
+
+    //-------------------OVERLOADED METHODS ----------------------------------------------
+
     @Override
-    public String toString(){
+    public String toString() {
         String s = "Name : " + this.getName() + "\t, LP: " + this.getLp() +
                 "\t, Defense: " + this.getDefense() + "\t, Damage: " + this.getDamage() +
                 "\t, Attack Chance: " + this.getAttackChance();
