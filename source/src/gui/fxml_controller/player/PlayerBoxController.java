@@ -34,7 +34,19 @@ public class PlayerBoxController extends VBox {
     // ------------------------------- PUBLIC METHODS ----------------------------------
 
     public void addToCheckboxes(Player player) {
-        this.checkboxes.add(new CheckBox(player.getName()));
+        if(!this.checkboxes.contains(new CheckBox(player.getName()))){
+            CheckBox c = new CheckBox(player.getName());
+            c.setSelected(false);
+            c.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                deselectOtherBoxes(c);
+                c.setSelected(newValue);
+            });
+            this.checkboxes.add(c);
+            PlayerBox.getChildren().add(c);
+        }
+        else{
+            System.out.println("PlayerBoxController : addToCheckbox : Already contains this player.");
+        }
     }
 
     public void updateCheckboxes(List<Player> list) {
@@ -56,7 +68,6 @@ public class PlayerBoxController extends VBox {
     }
 
     //--------------------------------- PRIVATE METHODS --------------------------------
-
 
     private void deselectOtherBoxes(CheckBox checky){
         for(CheckBox c : this.getCheckboxes()){
@@ -95,6 +106,6 @@ public class PlayerBoxController extends VBox {
                 return c.getText();
             }
         }
-        return "";
+        return null;
     }
 }

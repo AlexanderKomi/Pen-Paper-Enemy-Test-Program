@@ -3,20 +3,17 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="gui.fxml_controller.player.PlayerPresetWindowController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.fxml_controller.player.PlayerPresetWindowController">
     <left>
         <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
                 <VBox alignment="CENTER" spacing="10.0">
                     <children>
-                        <Label text="Description"/>
-                        <TextArea fx:id="descriptionField" prefHeight="200.0" prefWidth="200.0" text="Player Name etc."
-                                  VBox.vgrow="ALWAYS"/>
+                        <Label text="Description" />
+                        <TextArea fx:id="descriptionField" prefHeight="200.0" prefWidth="200.0" text="Player Name etc." VBox.vgrow="ALWAYS" />
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </VBox>
             </children>
@@ -25,19 +22,20 @@
     <bottom>
         <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
-                <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonPressed" text="Cancel"/>
-                <Button fx:id="selectButton" defaultButton="true" mnemonicParsing="false"
-                        onAction="#selectButtonPressed" text="Select"/>
+                <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonPressed" text="Cancel" />
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonPressed" text="Save" />
+            <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadButtonPressed" text="Load" />
+                <Button fx:id="selectButton" defaultButton="true" mnemonicParsing="false" onAction="#selectButtonPressed" text="Select" />
             </items>
         </ToolBar>
     </bottom>
     <center>
         <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
             <content>
-                <fx:include fx:id="PlayerBox" source="playerBox.fxml"/>
+                <fx:include fx:id="PlayerBox" source="playerBox.fxml" />
             </content>
         </ScrollPane>
     </center>

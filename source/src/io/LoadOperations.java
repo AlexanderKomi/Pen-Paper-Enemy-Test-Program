@@ -5,9 +5,8 @@ import javafx.stage.Stage;
 import model.enemies.Enemy;
 import model.player.Player;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,14 +23,25 @@ public class LoadOperations {
         return fileChooser.showOpenDialog( new Stage() );
     }
 
+    public Player loadPlayer(){
+        File f = loadDialog();
+        if( f != null ){
+            return loadPlayerFromCSV(f);
+        }
+
+        return new Player();
+    }
+
     public void savePlayer(Player p){
         File f = saveDialog();
 
-        if(f == null){
-            System.out.println("save Player :  -> File is null");
-            return;
+        if(f != null){
+            savePlayerToCSVFile(f,p);
+
         }
-        else{}
+        else{
+            System.out.println("save Player :  -> File is null and player could not be safed");
+        }
 
     }
 
@@ -43,7 +53,8 @@ public class LoadOperations {
             return;
         }
         else{
-
+            System.out.println("save Enemy :  -> Enemy has been saved");
+            System.out.println("save Enemy :  -> ATTENTION : Save Enemy has not been implemented yet!");
         }
     }
 
@@ -55,6 +66,70 @@ public class LoadOperations {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter( "csv", "*.csv" ) );
         return fileChooser.showSaveDialog( new Stage() );
+    }
+
+    private void savePlayerToCSVFile(File file, Player player){
+        try {
+            PrintWriter pw = new PrintWriter(file);
+            pw.write(player.toSavableFormat());
+            pw.close();
+            System.out.println("save Player : "+player.toSavableFormat());
+            System.out.println("save Player :  -> Player has been saved");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Player loadPlayerFromCSV(File f){
+        Player p = new Player();
+        List<Player> list = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(f.getAbsolutePath());
+            BufferedReader br = new BufferedReader(fileReader);
+            String line;
+            while ( ( line = br.readLine() ) != null ) {
+                for(String s1 : line.split(breaker)){ // This should separate a Player from another in a single file
+
+                    if(s1.startsWith("PLAYER")) {
+                        int i = 0 ; // Skip the 0, because PLAYER is written there.
+
+                        //System.out.println("s1 : " + s1);
+
+                        for (String s2 : s1.split(separator)) { // This searches
+
+                            //System.out.println( " s2 : " + s2+"    , i : " + i);
+
+                            if(i == 1){
+                                p.setName(s2);
+                            }
+                            else if(i == 2){
+                                p.setLp(Integer.parseInt(s2));
+                            }
+                            else if(i == 3){
+                                p.setDamage(Integer.parseInt(s2));
+                            }
+                            else if(i == 4){
+                                p.setAttackChance(Integer.parseInt(s2));
+                            }
+                            else if(i == 5){
+                                p.setDefense(Integer.parseInt(s2));
+                            }
+                            else if(i == 6){
+                                p.setDescription(s2);
+                            }
+                            i++;
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("loaded Player : " + p +" , Description: "+ p.getDescription());
+
+        return p;
     }
 
     private List< String > loadCSVFile_ListString(String filepath ) {

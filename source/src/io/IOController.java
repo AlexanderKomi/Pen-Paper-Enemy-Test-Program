@@ -14,11 +14,17 @@ public class IOController {
     // -------------------------------- PLAYER --------------------------------
 
     public Player loadPlayer() {
-        lo.loadDialog();
-        return null;
+        return lo.loadPlayer();
     }
 
     public void savePlayer(Player p) {
+        if(p.equals(null) ){
+            System.out.println("Player is null - > Player will not be safed.");
+            return;
+        }
+        if(p.equals(new Player())){
+            System.out.println("Player is default constructor, so will not be safed.");
+        }
         lo.savePlayer(p);
     }
 

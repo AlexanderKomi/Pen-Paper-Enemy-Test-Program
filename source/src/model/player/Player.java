@@ -17,6 +17,7 @@ public class Player {
         this.damage = damage;
         this.attackChance = attackChance;
         this.defense = defense;
+        this.description = "";
     }
 
     public Player(String name, int lp, int damage, int attackChance, int defense, String description) {
@@ -34,6 +35,7 @@ public class Player {
         this.damage = 0;
         this.attackChance = 0;
         this.defense = 0;
+        this.description = "";
     }
 
     //--------------------------------------- ATTACK AND DEFENSE ---------------------------------------
@@ -69,10 +71,40 @@ public class Player {
         return s;
     }
 
+    public boolean equals(Player player2){
+        if(player2 == null)return false;
+
+        if(!(this.getName().equals(player2.getName()))) return false;
+        if(!(this.getLp() == player2.getLp())) return false;
+        if(!(this.getDamage() == player2.getDamage()))return false;
+        if(!(this.getAttackChance() == player2.getAttackChance())) return false;
+        if(!(this.getDefense() == player2.getDefense()))return false;
+        if(!(this.getDescription().equals(player2.getDescription())))return false;
+
+        return true;
+    }
+
+
+    // -------------------------------------- PRIVATE METHODS ------------------------------------------
+
+    public String toSavableFormat(){
+        String s  ="PLAYER" + ";" +
+                this.getName() + ";" +
+                this.getLp() + ";" +
+                this.getDamage() + ";" +
+                this.getAttackChance() + ";" +
+                this.getDefense() + ";" +
+                this.getDescription() + "\n";
+
+        return s;
+    }
+
+
+
     //--------------------------------------- GETTER AND SETTER -------------------------------------------
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
