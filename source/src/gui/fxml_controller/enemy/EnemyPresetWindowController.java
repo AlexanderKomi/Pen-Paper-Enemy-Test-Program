@@ -1,12 +1,13 @@
 package gui.fxml_controller.enemy;
 
+import io.IOController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import model.enemies.Enemy;
-import model.player.Player;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class EnemyPresetWindowController {
@@ -20,10 +21,12 @@ public class EnemyPresetWindowController {
     VBox EnemyBox;
 
     @FXML
-    EnemyBoxController EnemyBoxController;
+    TextArea descriptionField;
 
     @FXML
-    TextArea descriptionField;
+    EnemyBoxController EnemyBoxController;
+    private IOController ioController;
+    private List<Enemy> enemyList;
 
     //---------------------------------- MEMBERS -------------------------------------
 
@@ -31,17 +34,25 @@ public class EnemyPresetWindowController {
     //--------------------------------- FXML METHODS -----------------------------------
 
     @FXML
-    public void selectButtonPressed() {}
+    public void initialize(){
+        this.ioController = new IOController();
+        this.enemyList = new LinkedList<>();
+    }
 
     @FXML
-    public void cancelButtonPressed() {cancelButton.getScene().getWindow().hide();}
+    public void selectButtonPressed() {
+        System.out.println("Enemy : " + this.EnemyBoxController.getSelected() + " has been selected");
+    }
+
+    @FXML
+    public void cancelButtonPressed() {this.cancelButton.getScene().getWindow().hide();}
 
     //--------------------------------- PRIVATE METHODS --------------------------------
 
 
-    public void addToPresetsCheckBoxes(Player p) {
-
-        this.EnemyBoxController.addToCheckboxes(p);
+    public void addToPresetsCheckBoxes(Enemy e) {
+        this.EnemyBoxController.addToCheckboxes(e);
+        this.enemyList.add(e);
     }
 
     public void updateCheckboxes(List<Enemy> enemy) {
@@ -50,13 +61,14 @@ public class EnemyPresetWindowController {
             System.out.println("vBox is null !");
             return;
         }
-
+        this.enemyList = enemy;
         this.EnemyBoxController.updateCheckboxes(enemy);
 
     }
 
 
     //--------------------------------- GETTER AND SETTER -------------------------------
+
 
 
 }

@@ -58,6 +58,10 @@ public class AddPlayerController {
     public Player createPlayerButtonPressed() {
         Player p = new Player();
 
+        if(this.nameField.getText().equals("")){
+            return null;
+        }
+
         if(this.defenseField.getText().equals("")) {
 
             try {

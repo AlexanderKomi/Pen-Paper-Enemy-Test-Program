@@ -45,6 +45,10 @@ public class AddEnemyController {
     @FXML
     public Enemy createEnemyButtonPressed() {
         Enemy enemy = new Enemy();
+        if(this.nameField.getText().equals("")){
+            return null;
+        }
+
         try {
             enemy = new Enemy(
                     this.nameField.getText(),

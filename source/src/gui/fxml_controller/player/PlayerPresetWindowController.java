@@ -66,7 +66,7 @@ public class PlayerPresetWindowController {
     }
 
     @FXML
-    public void cancelButtonPressed() {cancelButton.getScene().getWindow().hide();}
+    public void cancelButtonPressed() {this.cancelButton.getScene().getWindow().hide();}
 
     //--------------------------------- PRIVATE METHODS --------------------------------
 
