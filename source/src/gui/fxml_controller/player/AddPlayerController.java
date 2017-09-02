@@ -93,7 +93,11 @@ public class AddPlayerController {
             }
         }
 
-        System.out.println("new Player : \n" + p + "\n");
+
+        if(this.playerList.contains(p)){
+            return null;
+        }
+
 
         try {
             this.playerList.add(p);
@@ -101,6 +105,8 @@ public class AddPlayerController {
             e.printStackTrace();
             System.exit(1);
         }
+
+        System.out.println("new Player : \n" + p + "\n");
 
         return p;
     }

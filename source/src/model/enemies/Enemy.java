@@ -2,7 +2,7 @@ package model.enemies;
 
 import model.player.Player;
 
-public class Enemy {
+public class Enemy implements Comparable<Enemy>{
 
     private String name;
     private int lp;
@@ -49,6 +49,9 @@ public class Enemy {
         this.bonus = "";
     }
 
+
+    //--------------------------------------- ATTACK AND DEFENSE ---------------------------------------
+
     /**
      * Attacking a player.
      *
@@ -59,7 +62,18 @@ public class Enemy {
         return 1;
     }
 
-    //OVERLOADED METHODS
+    /**
+     * A enemy defends an attack. Remaining lifepoints are returned.
+     *
+     * @param player Player, who is attacking the enemy.
+     * @return The remaining lifepoints of the enemy.
+     */
+    public int defend(Player player) {
+        return 0;
+    }
+
+
+    // ---------------------------------- OVERLOADED METHODS ----------------------------------
     @Override
     public String toString() {
 
@@ -77,7 +91,38 @@ public class Enemy {
         return s;
     }
 
-    //GETTER AND SETTER
+    @Override
+    public boolean equals(Object object){
+
+        if(object == null)return false;
+
+        if (object instanceof Enemy) {
+
+            Enemy enemy = (Enemy) object;
+
+            if(!(this.getName().equals(enemy.getName()))) return false;
+            if(!(this.getLp() == enemy.getLp())) return false;
+            if(!(this.getDamage() == enemy.getDamage()))return false;
+            if(!(this.getAttackChance() == enemy.getAttackChance())) return false;
+            if(!(this.getDefense() == enemy.getDefense()))return false;
+            if(!(this.getArmor() == enemy.getArmor()))return false;
+            if(!(this.getBonus().equals(enemy.getBonus())))return false;
+            if(!(this.getDescription().equals(enemy.getDescription())))return false;
+
+            return true;
+        }
+
+        return false;
+    }
+    @Override
+    public int compareTo(Enemy o) {
+        if(!this.equals(o)){
+            return 1;
+        }
+        return 0;
+    }
+
+    // ---------------------------------- GETTER AND SETTER ----------------------------------
 
     public int getLp() {
         return lp;
@@ -142,4 +187,5 @@ public class Enemy {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }

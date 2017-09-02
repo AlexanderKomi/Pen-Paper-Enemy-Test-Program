@@ -2,7 +2,7 @@ package model.player;
 
 import model.enemies.Enemy;
 
-public class Player {
+public class Player implements Comparable<Player>{
 
     private String name;
     private int lp;
@@ -71,17 +71,35 @@ public class Player {
         return s;
     }
 
-    public boolean equals(Player player2){
-        if(player2 == null)return false;
+    @Override
+    public boolean equals(Object object){
 
-        if(!(this.getName().equals(player2.getName()))) return false;
-        if(!(this.getLp() == player2.getLp())) return false;
-        if(!(this.getDamage() == player2.getDamage()))return false;
-        if(!(this.getAttackChance() == player2.getAttackChance())) return false;
-        if(!(this.getDefense() == player2.getDefense()))return false;
-        if(!(this.getDescription().equals(player2.getDescription())))return false;
+        if(object == null)return false;
 
-        return true;
+        if (object instanceof Player) {
+
+            Player player2 = (Player) object;
+
+            if(!(this.getName().equals(player2.getName()))) return false;
+            if(!(this.getLp() == player2.getLp())) return false;
+            if(!(this.getDamage() == player2.getDamage()))return false;
+            if(!(this.getAttackChance() == player2.getAttackChance())) return false;
+            if(!(this.getDefense() == player2.getDefense()))return false;
+            if(!(this.getDescription().equals(player2.getDescription())))return false;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        if(!this.equals(o)){
+            return 1;
+        }
+
+        return 0;
     }
 
 
@@ -150,4 +168,6 @@ public class Player {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }
