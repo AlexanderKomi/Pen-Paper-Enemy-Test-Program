@@ -18,9 +18,7 @@ public class TestEnemies extends Application {
         primaryStage.setTitle("Pen and Paper : Enemy Tester");
         primaryStage.setScene(scene);
 
-        primaryStage.setOnCloseRequest(event -> {
-            Platform.exit();
-        });
+        primaryStage.setOnCloseRequest(event -> Platform.exit());
 
         primaryStage.show();
     }

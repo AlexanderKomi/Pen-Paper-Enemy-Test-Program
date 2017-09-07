@@ -17,6 +17,7 @@
                                         <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                                             <children>
                                                 <Button fx:id="addPlayerButton" alignment="CENTER" mnemonicParsing="false" onAction="#addPlayerButtonClicked" text="Add Player" textAlignment="JUSTIFY" wrapText="true" />
+                                    <Button fx:id="removePlayerButton" mnemonicParsing="false" onAction="#removePlayerButtonPressed" text="Remove Player" />
                                             </children>
                                         </VBox>
                                     </children>

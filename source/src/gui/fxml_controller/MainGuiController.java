@@ -21,7 +21,7 @@ public class MainGuiController {
     //---------------------------------------- FXML MEMBERS ----------------------------------------
 
 
-    @FXML Button addPlayerButton, playerPresetsButton, startButton, addEnemyButton, enemyPresetsButton;
+    @FXML Button addPlayerButton, removePlayerButton, startButton, addEnemyButton;
 
     @FXML TextField iterationsField;
 
@@ -76,6 +76,11 @@ public class MainGuiController {
     @FXML
     public void addPlayerButtonClicked() {
         this.addPlayerStage.show();
+    }
+
+    @FXML
+    public void removePlayerButtonPressed(){
+        
     }
 
     @FXML
