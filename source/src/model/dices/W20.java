@@ -15,7 +15,7 @@ public class W20 implements Dice {
     public int roll() {
 
         this.setValue(
-                ThreadLocalRandom.current().nextInt(1, 6 + 1)
+                ThreadLocalRandom.current().nextInt(1, 20 + 1)
         );
 
         return this.getValue();
