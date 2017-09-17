@@ -11,12 +11,18 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Battle implements Runnable {
 
+
     private List<Player> players;
     private List<Enemy> enemies;
     private int iterations_max;
     private List<String> results;
     private volatile String summary;
+
     private W20 w20 = new W20();
+    private volatile List<Player> playersCopy;
+    private volatile List<Enemy> enemiesCopy;
+
+
 
     public Battle(List<Player> players, List<Enemy> enemies, int iterations) {
         this.players = players;
@@ -37,6 +43,7 @@ public class Battle implements Runnable {
      * All the battle-action happens here.
      * Avoid creating the output for the GUI here, but can be stored for later extrapolation.
      */
+    /*
     private void simulate() {
 
         StringBuilder sb = new StringBuilder();
@@ -44,8 +51,6 @@ public class Battle implements Runnable {
         int round;
         boolean fightEnd;
 
-        List<Player> playersCopy;
-        List<Enemy> enemiesCopy;
 
         Player Ptarget;
         Enemy Etarget;
@@ -53,7 +58,7 @@ public class Battle implements Runnable {
         int enemyWins = 0;
         int playerWins = 0;
 
-        for (int i = 0; i < iterations_max; i++) {
+        for (int i = 0; i < this.iterations_max; i++) {
             sb.append("Simulation #" + (i + 1) + ":\n");
 
             //init
@@ -63,11 +68,11 @@ public class Battle implements Runnable {
             //copying the original Lists for multiple use
             playersCopy = new LinkedList<>();
             playersCopy.clear();
-            playersCopy.addAll(players);
+            playersCopy.addAll(this.players);
 
             enemiesCopy = new LinkedList<>();
             enemiesCopy.clear();
-            enemiesCopy.addAll(enemies);
+            enemiesCopy.addAll(this.enemies);
 
             //debugging
             sb.append("\nPlayers : \n");
@@ -88,8 +93,10 @@ public class Battle implements Runnable {
                 if (switcher == 0) {
                     round++;
                     sb.append("\n\nRound " + round + ":\n");
+
                     for (Player p : playersCopy) {
-                        if (p.getLp() > 0) {                                         //check if the Player is alive
+
+                        if (p.getLp() > 0) {//check if the Player is alive
                             if (enemiesCopy.size() > 0) {                               //check if there are enemys
 
                                 //check if there are enemys alive
@@ -105,7 +112,8 @@ public class Battle implements Runnable {
                                     if (w20.roll() <= p.getAttackChance()) {          //check if the Player hit the enemy
                                         if (w20.roll() <= Etarget.getDefense()) {      //check if the enemy blocked the attack
                                             sb.append(Etarget.getName() + " blocked " + p.getName() + "s attack.\n");
-                                        } else {
+                                        }
+                                        else {
                                             if ((Etarget.getLp() - p.getDamage()) <= 0) {  //Lp check to prevent negativ LP
                                                 Etarget.setLp(0);
                                                 sb.append(p.getName() + " killed " + Etarget.getName() + " in Round " + round + ".\n");
@@ -194,10 +202,13 @@ public class Battle implements Runnable {
         sb.append("Players won " + playerWins + " times.\nEnemys won " + enemyWins + " times.\n");
         this.results.add(sb.toString());
     }
+    */
+
+
 
     private Enemy chooseEnemy(List<Enemy> targets){
 
-        int targetNR = (int) ThreadLocalRandom.current().nextInt(0, targets.size());
+        int targetNR = ThreadLocalRandom.current().nextInt(0, targets.size());
         if(targets.get(targetNR).getLp() > 0){
 
             return targets.get(targetNR);
@@ -207,13 +218,148 @@ public class Battle implements Runnable {
 
     private Player choosePlayer(List<Player> targets){
 
-        int targetNR = (int) ThreadLocalRandom.current().nextInt(0, targets.size());
+        int targetNR = ThreadLocalRandom.current().nextInt(0, targets.size());
         if(targets.get(targetNR).getLp() > 0){
 
             return targets.get(targetNR);
         }
         else{return choosePlayer(targets);}
     }
+
+    //-------- These are just alternative ideas
+
+    private void simulate() {
+
+        byte switcher = (byte)ThreadLocalRandom.current().nextInt(0,1);
+
+
+
+        StringBuilder fightResults = new StringBuilder();
+
+        for(int i = 1 ; i <= this.iterations_max ; i++) {
+
+            this.playersCopy = this.players;
+            this.enemiesCopy = this.enemies;
+
+            int round = 1;
+
+            while(this.playersCopy.size() > 0 && this.enemiesCopy.size() > 0){
+                fightResults.append("\n\nRound #").append(round).append("\n");
+
+                if (switcher == 0) {
+                    fightResults.append(playersAttack());
+                    switcher++;
+                } else {
+                    fightResults.append(enemiesAttack());
+                    switcher--;
+                }
+
+                this.results.add(fightResults.toString());
+                ++round;
+            }
+
+        }
+
+    }
+
+    private Enemy chooseEnemy_alternative(List<Enemy> targets){
+
+        if(targets.size() < 1 ){
+            return null;
+        }
+
+        if(targets.size() == 1){
+            if(targets.get(0).getLp() >0) {
+                return targets.get(0);
+            }
+            else{
+                return null;
+            }
+        }
+
+        int targetNR = ThreadLocalRandom.current().nextInt(0, targets.size());
+        if(targets.get(targetNR).getLp() > 0){
+            return targets.get(targetNR);
+        }
+        else{return chooseEnemy(targets);}
+    }
+
+    private Player choosePlayer_alternative(List<Player> targets){
+
+        if(targets.size() < 1 ){
+            return null;
+        }
+
+        if(targets.size() == 1){
+            if(targets.get(0).getLp() >0) {
+                return targets.get(0);
+            }
+            else{
+                return null;
+            }
+        }
+
+        int targetNR = ThreadLocalRandom.current().nextInt(0, targets.size());
+        if(targets.get(targetNR).getLp() > 0){
+
+            return targets.get(targetNR);
+        }
+        else{return choosePlayer(targets);}
+    }
+
+    private String playersAttack(){
+        Enemy enemy;
+        StringBuilder sb = new StringBuilder();
+
+        for(Player p : this.playersCopy){
+            enemy = chooseEnemy_alternative(this.enemiesCopy);
+            if(enemy != null) {
+                int index = this.enemiesCopy.indexOf(enemy);
+                enemy.setLp(p.attack(enemy));
+
+                if (enemy.getLp() <= 0) {
+                    sb.append(p.getName() + " killed " + enemy.getName() + "\n");
+                    this.enemiesCopy.remove(index);     // Enemy died
+                } else {
+                    sb.append(p.getName() + " hurt " + enemy.getName() + "\n");
+                    this.enemiesCopy.set(index, enemy); // Enemy is ready for another fight
+                }
+            }
+            else{
+                sb.append("All enemies are defeated.");
+                return sb.toString();
+            }
+        }
+        return sb.toString();
+    }
+
+    private String enemiesAttack() {
+        Player player;
+        StringBuilder sb = new StringBuilder();
+
+        for(Enemy e : this.enemiesCopy){
+            player = choosePlayer_alternative(this.playersCopy);
+            if(player != null) {
+                int index = this.playersCopy.indexOf(player);
+                player.setLp(e.attack(player));
+
+                if (player.getLp() <= 0) {
+                    this.playersCopy.remove(index);
+                    sb.append(e.getName() + " killed " + player.getName() + "\n");
+                } else {
+                    this.playersCopy.set(index, player);
+                    sb.append(e.getName() + " hurt " + player.getName() + "\n");
+                }
+            }
+            else{
+                sb.append("All players are dead.");
+                return sb.toString();
+            }
+        }
+        return sb.toString();
+    }
+
+    //--------- End of creativity
 
     /**
      * WIP :
@@ -230,7 +376,7 @@ public class Battle implements Runnable {
 
         this.setSummary(sb.toString());
 
-        System.out.println(this.getSummary());
+        //System.out.println(this.getSummary());
     }
 
     @Override

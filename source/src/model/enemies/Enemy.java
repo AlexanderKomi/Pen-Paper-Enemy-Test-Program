@@ -1,5 +1,6 @@
 package model.enemies;
 
+import model.dices.W20;
 import model.player.Player;
 
 public class Enemy implements Comparable<Enemy>{
@@ -12,6 +13,7 @@ public class Enemy implements Comparable<Enemy>{
     private int attackChance;
     private String bonus;
     private String description = "";
+    private W20 w20 = new W20();
 
     public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance) {
         this.name = name;
@@ -59,7 +61,15 @@ public class Enemy implements Comparable<Enemy>{
      * @return Returns the remaining lifepoints of the player.
      */
     public int attack(Player player) {
-        return 1;
+        if(this.getAttackChance() <= w20.roll()){
+            if(player.getDefense() <= w20.roll()){
+                return player.getLp();
+            }
+            else{
+                return player.getLp() - this.getDamage();
+            }
+        }
+        return player.getLp();
     }
 
     /**
@@ -69,7 +79,15 @@ public class Enemy implements Comparable<Enemy>{
      * @return The remaining lifepoints of the enemy.
      */
     public int defend(Player player) {
-        return 0;
+        if(player.getAttackChance() <= w20.roll()){
+            if(this.getDefense() <= w20.roll()){
+                return this.getLp();
+            }
+            else{
+                return this.getLp() - player.getDamage();
+            }
+        }
+        return this.getLp();
     }
 
 

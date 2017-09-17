@@ -1,5 +1,6 @@
 package model.player;
 
+import model.dices.W20;
 import model.enemies.Enemy;
 
 public class Player implements Comparable<Player>{
@@ -10,6 +11,7 @@ public class Player implements Comparable<Player>{
     private int attackChance;
     private int defense;
     private String description;
+    private W20 w20 = new W20();
 
     public Player(String name, int lp, int damage, int attackChance, int defense) {
         this.name = name;
@@ -47,7 +49,16 @@ public class Player implements Comparable<Player>{
      * @return Returns the remaining lifepoints of the enemy.
      */
     public int attack(Enemy enemy) {
-        return 1;
+        if(this.getAttackChance() <= w20.roll()){
+            if(enemy.getDefense() <= w20.roll()){
+                return enemy.getLp();
+            }
+            else{
+                int x = enemy.getLp() - this.getDamage();
+                return x > 0 ? x : 0;
+            }
+        }
+        return enemy.getLp();
     }
 
     /**
@@ -57,7 +68,16 @@ public class Player implements Comparable<Player>{
      * @return The remaining lifepoints of the player.
      */
     public int defend(Enemy enemy) {
-        return 0;
+        if(enemy.getAttackChance() <= w20.roll()){
+            if(this.getDefense() <= w20.roll()){
+                return this.getLp();
+            }
+            else{
+                int x = this.getLp() - enemy.getDamage();
+                return x > 0 ? x : 0;
+            }
+        }
+        return this.getLp();
     }
 
     //--------------------------------------- OVERLOADED METHODS ---------------------------------------
@@ -170,4 +190,11 @@ public class Player implements Comparable<Player>{
     }
 
 
+    public W20 getW20() {
+        return w20;
+    }
+
+    public void setW20(W20 w20) {
+        this.w20 = w20;
+    }
 }
