@@ -13,8 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.battle.Battle;
+import model.enemies.Enemy;
+import model.player.Player;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class MainGuiController {
 
@@ -61,10 +64,17 @@ public class MainGuiController {
             System.out.println("Enemy list is empty, so simulation has not been started.");
             return;
         }
-
+        LinkedList<Player> player = new LinkedList<>();
+        for(Player p : this.playerCon.getPlayerList()){
+            player.add(new Player(p));
+        }
+        LinkedList<Enemy> enemies = new LinkedList<Enemy>();
+        for(Enemy e : this.enemyCon.getEnemyList()){
+            enemies.add(new Enemy(e));
+        }
         this.setBattle(new Battle(
-                this.playerCon.getPlayerList(),
-                this.enemyCon.getEnemyList(),
+                player,
+                enemies,
                 Integer.parseInt(this.iterationsField.getText())
         ));
 

@@ -46,6 +46,17 @@ public class Enemy implements Comparable<Enemy>{
         this.description = description;
     }
 
+    public Enemy(Enemy e){
+        this.name = e.getName();
+        this.lp = e.getLp();
+        this.defense = e.getDefense();
+        this.armor = e.getArmor();
+        this.damage = e.getDamage();
+        this.attackChance = e.getAttackChance();
+        this.bonus = e.getBonus();
+        this.description = e.getBonus();
+    }
+
     public Enemy() {
         this.name = "";
         this.bonus = "";

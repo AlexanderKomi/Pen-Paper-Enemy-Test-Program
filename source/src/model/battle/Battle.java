@@ -234,7 +234,7 @@ public class Battle implements Runnable {
 
 
 
-        StringBuilder fightResults = new StringBuilder();
+        String fightResults = "";
 
         for(int i = 1 ; i <= this.iterations_max ; i++) {
 
@@ -244,17 +244,16 @@ public class Battle implements Runnable {
             int round = 1;
 
             while(this.playersCopy.size() > 0 && this.enemiesCopy.size() > 0){
-                fightResults.append("\n\nRound #").append(round).append("\n");
+                fightResults += "\n\nRound #" + round + "\n";
 
                 if (switcher == 0) {
-                    fightResults.append(playersAttack());
+                    fightResults += playersAttack();
                     switcher++;
                 } else {
-                    fightResults.append(enemiesAttack());
+                    fightResults += enemiesAttack();
                     switcher--;
                 }
-
-                this.results.add(fightResults.toString());
+                this.results.add(fightResults);
                 ++round;
             }
 
@@ -309,7 +308,7 @@ public class Battle implements Runnable {
 
     private String playersAttack(){
         Enemy enemy;
-        StringBuilder sb = new StringBuilder();
+        String s = "";
 
         for(Player p : this.playersCopy){
             enemy = chooseEnemy_alternative(this.enemiesCopy);
@@ -318,24 +317,24 @@ public class Battle implements Runnable {
                 enemy.setLp(p.attack(enemy));
 
                 if (enemy.getLp() <= 0) {
-                    sb.append(p.getName() + " killed " + enemy.getName() + "\n");
+                    s += p.getName() + " killed " + enemy.getName() + "\n";
                     this.enemiesCopy.remove(index);     // Enemy died
                 } else {
-                    sb.append(p.getName() + " hurt " + enemy.getName() + "\n");
+                    s += p.getName() + " hurt " + enemy.getName() + "\n";
                     this.enemiesCopy.set(index, enemy); // Enemy is ready for another fight
                 }
             }
             else{
-                sb.append("All enemies are defeated.");
-                return sb.toString();
+                s += "All enemies are defeated.";
+                return s;
             }
         }
-        return sb.toString();
+        return s;
     }
 
     private String enemiesAttack() {
         Player player;
-        StringBuilder sb = new StringBuilder();
+        String s = "";
 
         for(Enemy e : this.enemiesCopy){
             player = choosePlayer_alternative(this.playersCopy);
@@ -345,18 +344,18 @@ public class Battle implements Runnable {
 
                 if (player.getLp() <= 0) {
                     this.playersCopy.remove(index);
-                    sb.append(e.getName() + " killed " + player.getName() + "\n");
+                    s += e.getName() + " killed " + player.getName() + "\n";
                 } else {
                     this.playersCopy.set(index, player);
-                    sb.append(e.getName() + " hurt " + player.getName() + "\n");
+                    s += e.getName() + " hurt " + player.getName() + "\n";
                 }
             }
             else{
-                sb.append("All players are dead.");
-                return sb.toString();
+                s += "All players are dead.";
+                return s;
             }
         }
-        return sb.toString();
+        return s;
     }
 
     //--------- End of creativity

@@ -5,12 +5,12 @@ import model.enemies.Enemy;
 
 public class Player implements Comparable<Player>{
 
-    private String name;
-    private int lp;
-    private int damage;
-    private int attackChance;
-    private int defense;
-    private String description;
+    private String name = "";
+    private int lp = 0;
+    private int damage = 0;
+    private int attackChance = 0;
+    private int defense = 0;
+    private String description = "";
     private W20 w20 = new W20();
 
     public Player(String name, int lp, int damage, int attackChance, int defense) {
@@ -29,6 +29,15 @@ public class Player implements Comparable<Player>{
         this.attackChance = attackChance;
         this.defense = defense;
         this.description = description;
+    }
+
+    public Player(Player p){
+        this.name = p.name;
+        this.lp = p.lp;
+        this.damage = p.damage;
+        this.attackChance = p.attackChance;
+        this.defense = p.defense;
+        this.description = p. description;
     }
 
     public Player() {
