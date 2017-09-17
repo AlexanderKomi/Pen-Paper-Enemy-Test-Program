@@ -71,6 +71,7 @@ public class MainGuiController {
         //System.out.println("Starting Battle : " + this.getBattle());
         this.getBattle().run();
         this.summaryField.setText(this.getBattle().getSummary());
+
     }
 
     @FXML

@@ -40,8 +40,6 @@ public class Battle implements Runnable {
     private void simulate() {
 
         StringBuilder sb = new StringBuilder();
-        ListIterator<Enemy> enemyIter;
-        ListIterator<Player> playerIter;
         byte switcher = (byte) ThreadLocalRandom.current().nextInt(0, 1 + 1);
         int round;
         boolean fightEnd;
@@ -62,25 +60,23 @@ public class Battle implements Runnable {
             fightEnd = false;
             round = 0;
 
-            //copying the original Lists for multible use
-            playersCopy = new LinkedList<Player>();
+            //copying the original Lists for multiple use
+            playersCopy = new LinkedList<>();
             playersCopy.clear();
-            for(Player po: players){
-                playersCopy.add(po);
-            }
+            playersCopy.addAll(players);
 
-            enemiesCopy = new LinkedList<Enemy>();
+            enemiesCopy = new LinkedList<>();
             enemiesCopy.clear();
-            for(Enemy eo : enemies){
-                enemiesCopy.add(eo);
-            }
+            enemiesCopy.addAll(enemies);
 
             //debugging
+            sb.append("\nPlayers : \n");
             for(Player player : playersCopy){
-                sb.append(player.getName() + ": " + player.getLp());
+                sb.append(player.getName() + " : " + player.getLp() + "\n");
             }
+            sb.append("\nEnemies : \n");
             for(Enemy enemy : enemiesCopy){
-                sb.append(enemy.getName() + ": " + enemy.getLp());
+                sb.append(enemy.getName() + " : " + enemy.getLp()+ "\n");
             }
             //
 
