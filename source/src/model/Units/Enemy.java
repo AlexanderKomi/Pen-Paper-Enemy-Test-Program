@@ -105,5 +105,18 @@ public class Enemy extends Unit implements Comparable<Enemy>{
 
     // -------------------------------------- PUBLIC METHODS ------------------------------------------
 
+    public String toSavableFormat(){
+        String s = this.getType() + ";" +
+                this.getName() + ";" +
+                this.getLp() + ";" +
+                this.getDamage() + ";" +
+                this.getAttackChance() + ";" +
+                this.getDefense() + ";" +
+                this.getArmor() + ";" +
+                this.getBonus() + ";" +
+                this.getDescription() + "\n";
+
+        return s;
+    }
 
 }

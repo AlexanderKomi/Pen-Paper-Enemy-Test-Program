@@ -19,23 +19,32 @@ public class IOController {
 
     public void savePlayer(Player p) {
         if(p.equals(null) ){
-            System.out.println("Player is null - > Player will not be safed.");
+            System.out.println("Player is null - > Player will not be saved.");
             return;
         }
-        if(p.equals(new Player())){
-            System.out.println("Player is default constructor, so will not be safed.");
+        else if(p.equals(new Player())){
+            System.out.println("Player is default constructor, so will not be saved.");
+            return;
         }
         lo.savePlayer(p);
     }
 
+
     // -------------------------------- ENEMY --------------------------------
 
     public Enemy loadEnemy() {
-        lo.loadDialog();
-        return null;
+        return lo.loadEnemy();
     }
 
     public void saveEnemy(Enemy e) {
+        if(e.equals(null)){
+            System.out.println("Enemy is null - > Enemy will not be saved.");
+            return;
+        }
+        else if(e.equals(new Enemy())){
+            System.out.println("Enemy is default constructor, so will not be saved.");
+            return;
+        }
         lo.saveEnemy(e);
     }
 

@@ -1,9 +1,9 @@
 package model.battle;
 
-import model.Units.Unit;
-import model.dices.W20;
 import model.Units.Enemy;
 import model.Units.Player;
+import model.Units.Unit;
+import model.dices.W20;
 
 import java.util.LinkedList;
 import java.util.List;
