@@ -7,55 +7,33 @@ public class Enemy extends Unit implements Comparable<Enemy>{
     private String bonus;
 
     public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance) {
-        setType("ENEMY");
-        setName(name);
-        setLp(lp);
-        setDefense(defense);
+        super("ENEMY", name,lp, damage,attackChance, defense);
         this.armor = armor;
-        setDamage(damage);
-        setAttackChance(attackChance);
         this.bonus = "";
     }
 
     public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance, String bonus) {
-        setType("ENEMY");
-        setName(name);
-        setLp(lp);
-        setDefense(defense);
+        super("ENEMY", name,lp, damage,attackChance, defense);
         this.armor = armor;
-        setDamage(damage);
-        setAttackChance(attackChance);
         this.bonus = bonus;
     }
 
     public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance, String bonus, String description) {
-        setType("ENEMY");
-        setName(name);
-        setLp(lp);
-        setDefense(defense);
+        super("ENEMY",name,lp,damage,attackChance,defense,description);
         this.armor = armor;
-        setDamage(damage);
-        setAttackChance(attackChance);
         this.bonus = bonus;
-        setDescription(description);
     }
 
     public Enemy(Enemy e){
-        setType("ENEMY");
-        setName(e.getName());
-        setLp(e.getLp());
-        setDefense(e.getDefense());
+        super("ENEMY",e.getName(),e.getLp(),e.getDamage(),e.getAttackChance(),e.getDefense(),e. getDescription());
         this.armor = e.getArmor();
-        setDamage(e.getDamage());
-        setAttackChance(e.getAttackChance());
         this.bonus = e.getBonus();
-        setDescription(e.getDescription());
     }
 
     public Enemy() {
-        setType("ENEMY");
-        setName("");
+        super("ENEMY");
         this.bonus = "";
+        this.armor = 0;
     }
 
     // ---------------------------------- OVERLOADED METHODS ----------------------------------
