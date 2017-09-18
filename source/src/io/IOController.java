@@ -1,7 +1,7 @@
 package io;
 
-import model.enemies.Enemy;
-import model.player.Player;
+import model.Units.Enemy;
+import model.Units.Player;
 
 public class IOController {
 

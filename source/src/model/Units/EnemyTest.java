@@ -1,5 +1,6 @@
-package model.enemies;
+package model.Units;
 
+import model.Units.Enemy;
 import org.junit.jupiter.api.Test;
 
 class EnemyTest {

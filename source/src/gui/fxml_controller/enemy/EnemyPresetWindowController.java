@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
-import model.enemies.Enemy;
+import model.Units.Enemy;
 
 import java.util.LinkedList;
 import java.util.List;

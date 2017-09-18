@@ -14,8 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.battle.Battle;
-import model.enemies.Enemy;
-import model.player.Player;
+import model.Units.Enemy;
+import model.Units.Player;
 
 import java.io.IOException;
 import java.util.LinkedList;

@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.enemies.Enemy;
+import model.Units.Enemy;
 
 import java.io.IOException;
 import java.util.LinkedList;

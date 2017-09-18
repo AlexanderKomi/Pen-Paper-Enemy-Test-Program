@@ -2,8 +2,8 @@ package io;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.enemies.Enemy;
-import model.player.Player;
+import model.Units.Enemy;
+import model.Units.Player;
 
 import java.io.*;
 import java.util.ArrayList;

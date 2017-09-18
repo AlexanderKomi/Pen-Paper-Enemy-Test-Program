@@ -1,12 +1,11 @@
 package model.battle;
 
 import model.dices.W20;
-import model.enemies.Enemy;
-import model.player.Player;
+import model.Units.Enemy;
+import model.Units.Player;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Battle implements Runnable {
