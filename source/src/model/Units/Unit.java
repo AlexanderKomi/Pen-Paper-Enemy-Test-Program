@@ -13,6 +13,43 @@ public class Unit {
     private String description = "";
     private W20 w20 = new W20();
 
+    public  Unit(String type){
+        this.type = type;
+    }
+
+    public Unit(String type, String name, int lp, int damage, int attackChance, int defense){
+
+        this.name = name;
+        this.lp = lp;
+        this.damage = damage;
+        this.attackChance = attackChance;
+        this.defense = defense;
+
+        if(type.toUpperCase().equals("player")){
+            this.type = "PLAYER";
+        }
+        else{
+            this.type = "ENEMY";
+        }
+    }
+
+    public Unit(String type, String name, int lp, int damage, int attackChance, int defense, String description){
+        this.name = name;
+        this.lp = lp;
+        this.damage = damage;
+        this.attackChance = attackChance;
+        this.defense = defense;
+        this.description = description;
+
+        if(type.toUpperCase().equals("player")){
+            this.type = "PLAYER";
+        }
+        else{
+            this.type = "ENEMY";
+        }
+    }
+
+
 
     //--------------------------------------- ATTACK AND DEFENSE ---------------------------------------
 

@@ -3,43 +3,19 @@ package model.Units;
 public class Player extends Unit implements Comparable<Player>{
     
     public Player(String name, int lp, int damage, int attackChance, int defense) {
-        setType("PLAYER");
-        setName(name);
-        setLp(lp);
-        setDamage(damage);
-        setAttackChance(attackChance);
-        setDefense(defense);
-        setDescription("");
+        super("PLAYER",name,lp,damage,attackChance,defense);
     }
 
     public Player(String name, int lp, int damage, int attackChance, int defense, String description) {
-        setType("PLAYER");
-        setName(name);
-        setLp(lp);
-        setDamage(damage);
-        setAttackChance(attackChance);
-        setDefense(defense);
-        setDescription(description);
+        super("PLAYER",name,lp,damage,attackChance,defense,description);
     }
 
     public Player(Player p){
-        setType(p.getType());
-        setName(p.getName());
-        setLp(p.getLp());
-        setDamage(p.getDamage());
-        setAttackChance(p.getAttackChance());
-        setDefense(p.getDefense());
-        setDescription(p. getDescription());
+        super("PLAYER",p.getName(),p.getLp(),p.getDamage(),p.getAttackChance(),p.getDefense(),p. getDescription());
     }
 
     public Player() {
-        setType("PLAYER");
-        setName("");
-        setLp(0);
-        setDamage(0);
-        setAttackChance(0);
-        setDefense(0);
-        setDescription("");
+        super("PLAYER");
     }
 
     
