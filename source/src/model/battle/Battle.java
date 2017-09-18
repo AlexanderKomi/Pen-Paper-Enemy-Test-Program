@@ -1,5 +1,6 @@
 package model.battle;
 
+import model.Units.Unit;
 import model.dices.W20;
 import model.Units.Enemy;
 import model.Units.Player;
@@ -205,24 +206,14 @@ public class Battle implements Runnable {
 
 
 
-    private Enemy chooseEnemy(List<Enemy> targets){
+    private Unit chooseTarget(List<Unit> targets){
 
         int targetNR = ThreadLocalRandom.current().nextInt(0, targets.size());
         if(targets.get(targetNR).getLp() > 0){
 
             return targets.get(targetNR);
         }
-        else{return chooseEnemy(targets);}
-    }
-
-    private Player choosePlayer(List<Player> targets){
-
-        int targetNR = ThreadLocalRandom.current().nextInt(0, targets.size());
-        if(targets.get(targetNR).getLp() > 0){
-
-            return targets.get(targetNR);
-        }
-        else{return choosePlayer(targets);}
+        else{return chooseTarget(targets);}
     }
 
     //-------- These are just alternative ideas
@@ -279,7 +270,7 @@ public class Battle implements Runnable {
         if(targets.get(targetNR).getLp() > 0){
             return targets.get(targetNR);
         }
-        else{return chooseEnemy(targets);}
+        else{return chooseEnemy_alternative(targets);}
     }
 
     private Player choosePlayer_alternative(List<Player> targets){
@@ -302,7 +293,7 @@ public class Battle implements Runnable {
 
             return targets.get(targetNR);
         }
-        else{return choosePlayer(targets);}
+        else{return choosePlayer_alternative(targets);}
     }
 
     private String playersAttack(){
