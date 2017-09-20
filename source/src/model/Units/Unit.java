@@ -10,6 +10,8 @@ public class Unit {
     private int damage = 0;
     private int attackChance = 0;
     private int defense = 0;
+    private int armor = 0;
+    private String bonus = "";
     private String description = "";
     private W20 w20 = new W20();
 
@@ -50,13 +52,12 @@ public class Unit {
     }
 
 
-
     //--------------------------------------- ATTACK AND DEFENSE ---------------------------------------
 
     /**
      * Attacking an target.
      *
-     * @param target The target, who is attacked by the unit.
+     * @param target The target, who is attacked by this unit.
      * @return Returns the remaining lifepoints of the enemy.
      */
     public int attack(Unit target) {

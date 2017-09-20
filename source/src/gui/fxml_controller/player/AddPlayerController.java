@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Units.Enemy;
 import model.Units.Player;
 
 import java.io.IOException;

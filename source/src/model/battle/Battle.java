@@ -34,197 +34,198 @@ public class Battle implements Runnable {
 
     @Override
     public void run() {
-        this.simulate();
+        this.simulate_alt();
         this.createTextOutput();
     }
 
-    /**
-     * WIP :
-     * All the battle-action happens here.
-     * Avoid creating the output for the GUI here, but can be stored for later extrapolation.
-     */
-    /*
-    private void simulate() {
-
-        StringBuilder sb = new StringBuilder();
-        byte switcher = (byte) ThreadLocalRandom.current().nextInt(0, 1 + 1);
-        int round;
-        boolean fightEnd;
+    //---------------------------------------------------------------------------------------------
 
 
-        Player Ptarget;
-        Enemy Etarget;
 
-        int enemyWins = 0;
-        int playerWins = 0;
+    //Start of Dennis Version----------------------------------------------------------------------
 
-        for (int i = 0; i < this.iterations_max; i++) {
-            sb.append("Simulation #" + (i + 1) + ":\n");
+    private void simulate_alt() {
 
-            //init
-            fightEnd = false;
-            round = 0;
+        String fightResults = "";
+        List<Player> playersCopy;
+        List<Enemy> enemiesCopy;
 
-            //copying the original Lists for multiple use
+        for(int i = 1 ; i <= this.iterations_max ; i++) {
+
             playersCopy = new LinkedList<>();
-            playersCopy.clear();
-            playersCopy.addAll(this.players);
-
             enemiesCopy = new LinkedList<>();
-            enemiesCopy.clear();
-            enemiesCopy.addAll(this.enemies);
 
-            //debugging
-            sb.append("\nPlayers : \n");
-            for(Player player : playersCopy){
-                sb.append(player.getName() + " : " + player.getLp() + "\n");
-            }
-            sb.append("\nEnemies : \n");
-            for(Enemy enemy : enemiesCopy){
-                sb.append(enemy.getName() + " : " + enemy.getLp()+ "\n");
-            }
+            //just to be safe ;)
+                playersCopy.clear();
+                enemiesCopy.clear();
             //
 
-            while (fightEnd == false) {
+            copyThePlayers(players, playersCopy);       //copying still not work our right :/
+            copyTheEnemies(enemies, enemiesCopy);
 
-                int enemiesAlive = enemiesCopy.size();
-                int playerAlive = playersCopy.size();
+            byte switcher = (byte) ThreadLocalRandom.current().nextInt(0, 1);
+            /*
+            just choosing who is first. Not every Round just every simulation.
+            We don't want the same team attacks right after her last attack!
+             */
 
-                if (switcher == 0) {
-                    round++;
-                    sb.append("\n\nRound " + round + ":\n");
+            boolean endOfFight = false;
 
-                    for (Player p : playersCopy) {
+            int round = 0;                  //counting the rounds. Both teams fight once in a round.
 
-                        if (p.getLp() > 0) {//check if the Player is alive
-                            if (enemiesCopy.size() > 0) {                               //check if there are enemys
+            while (endOfFight != true){
 
-                                //check if there are enemys alive
-                                for (Enemy e : enemiesCopy) {
-                                    if (e.getLp() < 1) {
-                                        enemiesAlive--;
-                                    }
-                                }
+                round++;
 
-                                if (enemiesAlive > 0) {
-                                    Etarget = chooseEnemy(enemiesCopy);                         //choose a random Enemy as a target to attack
+                if(switcher == 1){
+                    playersFight(playersCopy, enemiesCopy);
+                    enemiesFight(enemiesCopy, playersCopy);
+                }
+                else{
+                    enemiesFight(enemiesCopy, playersCopy);
+                    playersFight(playersCopy, enemiesCopy);
+                }
 
-                                    if (w20.roll() <= p.getAttackChance()) {          //check if the Player hit the enemy
-                                        if (w20.roll() <= Etarget.getDefense()) {      //check if the enemy blocked the attack
-                                            sb.append(Etarget.getName() + " blocked " + p.getName() + "s attack.\n");
-                                        }
-                                        else {
-                                            if ((Etarget.getLp() - p.getDamage()) <= 0) {  //Lp check to prevent negativ LP
-                                                Etarget.setLp(0);
-                                                sb.append(p.getName() + " killed " + Etarget.getName() + " in Round " + round + ".\n");
-                                            } else {
-                                                sb.append(p.getName() + " hit " + Etarget.getName() + " for " + p.getDamage() + " Lp.\n");
-                                                Etarget.setLp(Etarget.getLp() - p.getDamage()); //update enemy Lp after the attack
-                                            }
-                                        }
-                                    } else {
-                                        sb.append(p.getName() + " missed his attack.\n");
-                                    }
-                                } else {
-                                    }
-                            }
-                        }
+
+                endOfFight = checkIfFightIsOver(playersCopy, enemiesCopy);
+            }
+
+            String winners = winnerTeam(playersCopy, enemiesCopy);
+
+
+            fightResults = fightResults + "Simulation #" + i + "\n" + winners + " won in Round #" + round + "\n\n";
+            this.results.add(fightResults);
+        }
+    }
+
+    private void playersFight(List<Player> players, List<Enemy> enemies) {
+
+        for(Player p : players){
+            if(p.getLp() > 0){
+                Enemy target = chooseEnemy(enemies);
+
+                if(p.getAttackChance() <= w20.roll()){
+                    if(target.getDefense() <= w20.roll()){
+                        //maybe a message later here
                     }
-                    //check if there are enemys alive
-                    enemiesAlive = enemiesCopy.size();
-                    for (Enemy e : enemiesCopy) {
-                        if (e.getLp() < 1) {
-                            enemiesAlive--;
-                        }
+                    else{
+                        int damage = p.getDamage() - target.getArmor();
+                        if(damage < 0){damage = 0;}                               //don't get healed because of your armor
+
+                        int x = target.getLp() - damage;
+                        if(x > 0){target.setLp(x);}
+                        else{target.setLp(0);}
                     }
-                    if (enemiesAlive == 0) {
-                        sb.append("Players win in Round " + round + "!\n");
-                        playerWins++;
-                        fightEnd = true;                                   //end the simulation if all enemys are dead.
-
-                    }
-                    switcher++;
-                } else {
-                    round++;
-                    sb.append("\n\nRound " + round + ":\n");
-                    for (Enemy e : enemiesCopy) {
-                        if (e.getLp() > 0) {                                          //check if the enemy is alive
-                            if (playersCopy.size() > 0) {                                 //check if there are players
-                                //check if there are players alive
-                                for (Player p : playersCopy) {
-                                    if (p.getLp() < 1) {
-                                        playerAlive--;
-                                    }
-                                }
-                                if (playerAlive > 0) {
-                                    Ptarget = choosePlayer(playersCopy);
-
-                                    if (w20.roll() <= e.getAttackChance()) {          //check if the enemy hit the player
-                                        if (w20.roll() <= Ptarget.getDefense()) {     //check if the player blocked the attack
-                                            sb.append(Ptarget.getName() + " blocked " + e.getName() + "s attack.\n");
-                                        } else {
-                                            if ((Ptarget.getLp() - e.getDamage()) <= 0) {  //Lp check to prevent negativ LP
-                                                Ptarget.setLp(0);
-                                                sb.append(e.getName() + " killed " + Ptarget.getName() + " in Round " + round + "\n");
-                                            } else {
-                                                sb.append(e.getName() + " hit " + Ptarget.getName() + " for " + e.getDamage() + " Lp.\n");
-                                                Ptarget.setLp(Ptarget.getLp() - e.getDamage()); //update player Lp after the attack
-                                            }
-                                        }
-                                    } else {
-                                        sb.append(e.getName() + " missed his attack.\n");
-                                    }
-                                } else {
-
-                                }
-                            }
-                        }
-
-
-                    }
-                    //check if there are players alive
-                    playerAlive = playersCopy.size();
-                    for (Player p : playersCopy) {
-                        if (p.getLp() < 1) {
-                            playerAlive--;
-                        }
-                    }
-                    if (playerAlive == 0) {
-                        sb.append("Enemys win in Round " + round + "!\n");
-                        enemyWins++;
-                        fightEnd = true;                                   //end the simulation if all enemys are dead.
-
-                    }
-                    switcher--;
                 }
             }
         }
-        sb.append("Players won " + playerWins + " times.\nEnemys won " + enemyWins + " times.\n");
-        this.results.add(sb.toString());
     }
-    */
 
+    private void enemiesFight(List<Enemy> enemies, List<Player> players) {
 
+        for(Enemy e : enemies){
+            if(e.getLp() > 0){
+                Player target = choosePlayer(players);
 
-    private Unit chooseTarget(List<Unit> targets){
+                if(e.getAttackChance() <= w20.roll()){
+                    if(target.getDefense() <= w20.roll()){
+                        //maybe a message later here
+                    }
+                    else{
+                        int damage = e.getDamage(); //- target.getArmor();        //players don't have armor yet!
+                        if(damage < 0){damage = 0;}                               //don't get healed because of your armor
+
+                        int x = target.getLp() - damage;
+                        if(x > 0){target.setLp(x);}
+                        else{target.setLp(0);}
+                    }
+                }
+            }
+        }
+    }
+
+    private Player choosePlayer(List<Player> targets){
 
         int targetNR = ThreadLocalRandom.current().nextInt(0, targets.size());
         if(targets.get(targetNR).getLp() > 0){
 
             return targets.get(targetNR);
         }
-        else{return chooseTarget(targets);}
+        else{return choosePlayer(targets);}
     }
 
-    //-------- These are just alternative ideas
+    private Enemy chooseEnemy(List<Enemy> targets){
 
+        int targetNR = ThreadLocalRandom.current().nextInt(0, targets.size());
+        if(targets.get(targetNR).getLp() > 0){
+
+            return targets.get(targetNR);
+        }
+        else{return chooseEnemy(targets);}
+    }
+
+    private boolean checkIfFightIsOver(List<Player> players, List<Enemy> enemies){
+
+        int playersAlive = 0;
+        int enemiesAlive = 0;
+
+        for(Player p : players){
+            if(p.getLp() > 0){ playersAlive++;}
+        }
+        for(Enemy e : enemies){
+            if(e.getLp() > 0){ enemiesAlive++;}
+        }
+        if(playersAlive != 0 && enemiesAlive != 0){return false;}
+
+        return true;
+    }
+
+    private String winnerTeam(List<Player> players, List<Enemy> enemies){
+
+        int playersAlive = 0;
+        int enemiesAlive = 0;
+
+        for(Player p : players){
+            if(p.getLp() > 0){ playersAlive++;}
+        }
+        for(Enemy e : enemies){
+            if(e.getLp() > 0){ enemiesAlive++;}
+        }
+        if(playersAlive == 0 && enemiesAlive == 0){return "ERROR: Both teams are dead!";}
+        else if(playersAlive == 0){return "Enemies";}
+        return "Players";
+    }
+
+    private void copyThePlayers(List<Player> originals, List<Player> copys) {
+        for (Unit original: originals) {
+            copys.add(new Player((Player) original));
+        }
+    }
+
+    private void copyTheEnemies(List<Enemy> originals, List<Enemy> copys) {
+        for (Unit original: originals) {
+            copys.add(new Enemy((Enemy) original));
+        }
+    }
+
+    //End of Dennis Version------------------------------------------------------------------------
+
+    /**
+     * WIP :
+     * All the battle-action happens here.
+     * Avoid creating the output for the GUI here, but can be stored for later extrapolation.
+     */
     private void simulate() {
 
-        byte switcher = (byte)ThreadLocalRandom.current().nextInt(0,1);
-
-
-
         String fightResults = "";
+
+        byte switcher = (byte)ThreadLocalRandom.current().nextInt(0,1);
+        /*
+        just choosing who is first. Not every Round just every simulation.
+        We don't want the same team attacks right after her last attack!
+         */
+
+
 
         for(int i = 1 ; i <= this.iterations_max ; i++) {
 
@@ -357,7 +358,7 @@ public class Battle implements Runnable {
      */
     private void createTextOutput() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Simulation finished (not implemented yet): \n").append(this).append("\nResults : \n");
+        sb.append("Simulation finished: \n").append(this).append("\nResults : \n");
 
         for (String s : this.results) {
             sb.append(s).append("\n");

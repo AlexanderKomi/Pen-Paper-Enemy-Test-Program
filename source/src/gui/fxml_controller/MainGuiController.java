@@ -220,7 +220,7 @@ public class MainGuiController {
 
     private void initialize_TextFields() {
         this.setFieldToOnlyNumbers(this.iterationsField);
-        this.iterationsField.setText("0");
+        this.iterationsField.setText("1");
     }
 
     private void setFieldToOnlyNumbers(TextField t) {
