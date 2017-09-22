@@ -132,10 +132,9 @@ public class MainGuiController {
 
         try {
             Parent root = loader.load();
-            playerCon = (AddPlayerController) loader.getController();
-            Scene s = new Scene(root);
+            playerCon = loader.getController();
             addPlayerStage = new Stage();
-            addPlayerStage.setScene(s);
+            addPlayerStage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -162,9 +161,8 @@ public class MainGuiController {
         try {
             Parent root = loader.load();
             enemyCon = loader.getController();
-            Scene s = new Scene(root);
             addEnemyStage = new Stage();
-            addEnemyStage.setScene(s);
+            addEnemyStage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
