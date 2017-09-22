@@ -44,7 +44,12 @@ public class PlayerPresetWindowController {
     @FXML
     public void loadButtonPressed(){
         Player p = this.ioController.loadPlayer();
-        addToPresetsCheckBoxes(p);
+        if(!p.equals( new Player() )){
+            addToPresetsCheckBoxes(p);
+        }
+        else{
+            System.out.println("The loaded Player, is a default constructed player, so it will not be added to the selectable options.");
+        }
 
     }
 
@@ -92,12 +97,5 @@ public class PlayerPresetWindowController {
         return playerList;
     }
 
-    public void setPlayerList(List<Player> playerList) {
-        this.playerList = playerList;
-    }
-
-    public void setPlayerBoxController(gui.fxml_controller.player.PlayerBoxController playerBoxController) {
-        PlayerBoxController = playerBoxController;
-    }
 
 }

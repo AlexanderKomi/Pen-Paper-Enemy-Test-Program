@@ -1,5 +1,6 @@
 package gui.fxml_controller.player;
 
+import gui.util.GuiUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Units.Enemy;
 import model.Units.Player;
 
 import java.io.IOException;
@@ -33,15 +33,19 @@ public class AddPlayerController {
 
     private Stage presetWindow;
 
-    private List<Player> playerList;  // Contains all Players for the simulation
+    private List<Player> playerList = new LinkedList <>(  );  // Contains all Players for the simulation
 
     //----------------------------------- FXML METHODS -------------------------------------
 
     @FXML
     public void initialize() {
-        this.setPlayerList(new LinkedList<>());
-        initialize_TextFields();
         createPresetWindow();
+        GuiUtils.initialize_NumberFields(
+                lifePointsField,
+                damageField,
+                attackChanceField,
+                defenseField
+        );
     }
 
     @FXML
@@ -113,30 +117,6 @@ public class AddPlayerController {
     }
 
     //--------------------------- PRIVATE METHODS --------------------------
-
-    private void initialize_TextFields() {
-        setFieldToOnlyNumbers(lifePointsField);
-        setFieldToOnlyNumbers(damageField);
-        setFieldToOnlyNumbers(attackChanceField);
-        setFieldToOnlyNumbers(defenseField);
-        lifePointsField.setText("0");
-        damageField.setText("0");
-        attackChanceField.setText("0");
-        defenseField.setText("0");
-    }
-
-    private void setFieldToOnlyNumbers(TextField t) {
-        t.textProperty().addListener((observable, oldValue, newValue) -> {
-
-            if (!newValue.matches("\\d*")) {
-                t.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-            if (t.getText().equals("")) {
-                t.setText("0");
-            }
-
-        });
-    }
 
     private void createPresetWindow() {
         FXMLLoader loader = new FXMLLoader(PlayerPresetWindowController.class.getResource("../../fxml/player/PlayerPresetWindow.fxml"));

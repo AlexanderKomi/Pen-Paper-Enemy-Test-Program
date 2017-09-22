@@ -3,6 +3,7 @@ package gui.fxml_controller;
 import gui.fxml_controller.enemy.AddEnemyController;
 import gui.fxml_controller.player.AddPlayerController;
 import gui.fxml_controller.player.RemovePlayerController;
+import gui.util.GuiUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +37,7 @@ public class MainGuiController {
     @FXML private AddEnemyController enemyCon;
     @FXML private RemovePlayerController removePlayerController;
 
+
     //------------------------------------------ MEMBERS ------------------------------------------
 
     private Battle battle; // Contains the simulation
@@ -51,7 +53,8 @@ public class MainGuiController {
     @FXML
     private void initialize() {
         createStages();
-        initialize_TextFields();
+        GuiUtils.setFieldToOnlyNumbers( this.iterationsField);
+        this.iterationsField.setText("1");
     }
 
     //----------------
@@ -68,6 +71,7 @@ public class MainGuiController {
             System.out.println("Enemy list is empty, so simulation has not been started.");
             return;
         }
+
         LinkedList<Player> player = new LinkedList<>();
         for(Player p : this.playerCon.getPlayerList()){
             player.add(new Player(p));
@@ -76,6 +80,7 @@ public class MainGuiController {
         for(Enemy e : this.enemyCon.getEnemyList()){
             enemies.add(new Enemy(e));
         }
+
         this.setBattle(new Battle(
                 player,
                 enemies,
@@ -218,23 +223,6 @@ public class MainGuiController {
         )));
     }
 
-    private void initialize_TextFields() {
-        this.setFieldToOnlyNumbers(this.iterationsField);
-        this.iterationsField.setText("1");
-    }
-
-    private void setFieldToOnlyNumbers(TextField t) {
-        t.textProperty().addListener((observable, oldValue, newValue) -> {
-
-            if (!newValue.matches("\\d*")) {
-                t.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-            if (t.getText().equals("")) {
-                t.setText("0");
-            }
-
-        });
-    }
 
     //---------------------------------------- GETTER AND SETTER ----------------------------------------
 
@@ -246,19 +234,4 @@ public class MainGuiController {
         this.battle = battle;
     }
 
-    public RemovePlayerController getRemovePlayerController() {
-        return removePlayerController;
-    }
-
-    public void setRemovePlayerController(RemovePlayerController removePlayerController) {
-        this.removePlayerController = removePlayerController;
-    }
-
-    public Stage getRemovePlayerStage() {
-        return removePlayerStage;
-    }
-
-    public void setRemovePlayerStage(Stage removePlayerStage) {
-        this.removePlayerStage = removePlayerStage;
-    }
 }

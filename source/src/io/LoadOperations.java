@@ -7,7 +7,6 @@ import model.Units.Player;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class LoadOperations {
@@ -15,11 +14,13 @@ public class LoadOperations {
     private String separator = ";";
     private String breaker = "\n";
 
+    LoadOperations(){}
+
     // --------------------------- INTERFACES ---------------------------------------------
 
 
 
-    public Player loadPlayer(){
+    Player loadPlayer(){
         File f = loadDialog();
         if( f != null ){
             return loadPlayerFromCSV(f);
@@ -28,7 +29,7 @@ public class LoadOperations {
         return new Player();
     }
 
-    public void savePlayer(Player p){
+    void savePlayer(Player p){
         File f = saveDialog();
 
         if(f != null){
@@ -41,7 +42,7 @@ public class LoadOperations {
 
     }
 
-    public Enemy loadEnemy(){
+    Enemy loadEnemy(){
         File f = loadDialog();
         if(f != null){
             return loadEnemyFromCSV(f);
@@ -50,7 +51,7 @@ public class LoadOperations {
         return new Enemy();
     }
 
-    public void saveEnemy(Enemy e){
+    void saveEnemy(Enemy e){
         File f = saveDialog();
 
         if(f != null){
@@ -96,7 +97,7 @@ public class LoadOperations {
             PrintWriter pw = new PrintWriter(file);
             pw.write(enemy.toSavableFormat());
             pw.close();
-            System.out.println("save Enemy : "+enemy.toSavableFormat());
+            System.out.println("save Enemy : "+ enemy.toSavableFormat());
             System.out.println("save Enemy :  -> Player has been saved");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -211,25 +212,6 @@ public class LoadOperations {
         System.out.println("loaded Enemy : " + e + " , Description: \n" + e.getDescription());
 
         return e;
-    }
-
-    private List< String > loadCSVFile_ListString(String filepath ) {
-
-        List< String > listWithData = new LinkedList<>();
-        String line;
-        try {
-            BufferedReader br = new BufferedReader( new FileReader( filepath ) );
-            while ( ( line = br.readLine() ) != null ) {
-                for ( String s : line.split( this.getSeparator() ) ) {
-                    listWithData.add( s );
-                }
-                listWithData.add( this.getBreaker() );
-            }
-            br.close();
-        } catch ( Exception e ) {
-            e.printStackTrace();
-        }
-        return listWithData;
     }
 
     // ------------------------------------- GETTER AND SETTER -----------------------------------
