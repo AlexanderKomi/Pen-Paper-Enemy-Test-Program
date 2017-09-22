@@ -53,10 +53,10 @@ public class AddEnemyController {
             enemy = new Enemy(
                     this.nameField.getText(),
                     Integer.parseInt(lifePointsField.getText()),
-                    Integer.parseInt(damageField.getText()),
-                    Integer.parseInt(attackChanceField.getText()),
                     Integer.parseInt(defenseField.getText()),
                     Integer.parseInt(armorField.getText()),
+                    Integer.parseInt(damageField.getText()),
+                    Integer.parseInt(attackChanceField.getText()),
                     this.bonusTextField.getText()
             );
         } catch (Exception e) {

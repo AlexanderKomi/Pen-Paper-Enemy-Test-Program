@@ -15,7 +15,7 @@ public class EnemyPresetWindowController {
     //-------------------------------- FXML MEMBERS ---------------------------------
 
     @FXML
-    Button selectButton, cancelButton;
+    Button selectButton, cancelButton, loadButton, saveButton;
 
     @FXML
     VBox EnemyBox;
@@ -42,6 +42,28 @@ public class EnemyPresetWindowController {
     @FXML
     public void selectButtonPressed() {
         System.out.println("Enemy : " + this.EnemyBoxController.getSelected() + " has been selected");
+    }
+
+    @FXML
+    public void loadButtonPressed(){
+        Enemy e = this.ioController.loadEnemy();
+        addToPresetsCheckBoxes(e);
+    }
+
+    @FXML
+    public void saveButtonPressed(){
+        String selectedCheckBox = this.EnemyBoxController.getSelected();
+        System.out.println("saveButtonPressed : " + selectedCheckBox);
+
+        for(Enemy e : this.enemyList){
+
+            if(e.getName().equals(selectedCheckBox)){
+
+                this.ioController.saveEnemy(e);
+                break;
+            }
+
+        }
     }
 
     @FXML

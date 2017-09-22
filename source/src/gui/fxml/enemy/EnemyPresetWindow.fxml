@@ -23,6 +23,8 @@
         <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
                 <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#cancelButtonPressed" text="Cancel" />
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonPressed" text="Save" />
+            <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadButtonPressed" text="Load" />
                 <Button fx:id="selectButton" defaultButton="true" mnemonicParsing="false" onAction="#selectButtonPressed" text="Select" />
             </items>
         </ToolBar>
