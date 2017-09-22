@@ -1,5 +1,6 @@
 package gui.fxml_controller.enemy;
 
+import gui.util.GuiUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,14 +32,19 @@ public class AddEnemyController {
     //------------------------------------------ MEMBERS ------------------------------------------
     private Stage presetWindow;
 
-    private List<Enemy> enemyList;    // Contains all Enemies for the simulation
+    private List<Enemy> enemyList = new LinkedList<>();    // Contains all Enemies for the simulation
 
     //----------------------------------- FXML METHODS -------------------------------------
 
     @FXML
     public void initialize() {
-        initialize_TextFields();
-        this.enemyList = new LinkedList<>();
+	    GuiUtils.initialize_NumberFields(
+			    lifePointsField,
+			    damageField,
+			    attackChanceField,
+			    defenseField,
+			    armorField
+	    );
         createPresetWindow();
     }
 
@@ -78,32 +84,6 @@ public class AddEnemyController {
     public void cancelButtonPressed() {cancelButton.getScene().getWindow().hide();}
 
     //--------------------------- PRIVATE METHODS --------------------------
-
-    private void initialize_TextFields() {
-        setFieldToOnlyNumbers(lifePointsField);
-        setFieldToOnlyNumbers(damageField);
-        setFieldToOnlyNumbers(attackChanceField);
-        setFieldToOnlyNumbers(defenseField);
-        setFieldToOnlyNumbers(armorField);
-        lifePointsField.setText("0");
-        damageField.setText("0");
-        attackChanceField.setText("0");
-        defenseField.setText("0");
-        armorField.setText("0");
-    }
-
-    private void setFieldToOnlyNumbers(TextField t) {
-        t.textProperty().addListener((observable, oldValue, newValue) -> {
-
-            if (!newValue.matches("\\d*")) {
-                t.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-            if (t.getText().equals("")) {
-                t.setText("0");
-            }
-
-        });
-    }
 
     private void createPresetWindow() {
         FXMLLoader loader = new FXMLLoader(EnemyPresetWindowController.class.getResource("../../fxml/enemy/EnemyPresetWindow.fxml"));
