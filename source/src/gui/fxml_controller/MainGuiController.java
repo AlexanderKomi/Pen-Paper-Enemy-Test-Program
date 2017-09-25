@@ -1,6 +1,7 @@
 package gui.fxml_controller;
 
 import gui.fxml_controller.enemy.AddEnemyController;
+import gui.fxml_controller.enemy.RemoveEnemyController;
 import gui.fxml_controller.player.AddPlayerController;
 import gui.fxml_controller.player.RemovePlayerController;
 import gui.util.GuiUtils;
@@ -36,6 +37,7 @@ public class MainGuiController {
     @FXML private AddPlayerController playerCon;
     @FXML private AddEnemyController enemyCon;
     @FXML private RemovePlayerController removePlayerController;
+    @FXML private RemoveEnemyController removeEnemyController;
 
 
     //------------------------------------------ MEMBERS ------------------------------------------
@@ -112,7 +114,8 @@ public class MainGuiController {
 
     @FXML
     public void removeEnemyButtonPressed(){
-
+        this.removeEnemyController.updateCheckboxes( this.enemyCon.getEnemyList() );
+        this.removeEnemyStage.show();
     }
 
 
@@ -125,7 +128,7 @@ public class MainGuiController {
         createPlayerStage();
         createEnemyStage();
         createPlayerRemoveStage();
-        //createEnemyRemoveStage();
+        createEnemyRemoveStage();
     }
 
     private void createPlayerStage() {
@@ -222,19 +225,32 @@ public class MainGuiController {
 
         try {
             Parent root = loader.load();
-            enemyCon = loader.getController();
+            removeEnemyController = loader.getController();
             Scene s = new Scene(root);
-            addEnemyStage = new Stage();
-            addEnemyStage.setScene(s);
+            removeEnemyStage = new Stage();
+            removeEnemyStage.setScene(s);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
         }
-        addEnemyStage.setTitle("Remove an Enemy");
+        removeEnemyStage.setTitle("Remove an Enemy");
 
-        addEnemyStage.setOnHiding((WindowEvent event) -> Platform.runLater(() -> enemyListField.setText(
-                enemyCon.enemyListAsString()
-        )));
+        removeEnemyStage.setOnHiding((WindowEvent event) -> Platform.runLater( () -> {
+
+            String s = removeEnemyController.getRemovedEnemy();
+
+            int index = 0;
+            for(Enemy e : this.enemyCon.getEnemyList() ){
+                if(e.getName().equals(s)){
+                    index = this.enemyCon.getEnemyList().indexOf( e );
+                }
+            }
+            if(this.enemyCon.getEnemyList().size() > 0){
+                this.enemyCon.getEnemyList().remove( index );
+            }
+
+            enemyListField.setText( enemyCon.enemyListAsString() );
+        } ));
     }
 
 
