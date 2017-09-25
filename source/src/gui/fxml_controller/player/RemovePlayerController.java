@@ -11,6 +11,8 @@ import java.util.List;
 
 public class RemovePlayerController {
 
+    private String removedPlayer = "";
+
     @FXML
     Button removeButton, cancelButton;
 
@@ -26,7 +28,9 @@ public class RemovePlayerController {
 
 
     @FXML
-    public void removeButtonPressed(){}
+    public void removeButtonPressed(){
+        this.removedPlayer = this.getSelected();
+    }
 
     @FXML
     public void cancelButtonPressed(){
@@ -100,7 +104,7 @@ public class RemovePlayerController {
         this.checkboxes = checkboxes;
     }
 
-    public String getSelected() {
+    private String getSelected() {
         for(CheckBox c : this.checkboxes){
             if(c.isSelected()){
                 return c.getText();
@@ -109,4 +113,7 @@ public class RemovePlayerController {
         return null;
     }
 
+    public String getRemovedPlayer() {
+        return removedPlayer;
+    }
 }

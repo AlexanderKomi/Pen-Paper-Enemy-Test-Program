@@ -101,7 +101,8 @@ public class MainGuiController {
 
     @FXML
     public void removePlayerButtonPressed(){
-        //this.removePlayerStage.show();
+        this.removePlayerController.updateCheckboxes( this.playerCon.getPlayerList() );
+        this.removePlayerStage.show();
     }
 
     @FXML
@@ -123,7 +124,7 @@ public class MainGuiController {
     private void createStages() {
         createPlayerStage();
         createEnemyStage();
-        //createPlayerRemoveStage();
+        createPlayerRemoveStage();
         //createEnemyRemoveStage();
     }
 
@@ -196,9 +197,24 @@ public class MainGuiController {
         removePlayerStage.setTitle("Remove a Player");
 
 
-        removePlayerStage.setOnHiding((WindowEvent event) -> Platform.runLater(() -> playerListField.setText(
-                "Remove Player does not work currently."
-        )));
+        removePlayerStage.setOnHiding((WindowEvent event) -> Platform.runLater( () -> {
+            String s = removePlayerController.getRemovedPlayer();
+
+            int index = 0;
+            for(Player p : this.playerCon.getPlayerList() ){
+                if(p.getName().equals(s)){
+                    index = this.playerCon.getPlayerList().indexOf( p );
+                }
+            }
+            if(this.playerCon.getPlayerList().size() > 0){
+                this.playerCon.getPlayerList().remove( index );
+            }
+
+            playerListField.setText(
+                    playerCon.playerListAsString()
+            );
+
+        } ));
     }
 
     private void createEnemyRemoveStage(){
