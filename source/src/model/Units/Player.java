@@ -1,6 +1,6 @@
 package model.Units;
 
-public class Player extends Unit implements Comparable<Player>{
+public class Player extends Unit implements Comparable<Player>, Cloneable{
     
     public Player(String name, int lp, int damage, int attackChance, int defense) {
         super("PLAYER",name,lp,damage,attackChance,defense);
@@ -62,6 +62,10 @@ public class Player extends Unit implements Comparable<Player>{
         }
 
         return 0;
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
 

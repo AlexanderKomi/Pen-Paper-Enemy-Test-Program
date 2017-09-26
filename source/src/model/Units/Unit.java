@@ -93,6 +93,10 @@ public class Unit {
         return this.getLp();
     }
 
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     //--------------------------------------- GETTER AND SETTER -------------------------------------------
 
     public String getType() {

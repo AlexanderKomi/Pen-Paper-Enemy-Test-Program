@@ -85,6 +85,10 @@ public class Enemy extends Unit implements Comparable<Enemy>{
         return 0;
     }
 
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     // ---------------------------------- GETTER AND SETTER ----------------------------------
 
     public int getArmor() {
