@@ -70,6 +70,7 @@ public class AddEnemyController {
         }
         System.out.println("new Enemy : \n" + enemy + "\n");
         this.getEnemyList().add(enemy);
+        this.presetWindow.close();
         return enemy;
     }
 

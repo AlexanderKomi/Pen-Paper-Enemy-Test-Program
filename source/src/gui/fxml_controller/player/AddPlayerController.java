@@ -110,7 +110,7 @@ public class AddPlayerController {
         }
 
         System.out.println("new Player : \n" + p + "\n");
-
+        this.presetWindow.close();
         return p;
     }
 

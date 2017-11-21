@@ -5,16 +5,16 @@ import model.units.Player;
 
 public class IOController {
 
-    private LoadOperations lo;
+    private IOOperations operations;
 
     public IOController() {
-        this.lo = new LoadOperations();
+        this.operations = new IOOperations();
     }
 
     // -------------------------------- PLAYER --------------------------------
 
     public Player loadPlayer() {
-        return lo.loadPlayer();
+        return operations.loadPlayer();
     }
 
     public void savePlayer(Player p) {
@@ -25,14 +25,14 @@ public class IOController {
             System.out.println("Player is default constructor, so will not be saved.");
             return;
         }
-        lo.savePlayer(p);
+        operations.savePlayer(p);
     }
 
 
     // -------------------------------- ENEMY --------------------------------
 
     public Enemy loadEnemy() {
-        return lo.loadEnemy();
+        return operations.loadEnemy();
     }
 
     public void saveEnemy(Enemy e) {
@@ -43,7 +43,7 @@ public class IOController {
             System.out.println("Enemy is default constructor, so will not be saved.");
             return;
         }
-        lo.saveEnemy(e);
+        operations.saveEnemy(e);
     }
 
 

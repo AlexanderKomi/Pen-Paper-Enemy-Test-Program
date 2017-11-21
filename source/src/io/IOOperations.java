@@ -1,27 +1,24 @@
 package io;
 
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import model.units.Enemy;
 import model.units.Player;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class LoadOperations {
+public class IOOperations {
 
-    private String separator = ";";
-    private String breaker = "\n";
+    private final static String separator = ";";
+    private final static String breaker = "\n";
+    private static String lastLocation = "";
 
-    LoadOperations() {
+    IOOperations() {
     }
 
     // --------------------------- INTERFACES ---------------------------------------------
 
 
     Player loadPlayer() {
-        File f = loadDialog();
+        File f = IOUtils.loadDialog();
         if (f != null) {
             return loadPlayerFromCSV(f);
         }
@@ -30,7 +27,7 @@ public class LoadOperations {
     }
 
     void savePlayer(Player p) {
-        File f = saveDialog();
+        File f = IOUtils.saveDialog();
 
         if (f != null) {
             savePlayerToCSVFile(f, p);
@@ -42,7 +39,7 @@ public class LoadOperations {
     }
 
     Enemy loadEnemy() {
-        File f = loadDialog();
+        File f = IOUtils.loadDialog();
         if (f != null) {
             return loadEnemyFromCSV(f);
         }
@@ -51,7 +48,7 @@ public class LoadOperations {
     }
 
     void saveEnemy(Enemy e) {
-        File f = saveDialog();
+        File f = IOUtils.saveDialog();
 
         if (f != null) {
             System.out.println("save Enemy :  -> ATTENTION : Save Enemy has not been implemented yet!");
@@ -64,18 +61,6 @@ public class LoadOperations {
 
 
     // ------------------------ PRIVATE METHODS -------------------------------------------
-
-    private File loadDialog() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("csv", "*.csv"));
-        return fileChooser.showOpenDialog(new Stage());
-    }
-
-    private File saveDialog() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("csv", "*.csv"));
-        return fileChooser.showSaveDialog(new Stage());
-    }
 
     private void savePlayerToCSVFile(File file, Player player) {
         try {
@@ -103,7 +88,6 @@ public class LoadOperations {
 
     private Player loadPlayerFromCSV(File f) {
         Player p = new Player();
-        List<Player> list = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(f.getAbsolutePath());
             BufferedReader br = new BufferedReader(fileReader);
@@ -149,7 +133,7 @@ public class LoadOperations {
 
     private Enemy loadEnemyFromCSV(File f) {
         Enemy e = new Enemy();
-        List<Player> list = new ArrayList<>();
+
         try {
             FileReader fileReader = new FileReader(f.getAbsolutePath());
             BufferedReader br = new BufferedReader(fileReader);
@@ -203,15 +187,8 @@ public class LoadOperations {
         return separator;
     }
 
-    public void setSeparator(String separator) {
-        this.separator = separator;
-    }
-
     public String getBreaker() {
         return breaker;
     }
 
-    public void setBreaker(String breaker) {
-        this.breaker = breaker;
-    }
 }
