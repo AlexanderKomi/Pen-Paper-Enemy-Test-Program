@@ -1,10 +1,12 @@
 package model.utils;
 
 import model.battle.Battle;
+import model.units.Enemy;
+import model.units.Player;
 
 import java.util.List;
 
-public class OutputUtils {
+public final class OutputUtils {
 
     /**
      * WIP :
@@ -24,4 +26,21 @@ public class OutputUtils {
         //System.out.println(this.getSummary());
     }
 
+    public static String printPlayers(List<Player> players) {
+        StringBuilder s = new StringBuilder();
+        for (Player p : players) {
+            s.append(p);
+            System.out.println(p);
+        }
+        return s.toString();
+    }
+
+    public static String printEnemies(List<Enemy> enemies) {
+        StringBuilder s = new StringBuilder();
+        for (Enemy p : enemies) {
+            s.append(p);
+            System.out.println(p);
+        }
+        return s.toString();
+    }
 }

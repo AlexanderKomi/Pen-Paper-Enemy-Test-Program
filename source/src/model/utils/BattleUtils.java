@@ -1,11 +1,11 @@
 package model.utils;
 
-import model.Units.Enemy;
-import model.Units.Player;
+import model.units.Enemy;
+import model.units.Player;
 
 import java.util.List;
 
-public class BattleUtils {
+public final class BattleUtils {
 
     public static boolean checkIfFightIsOver(List<Player> players, List<Enemy> enemies) {
 

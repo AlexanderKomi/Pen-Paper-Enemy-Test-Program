@@ -28,6 +28,7 @@ public final class ObjectUtils {
             }
             return clone;
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }

@@ -1,4 +1,4 @@
-package model.Units;
+package model.units;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

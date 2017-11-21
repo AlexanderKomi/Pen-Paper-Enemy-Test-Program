@@ -1,12 +1,12 @@
 package model.utils;
 
-import model.Units.Enemy;
-import model.Units.Player;
+import model.units.Enemy;
+import model.units.Player;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ChoosingUtils {
+public final class ChoosingUtils {
 
 
     public static Player choosePlayer(List<Player> targets) {

@@ -1,7 +1,12 @@
-package model.Units;
+package model.units;
 
-public class Player extends Unit implements Comparable<Player>, Cloneable{
-    
+import javafx.scene.Parent;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+public class Player extends Unit implements Comparable<Player> {
+
     public Player(String name, int lp, int damage, int attackChance, int defense) {
         super("PLAYER",name,lp,damage,attackChance,defense);
     }
@@ -18,8 +23,19 @@ public class Player extends Unit implements Comparable<Player>, Cloneable{
         super("PLAYER");
     }
 
-    
+    public Player(Parent parent) {
+        for (Method getMethod : parent.getClass().getMethods()) {
+            if (getMethod.getName().startsWith("get")) {
+                try {
+                    Method setMethod = this.getClass().getMethod(getMethod.getName().replace("get", "set"), getMethod.getReturnType());
+                    setMethod.invoke(this, getMethod.invoke(parent, (Object[]) null));
 
+                } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                    //not found set
+                }
+            }
+        }
+    }
     //--------------------------------------- OVERLOADED METHODS ---------------------------------------
 
     @Override
@@ -47,9 +63,7 @@ public class Player extends Unit implements Comparable<Player>, Cloneable{
             if(!(this.getDamage() == player2.getDamage()))return false;
             if(!(this.getAttackChance() == player2.getAttackChance())) return false;
             if(!(this.getDefense() == player2.getDefense()))return false;
-            if(!(this.getDescription().equals(player2.getDescription())))return false;
-
-            return true;
+            return this.getDescription().equals(player2.getDescription());
         }
 
         return false;
@@ -62,10 +76,6 @@ public class Player extends Unit implements Comparable<Player>, Cloneable{
         }
 
         return 0;
-    }
-
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
     }
 
 

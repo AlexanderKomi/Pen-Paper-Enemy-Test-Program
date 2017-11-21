@@ -15,9 +15,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.Units.Enemy;
-import model.Units.Player;
 import model.battle.Battle;
+import model.units.Enemy;
+import model.units.Player;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -42,7 +42,7 @@ public class MainGuiController {
 
     //------------------------------------------ MEMBERS ------------------------------------------
 
-    private Battle battle; // Contains the simulation
+    private static Battle battle; // Contains the simulation
 
     private Stage addPlayerStage;
     private Stage removePlayerStage;
@@ -90,9 +90,12 @@ public class MainGuiController {
         ));
 
         //System.out.println("Starting Battle : " + this.getBattle());
-        this.getBattle().run();
-        this.summaryField.setText(this.getBattle().getSummary());
-        System.out.println(summaryField.getText());
+
+        Platform.runLater(() -> {
+            this.getBattle().run();
+            this.summaryField.setText(this.getBattle().getSummary());
+            System.out.println(summaryField.getText());
+        });
 
     }
 
@@ -261,7 +264,7 @@ public class MainGuiController {
     }
 
     public void setBattle(Battle battle) {
-        this.battle = battle;
+        MainGuiController.battle = battle;
     }
 
 }

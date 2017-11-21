@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
-import model.Units.Enemy;
+import model.units.Enemy;
 
 import java.util.LinkedList;
 import java.util.List;

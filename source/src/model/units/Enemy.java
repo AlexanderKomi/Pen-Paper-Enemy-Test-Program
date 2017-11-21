@@ -1,4 +1,4 @@
-package model.Units;
+package model.units;
 
 public class Enemy extends Unit implements Comparable<Enemy>{
 
@@ -42,9 +42,9 @@ public class Enemy extends Unit implements Comparable<Enemy>{
 
 
         String s = "Name : " + this.getName() + "\t, LP: " + this.getLp() +
-                "\t, Defense: " + this.getDefense() + "\t, Armor: " + this.getArmor() +
+                "\t, Defense: " + this.getDefense() +
                 "\t, Damage: " + this.getDamage() +
-                "\t, Attack Chance: " + this.getAttackChance();
+                "\t, Attack Chance: " + this.getAttackChance() + "\t, Armor: " + this.getArmor();
 
 
         if (!this.getBonus().equals("")) {
@@ -70,9 +70,7 @@ public class Enemy extends Unit implements Comparable<Enemy>{
             if(!(this.getDefense() == enemy.getDefense()))return false;
             if(!(this.getArmor() == enemy.getArmor()))return false;
             if(!(this.getBonus().equals(enemy.getBonus())))return false;
-            if(!(this.getDescription().equals(enemy.getDescription())))return false;
-
-            return true;
+            return this.getDescription().equals(enemy.getDescription());
         }
 
         return false;
@@ -83,10 +81,6 @@ public class Enemy extends Unit implements Comparable<Enemy>{
             return 1;
         }
         return 0;
-    }
-
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
     }
 
     // ---------------------------------- GETTER AND SETTER ----------------------------------

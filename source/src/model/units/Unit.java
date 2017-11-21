@@ -1,4 +1,4 @@
-package model.Units;
+package model.units;
 
 import model.dices.W20;
 
@@ -14,6 +14,10 @@ public class Unit {
     private String bonus = "";
     private String description = "";
     private W20 w20 = new W20();
+
+    public Unit() {
+
+    }
 
     public  Unit(String type){
         this.type = type;
@@ -51,6 +55,20 @@ public class Unit {
         }
     }
 
+    public Unit(Unit p) {
+        this.name = p.getName();
+        this.lp = p.getLp();
+        this.damage = p.getDamage();
+        this.attackChance = p.getAttackChance();
+        this.defense = p.getDefense();
+        this.description = p.getDescription();
+
+        if (p.getType().toUpperCase().equals("PLAYER")) {
+            this.type = "PLAYER";
+        } else {
+            this.type = "ENEMY";
+        }
+    }
 
     //--------------------------------------- ATTACK AND DEFENSE ---------------------------------------
 
@@ -93,8 +111,9 @@ public class Unit {
         return this.getLp();
     }
 
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    private int neverZero(int value) {
+        if (value < 0) return 0;
+        return value;
     }
 
     //--------------------------------------- GETTER AND SETTER -------------------------------------------
@@ -120,7 +139,7 @@ public class Unit {
     }
 
     public void setLp(int lp) {
-        this.lp = lp;
+        this.lp = neverZero(lp);
     }
 
     public int getDamage() {
@@ -128,7 +147,7 @@ public class Unit {
     }
 
     public void setDamage(int damage) {
-        this.damage = damage;
+        this.damage = neverZero(damage);
     }
 
     public int getAttackChance() {
@@ -136,7 +155,7 @@ public class Unit {
     }
 
     public void setAttackChance(int attackChance) {
-        this.attackChance = attackChance;
+        this.attackChance = neverZero(attackChance);
     }
 
     public int getDefense() {
@@ -144,7 +163,7 @@ public class Unit {
     }
 
     public void setDefense(int defense) {
-        this.defense = defense;
+        this.defense = neverZero(defense);
     }
 
     public String getDescription() {
@@ -154,11 +173,5 @@ public class Unit {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
-    //why implement these methods?
-    public W20 getW20() { return w20; }
-    public void setW20(W20 w20) { this.w20 = w20; }
-
 
 }

@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Units.Enemy;
+import model.units.Enemy;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -32,7 +32,7 @@ public class AddEnemyController {
     //------------------------------------------ MEMBERS ------------------------------------------
     private Stage presetWindow;
 
-    private List<Enemy> enemyList = new LinkedList<>();    // Contains all Enemies for the simulation
+    private static List<Enemy> enemyList = new LinkedList<>();    // Contains all Enemies for the simulation
 
     //----------------------------------- FXML METHODS -------------------------------------
 
@@ -107,7 +107,7 @@ public class AddEnemyController {
     public String enemyListAsString() {
         StringBuilder s = new StringBuilder();
 
-        for (Enemy e : this.enemyList) {
+        for (Enemy e : enemyList) {
             s.append(e.toString()).append("\n");
         }
 
@@ -119,7 +119,7 @@ public class AddEnemyController {
     }
 
     public void setEnemyList(List<Enemy> enemyList) {
-        this.enemyList = enemyList;
+        AddEnemyController.enemyList = enemyList;
     }
 
 }

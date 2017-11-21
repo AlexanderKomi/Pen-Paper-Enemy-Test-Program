@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Units.Player;
+import model.units.Player;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -33,7 +33,7 @@ public class AddPlayerController {
 
     private Stage presetWindow;
 
-    private List<Player> playerList = new LinkedList <>(  );  // Contains all Players for the simulation
+    private static List<Player> playerList = new LinkedList<>();  // Contains all Players for the simulation
 
     //----------------------------------- FXML METHODS -------------------------------------
 
@@ -99,13 +99,13 @@ public class AddPlayerController {
         }
 
 
-        if(this.playerList.contains(p)){
+        if (playerList.contains(p)) {
             return null;
         }
 
 
         try {
-            this.playerList.add(p);
+            playerList.add(p);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
@@ -153,7 +153,7 @@ public class AddPlayerController {
     public String playerListAsString() {
         StringBuilder s = new StringBuilder();
 
-        for (Player p : this.playerList) {
+        for (Player p : playerList) {
             s.append(p.toString()).append("\n");
         }
 
@@ -165,7 +165,7 @@ public class AddPlayerController {
     }
 
     public void setPlayerList(List<Player> playerList) {
-        this.playerList = playerList;
+        AddPlayerController.playerList = playerList;
     }
 
 }

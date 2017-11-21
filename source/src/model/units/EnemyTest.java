@@ -1,4 +1,4 @@
-package model.Units;
+package model.units;
 
 import org.junit.jupiter.api.Test;
 
