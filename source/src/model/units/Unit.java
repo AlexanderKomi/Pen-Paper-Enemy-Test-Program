@@ -19,11 +19,11 @@ public class Unit {
 
     }
 
-    public  Unit(String type){
+    public Unit(String type) {
         this.type = type;
     }
 
-    public Unit(String type, String name, int lp, int damage, int attackChance, int defense){
+    public Unit(String type, String name, int lp, int damage, int attackChance, int defense) {
 
         this.name = name;
         this.lp = lp;
@@ -31,15 +31,14 @@ public class Unit {
         this.attackChance = attackChance;
         this.defense = defense;
 
-        if(type.toUpperCase().equals("player")){
+        if (type.toUpperCase().equals("player")) {
             this.type = "PLAYER";
-        }
-        else{
+        } else {
             this.type = "ENEMY";
         }
     }
 
-    public Unit(String type, String name, int lp, int damage, int attackChance, int defense, String description){
+    public Unit(String type, String name, int lp, int damage, int attackChance, int defense, String description) {
         this.name = name;
         this.lp = lp;
         this.damage = damage;
@@ -47,10 +46,9 @@ public class Unit {
         this.defense = defense;
         this.description = description;
 
-        if(type.toUpperCase().equals("player")){
+        if (type.toUpperCase().equals("player")) {
             this.type = "PLAYER";
-        }
-        else{
+        } else {
             this.type = "ENEMY";
         }
     }
@@ -79,11 +77,10 @@ public class Unit {
      * @return Returns the remaining lifepoints of the enemy.
      */
     public int attack(Unit target) {
-        if(this.getAttackChance() <= w20.roll()){
-            if(target.getDefense() <= w20.roll()){
+        if (this.getAttackChance() <= w20.roll()) {
+            if (target.getDefense() <= w20.roll()) {
                 return target.getLp();
-            }
-            else{
+            } else {
                 int x = target.getLp() - this.getDamage();
                 return x > 0 ? x : 0;
             }
@@ -99,11 +96,10 @@ public class Unit {
      * @return The remaining lifepoints of the player.
      */
     public int defend(Unit target) {
-        if(target.getAttackChance() <= w20.roll()){
-            if(this.getDefense() <= w20.roll()){
+        if (target.getAttackChance() <= w20.roll()) {
+            if (this.getDefense() <= w20.roll()) {
                 return this.getLp();
-            }
-            else{
+            } else {
                 int x = this.getLp() - target.getDamage();
                 return x > 0 ? x : 0;
             }

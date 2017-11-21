@@ -11,14 +11,11 @@ import java.util.List;
 
 public class RemoveEnemyController {
 
-    private String removedEnemy = "";
-
     @FXML
     Button removeButton, cancelButton;
-
     @FXML
     VBox EnemyBox;
-
+    private String removedEnemy = "";
     private List<CheckBox> checkboxes;
 
     @FXML
@@ -28,17 +25,17 @@ public class RemoveEnemyController {
 
 
     @FXML
-    public void removeButtonPressed(){
+    public void removeButtonPressed() {
         this.removedEnemy = this.getSelected();
     }
 
     @FXML
-    public void cancelButtonPressed(){
+    public void cancelButtonPressed() {
         cancelButton.getScene().getWindow().hide();
     }
 
     public void addToCheckboxes(Enemy enemy) {
-        if(!this.checkboxes.contains(new CheckBox(enemy.getName()))){
+        if (!this.checkboxes.contains(new CheckBox(enemy.getName()))) {
             CheckBox c = new CheckBox(enemy.getName());
             c.setSelected(false);
             c.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -46,9 +43,8 @@ public class RemoveEnemyController {
                 c.setSelected(newValue);
             });
             this.checkboxes.add(c);
-            EnemyBox.getChildren().add( c);
-        }
-        else{
+            EnemyBox.getChildren().add(c);
+        } else {
             System.out.println("EnemyBoxController : addToCheckbox : Already contains this enemy.");
         }
     }
@@ -67,24 +63,24 @@ public class RemoveEnemyController {
             this.checkboxes.add(c);
         }
         EnemyBox.getChildren().clear();
-        EnemyBox.getChildren().addAll( checkboxes);
+        EnemyBox.getChildren().addAll(checkboxes);
 
     }
 
     //--------------------------------- PRIVATE METHODS --------------------------------
 
-    private void deselectOtherBoxes(CheckBox checky){
-        for(CheckBox c : this.getCheckboxes()){
-            if(!c.equals(checky)){
+    private void deselectOtherBoxes(CheckBox checky) {
+        for (CheckBox c : this.getCheckboxes()) {
+            if (!c.equals(checky)) {
                 c.setSelected(false);
             }
         }
     }
 
-    private boolean isCheckBoxSelectable(CheckBox checky){
+    private boolean isCheckBoxSelectable(CheckBox checky) {
 
-        for(CheckBox c : this.getCheckboxes()){
-            if(!c.equals(checky)) {
+        for (CheckBox c : this.getCheckboxes()) {
+            if (!c.equals(checky)) {
                 if (c.isSelected()) {
                     return false;
                 }
@@ -105,8 +101,8 @@ public class RemoveEnemyController {
     }
 
     private String getSelected() {
-        for(CheckBox c : this.checkboxes){
-            if(c.isSelected()){
+        for (CheckBox c : this.checkboxes) {
+            if (c.isSelected()) {
                 return c.getText();
             }
         }

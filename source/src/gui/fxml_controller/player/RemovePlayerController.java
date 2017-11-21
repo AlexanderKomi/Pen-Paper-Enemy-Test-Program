@@ -11,14 +11,11 @@ import java.util.List;
 
 public class RemovePlayerController {
 
-    private String removedPlayer = "";
-
     @FXML
     Button removeButton, cancelButton;
-
     @FXML
     VBox PlayerBox;
-
+    private String removedPlayer = "";
     private List<CheckBox> checkboxes;
 
     @FXML
@@ -28,17 +25,17 @@ public class RemovePlayerController {
 
 
     @FXML
-    public void removeButtonPressed(){
+    public void removeButtonPressed() {
         this.removedPlayer = this.getSelected();
     }
 
     @FXML
-    public void cancelButtonPressed(){
+    public void cancelButtonPressed() {
         cancelButton.getScene().getWindow().hide();
     }
 
     public void addToCheckboxes(Player player) {
-        if(!this.checkboxes.contains(new CheckBox(player.getName()))){
+        if (!this.checkboxes.contains(new CheckBox(player.getName()))) {
             CheckBox c = new CheckBox(player.getName());
             c.setSelected(false);
             c.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -47,8 +44,7 @@ public class RemovePlayerController {
             });
             this.checkboxes.add(c);
             PlayerBox.getChildren().add(c);
-        }
-        else{
+        } else {
             System.out.println("PlayerBoxController : addToCheckbox : Already contains this player.");
         }
     }
@@ -73,18 +69,18 @@ public class RemovePlayerController {
 
     //--------------------------------- PRIVATE METHODS --------------------------------
 
-    private void deselectOtherBoxes(CheckBox checky){
-        for(CheckBox c : this.getCheckboxes()){
-            if(!c.equals(checky)){
+    private void deselectOtherBoxes(CheckBox checky) {
+        for (CheckBox c : this.getCheckboxes()) {
+            if (!c.equals(checky)) {
                 c.setSelected(false);
             }
         }
     }
 
-    private boolean isCheckBoxSelectable(CheckBox checky){
+    private boolean isCheckBoxSelectable(CheckBox checky) {
 
-        for(CheckBox c : this.getCheckboxes()){
-            if(!c.equals(checky)) {
+        for (CheckBox c : this.getCheckboxes()) {
+            if (!c.equals(checky)) {
                 if (c.isSelected()) {
                     return false;
                 }
@@ -105,8 +101,8 @@ public class RemovePlayerController {
     }
 
     private String getSelected() {
-        for(CheckBox c : this.checkboxes){
-            if(c.isSelected()){
+        for (CheckBox c : this.checkboxes) {
+            if (c.isSelected()) {
                 return c.getText();
             }
         }

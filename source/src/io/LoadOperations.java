@@ -14,108 +14,105 @@ public class LoadOperations {
     private String separator = ";";
     private String breaker = "\n";
 
-    LoadOperations(){}
+    LoadOperations() {
+    }
 
     // --------------------------- INTERFACES ---------------------------------------------
 
 
-
-    Player loadPlayer(){
+    Player loadPlayer() {
         File f = loadDialog();
-        if( f != null ){
+        if (f != null) {
             return loadPlayerFromCSV(f);
         }
 
         return new Player();
     }
 
-    void savePlayer(Player p){
+    void savePlayer(Player p) {
         File f = saveDialog();
 
-        if(f != null){
-            savePlayerToCSVFile(f,p);
+        if (f != null) {
+            savePlayerToCSVFile(f, p);
 
-        }
-        else{
+        } else {
             System.out.println("save Player :  -> File is null and player could not be safed");
         }
 
     }
 
-    Enemy loadEnemy(){
+    Enemy loadEnemy() {
         File f = loadDialog();
-        if(f != null){
+        if (f != null) {
             return loadEnemyFromCSV(f);
         }
 
         return new Enemy();
     }
 
-    void saveEnemy(Enemy e){
+    void saveEnemy(Enemy e) {
         File f = saveDialog();
 
-        if(f != null){
+        if (f != null) {
             System.out.println("save Enemy :  -> ATTENTION : Save Enemy has not been implemented yet!");
             System.out.println("save Enemy :  -> Enemy has been saved");
-            saveEnemyToCSVFile(f,e);
-        }
-        else{
+            saveEnemyToCSVFile(f, e);
+        } else {
             System.out.println("save Enemy :  -> File is null");
         }
     }
-
 
 
     // ------------------------ PRIVATE METHODS -------------------------------------------
 
     private File loadDialog() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter( "csv", "*.csv" ) );
-        return fileChooser.showOpenDialog( new Stage() );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("csv", "*.csv"));
+        return fileChooser.showOpenDialog(new Stage());
     }
 
     private File saveDialog() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter( "csv", "*.csv" ) );
-        return fileChooser.showSaveDialog( new Stage() );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("csv", "*.csv"));
+        return fileChooser.showSaveDialog(new Stage());
     }
 
-    private void savePlayerToCSVFile(File file, Player player){
+    private void savePlayerToCSVFile(File file, Player player) {
         try {
             PrintWriter pw = new PrintWriter(file);
             pw.write(player.toSavableFormat());
             pw.close();
-            System.out.println("save Player : "+player.toSavableFormat());
+            System.out.println("save Player : " + player.toSavableFormat());
             System.out.println("save Player :  -> Player has been saved");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private void saveEnemyToCSVFile(File file, Enemy enemy){
+    private void saveEnemyToCSVFile(File file, Enemy enemy) {
         try {
             PrintWriter pw = new PrintWriter(file);
             pw.write(enemy.toSavableFormat());
             pw.close();
-            System.out.println("save Enemy : "+ enemy.toSavableFormat());
+            System.out.println("save Enemy : " + enemy.toSavableFormat());
             System.out.println("save Enemy :  -> Player has been saved");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private Player loadPlayerFromCSV(File f){
+    private Player loadPlayerFromCSV(File f) {
         Player p = new Player();
         List<Player> list = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(f.getAbsolutePath());
             BufferedReader br = new BufferedReader(fileReader);
             String line;
-            while ( ( line = br.readLine() ) != null ) {
-                for(String s1 : line.split(breaker)){ // This should separate a Player from another in a single file
+            while ((line = br.readLine()) != null) {
+                for (String s1 : line.split(breaker)) { // This should separate a Player from another in a single file
 
-                    if(s1.startsWith("PLAYER")) {
-                        int i = 0 ; // Skip the 0, because PLAYER is written there.
+                    if (s1.startsWith("PLAYER")) {
+                        int i = 0; // Skip the 0, because PLAYER is written there.
 
                         //System.out.println("s1 : " + s1);
 
@@ -123,22 +120,17 @@ public class LoadOperations {
 
                             //System.out.println( " s2 : " + s2+"    , i : " + i);
 
-                            if(i == 1){
+                            if (i == 1) {
                                 p.setName(s2);
-                            }
-                            else if(i == 2){
+                            } else if (i == 2) {
                                 p.setLp(Integer.parseInt(s2));
-                            }
-                            else if(i == 3){
+                            } else if (i == 3) {
                                 p.setDamage(Integer.parseInt(s2));
-                            }
-                            else if(i == 4){
+                            } else if (i == 4) {
                                 p.setAttackChance(Integer.parseInt(s2));
-                            }
-                            else if(i == 5){
+                            } else if (i == 5) {
                                 p.setDefense(Integer.parseInt(s2));
-                            }
-                            else if(i == 6){
+                            } else if (i == 6) {
                                 p.setDescription(s2);
                             }
                             i++;
@@ -146,28 +138,27 @@ public class LoadOperations {
                     }
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        System.out.println("loaded Player : " + p +" , Description: "+ p.getDescription());
+        System.out.println("loaded Player : " + p + " , Description: " + p.getDescription());
 
         return p;
     }
 
-    private Enemy loadEnemyFromCSV(File f){
+    private Enemy loadEnemyFromCSV(File f) {
         Enemy e = new Enemy();
         List<Player> list = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(f.getAbsolutePath());
             BufferedReader br = new BufferedReader(fileReader);
             String line;
-            while ( ( line = br.readLine() ) != null ) {
-                for(String s1 : line.split(breaker)){ // This should separate a Player from another in a single file
+            while ((line = br.readLine()) != null) {
+                for (String s1 : line.split(breaker)) { // This should separate a Player from another in a single file
 
-                    if(s1.startsWith("ENEMY")) {
-                        int i = 0 ; // Skip the 0, because ENEMY is written there.
+                    if (s1.startsWith("ENEMY")) {
+                        int i = 0; // Skip the 0, because ENEMY is written there.
 
                         //System.out.println("s1 : " + s1);
 
@@ -175,28 +166,21 @@ public class LoadOperations {
 
                             //System.out.println( " s2 : " + s2+"    , i : " + i);
 
-                            if(i == 1){
+                            if (i == 1) {
                                 e.setName(s2);
-                            }
-                            else if(i == 2){
+                            } else if (i == 2) {
                                 e.setLp(Integer.parseInt(s2));
-                            }
-                            else if(i == 3){
+                            } else if (i == 3) {
                                 e.setDamage(Integer.parseInt(s2));
-                            }
-                            else if(i == 4){
+                            } else if (i == 4) {
                                 e.setAttackChance(Integer.parseInt(s2));
-                            }
-                            else if(i == 5){
+                            } else if (i == 5) {
                                 e.setDefense(Integer.parseInt(s2));
-                            }
-                            else if(i == 6){
+                            } else if (i == 6) {
                                 e.setArmor(Integer.parseInt(s2));
-                            }
-                            else if(i == 7){
+                            } else if (i == 7) {
                                 e.setBonus(s2);
-                            }
-                            else if(i == 8){
+                            } else if (i == 8) {
                                 e.setDescription(s2);
                             }
                             i++;
@@ -204,8 +188,7 @@ public class LoadOperations {
                     }
                 }
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 

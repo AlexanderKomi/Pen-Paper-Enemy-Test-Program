@@ -20,20 +20,19 @@ public class AddPlayerController {
 
     //------------------------------------ FXML MEMBERS -------------------------------------
 
-    @FXML TextField nameField, lifePointsField, damageField, attackChanceField, defenseField;
-
-    @FXML TextArea descriptionTextField;
-
-    @FXML Button createPlayerButton, presetButton, cancelButton;
-
-    //FXML Controller
-    @FXML private PlayerPresetWindowController presetWindowCon;
+    private static List<Player> playerList = new LinkedList<>();  // Contains all Players for the simulation
+    @FXML
+    TextField nameField, lifePointsField, damageField, attackChanceField, defenseField;
+    @FXML
+    TextArea descriptionTextField;
+    @FXML
+    Button createPlayerButton, presetButton, cancelButton;
 
     //------------------------------------------ MEMBERS ------------------------------------------
-
+    //FXML Controller
+    @FXML
+    private PlayerPresetWindowController presetWindowCon;
     private Stage presetWindow;
-
-    private static List<Player> playerList = new LinkedList<>();  // Contains all Players for the simulation
 
     //----------------------------------- FXML METHODS -------------------------------------
 
@@ -63,11 +62,11 @@ public class AddPlayerController {
     public Player createPlayerButtonPressed() {
         Player p = new Player();
 
-        if(this.nameField.getText().equals("")){
+        if (this.nameField.getText().equals("")) {
             return null;
         }
 
-        if(this.defenseField.getText().equals("")) {
+        if (this.defenseField.getText().equals("")) {
 
             try {
                 p = new Player(
@@ -81,8 +80,7 @@ public class AddPlayerController {
                 System.out.println("Problem to create new Player.");
                 e.printStackTrace();
             }
-        }
-        else{
+        } else {
             try {
                 p = new Player(
                         nameField.getText(),

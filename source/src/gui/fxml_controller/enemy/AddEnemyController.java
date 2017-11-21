@@ -20,38 +20,37 @@ public class AddEnemyController {
 
     //------------------------------------ FXML MEMBERS -------------------------------------
 
-    @FXML TextField nameField, lifePointsField, damageField, attackChanceField, defenseField, armorField;
-
-    @FXML TextArea bonusTextField;
-
-    @FXML Button createEnemyButton, presetsButton, cancelButton;
-
+    private static List<Enemy> enemyList = new LinkedList<>();    // Contains all Enemies for the simulation
+    @FXML
+    TextField nameField, lifePointsField, damageField, attackChanceField, defenseField, armorField;
+    @FXML
+    TextArea bonusTextField;
+    @FXML
+    Button createEnemyButton, presetsButton, cancelButton;
     //FXML Controller
-    @FXML private EnemyPresetWindowController presetWindowCon;
-
+    @FXML
+    private EnemyPresetWindowController presetWindowCon;
     //------------------------------------------ MEMBERS ------------------------------------------
     private Stage presetWindow;
-
-    private static List<Enemy> enemyList = new LinkedList<>();    // Contains all Enemies for the simulation
 
     //----------------------------------- FXML METHODS -------------------------------------
 
     @FXML
     public void initialize() {
-	    GuiUtils.initialize_NumberFields(
-			    lifePointsField,
-			    damageField,
-			    attackChanceField,
-			    defenseField,
-			    armorField
-	    );
+        GuiUtils.initialize_NumberFields(
+                lifePointsField,
+                damageField,
+                attackChanceField,
+                defenseField,
+                armorField
+        );
         createPresetWindow();
     }
 
     @FXML
     public Enemy createEnemyButtonPressed() {
         Enemy enemy = new Enemy();
-        if(this.nameField.getText().equals("")){
+        if (this.nameField.getText().equals("")) {
             return null;
         }
 
@@ -81,7 +80,9 @@ public class AddEnemyController {
     }
 
     @FXML
-    public void cancelButtonPressed() {cancelButton.getScene().getWindow().hide();}
+    public void cancelButtonPressed() {
+        cancelButton.getScene().getWindow().hide();
+    }
 
     //--------------------------- PRIVATE METHODS --------------------------
 

@@ -27,23 +27,25 @@ public class MainGuiController {
     //---------------------------------------- FXML MEMBERS ----------------------------------------
 
 
-    @FXML Button addPlayerButton, removePlayerButton, startButton, addEnemyButton, removeEnemyButton;
-
-    @FXML TextField iterationsField;
-
-    @FXML TextArea playerListField, enemyListField, summaryField;
-
+    private static Battle battle; // Contains the simulation
+    @FXML
+    Button addPlayerButton, removePlayerButton, startButton, addEnemyButton, removeEnemyButton;
+    @FXML
+    TextField iterationsField;
+    @FXML
+    TextArea playerListField, enemyListField, summaryField;
     //FXML Controller
-    @FXML private AddPlayerController playerCon;
-    @FXML private AddEnemyController enemyCon;
-    @FXML private RemovePlayerController removePlayerController;
-    @FXML private RemoveEnemyController removeEnemyController;
+    @FXML
+    private AddPlayerController playerCon;
+    @FXML
+    private AddEnemyController enemyCon;
+    @FXML
+    private RemovePlayerController removePlayerController;
 
 
     //------------------------------------------ MEMBERS ------------------------------------------
-
-    private static Battle battle; // Contains the simulation
-
+    @FXML
+    private RemoveEnemyController removeEnemyController;
     private Stage addPlayerStage;
     private Stage removePlayerStage;
     private Stage addEnemyStage;
@@ -55,7 +57,7 @@ public class MainGuiController {
     @FXML
     private void initialize() {
         createStages();
-        GuiUtils.setFieldToOnlyNumbers( this.iterationsField);
+        GuiUtils.setFieldToOnlyNumbers(this.iterationsField);
         this.iterationsField.setText("1");
     }
 
@@ -75,11 +77,11 @@ public class MainGuiController {
         }
 
         LinkedList<Player> player = new LinkedList<>();
-        for(Player p : this.playerCon.getPlayerList()){
+        for (Player p : this.playerCon.getPlayerList()) {
             player.add(new Player(p));
         }
         LinkedList<Enemy> enemies = new LinkedList<Enemy>();
-        for(Enemy e : this.enemyCon.getEnemyList()){
+        for (Enemy e : this.enemyCon.getEnemyList()) {
             enemies.add(new Enemy(e));
         }
 
@@ -105,8 +107,8 @@ public class MainGuiController {
     }
 
     @FXML
-    public void removePlayerButtonPressed(){
-        this.removePlayerController.updateCheckboxes( this.playerCon.getPlayerList() );
+    public void removePlayerButtonPressed() {
+        this.removePlayerController.updateCheckboxes(this.playerCon.getPlayerList());
         this.removePlayerStage.show();
     }
 
@@ -116,8 +118,8 @@ public class MainGuiController {
     }
 
     @FXML
-    public void removeEnemyButtonPressed(){
-        this.removeEnemyController.updateCheckboxes( this.enemyCon.getEnemyList() );
+    public void removeEnemyButtonPressed() {
+        this.removeEnemyController.updateCheckboxes(this.enemyCon.getEnemyList());
         this.removeEnemyStage.show();
     }
 
@@ -187,7 +189,7 @@ public class MainGuiController {
         );
     }
 
-    private void createPlayerRemoveStage(){
+    private void createPlayerRemoveStage() {
         FXMLLoader loader = new FXMLLoader(AddPlayerController.class.getResource("../../fxml/player/RemovePlayer.fxml"));
 
         try {
@@ -203,27 +205,27 @@ public class MainGuiController {
         removePlayerStage.setTitle("Remove a Player");
 
 
-        removePlayerStage.setOnHiding((WindowEvent event) -> Platform.runLater( () -> {
+        removePlayerStage.setOnHiding((WindowEvent event) -> Platform.runLater(() -> {
             String s = removePlayerController.getRemovedPlayer();
 
             int index = 0;
-            for(Player p : this.playerCon.getPlayerList() ){
-                if(p.getName().equals(s)){
-                    index = this.playerCon.getPlayerList().indexOf( p );
+            for (Player p : this.playerCon.getPlayerList()) {
+                if (p.getName().equals(s)) {
+                    index = this.playerCon.getPlayerList().indexOf(p);
                 }
             }
-            if(this.playerCon.getPlayerList().size() > 0){
-                this.playerCon.getPlayerList().remove( index );
+            if (this.playerCon.getPlayerList().size() > 0) {
+                this.playerCon.getPlayerList().remove(index);
             }
 
             playerListField.setText(
                     playerCon.playerListAsString()
             );
 
-        } ));
+        }));
     }
 
-    private void createEnemyRemoveStage(){
+    private void createEnemyRemoveStage() {
         FXMLLoader loader = new FXMLLoader(AddEnemyController.class.getResource("../../fxml/enemy/RemoveEnemy.fxml"));
 
         try {
@@ -238,22 +240,22 @@ public class MainGuiController {
         }
         removeEnemyStage.setTitle("Remove an Enemy");
 
-        removeEnemyStage.setOnHiding((WindowEvent event) -> Platform.runLater( () -> {
+        removeEnemyStage.setOnHiding((WindowEvent event) -> Platform.runLater(() -> {
 
             String s = removeEnemyController.getRemovedEnemy();
 
             int index = 0;
-            for(Enemy e : this.enemyCon.getEnemyList() ){
-                if(e.getName().equals(s)){
-                    index = this.enemyCon.getEnemyList().indexOf( e );
+            for (Enemy e : this.enemyCon.getEnemyList()) {
+                if (e.getName().equals(s)) {
+                    index = this.enemyCon.getEnemyList().indexOf(e);
                 }
             }
-            if(this.enemyCon.getEnemyList().size() > 0){
-                this.enemyCon.getEnemyList().remove( index );
+            if (this.enemyCon.getEnemyList().size() > 0) {
+                this.enemyCon.getEnemyList().remove(index);
             }
 
-            enemyListField.setText( enemyCon.enemyListAsString() );
-        } ));
+            enemyListField.setText(enemyCon.enemyListAsString());
+        }));
     }
 
 

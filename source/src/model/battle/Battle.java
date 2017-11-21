@@ -1,14 +1,11 @@
 package model.battle;
 
-import model.dices.W20;
 import model.units.Enemy;
 import model.units.Player;
 import model.utils.BattleUtils;
 import model.utils.CopyUtils;
 import model.utils.FightingUtils;
-import model.utils.OutputUtils;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -18,14 +15,11 @@ public class Battle {
 
     private static List<Player> players;
     private static List<Enemy> enemies;
-    private int iterations_max;
-    private List<String> results;
-    private volatile String summary;
-
-    private W20 w20 = new W20();
+    private static String summary = "";
     private static List<Player> playersCopy;
     private static List<Enemy> enemiesCopy;
-
+    private static Analysis analysis = new Analysis();
+    private int iterations_max;
 
     public Battle(List<Player> players, List<Enemy> enemies, int iterations) {
         if (players != null || !players.isEmpty()) {
@@ -47,13 +41,18 @@ public class Battle {
             }
         }
         this.iterations_max = iterations;
-        this.results = new LinkedList<>();
-        this.summary = "";
     }
 
+
+    /**
+     * Starts a battle and the analysis.
+     */
     public void run() {
-        this.simulate_alt();
-        this.setSummary(OutputUtils.createTextOutput(this, results));
+
+        if (!checkForStartingErrors()) {
+            this.simulate_alt();
+            this.setSummary(analysis.generateResult());
+        }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -67,7 +66,35 @@ public class Battle {
      */
     private void simulate_alt() {
 
-        String fightResults = "";
+        for (int simCounter = 1; simCounter <= this.iterations_max; simCounter++) {
+
+            playersCopy = CopyUtils.copyPlayers(players);
+            enemiesCopy = CopyUtils.copyEnemies(enemies);
+
+            int round = 0;                  //counting the rounds. Both teams fight once in a round.
+            byte switcher = (byte) ThreadLocalRandom.current().nextInt(0, 1);   //chooses who is first attacker
+            Boolean isOver = false;
+            while (!isOver) {
+
+                round++;
+
+                if (switcher == 1) {
+                    FightingUtils.playersFight(playersCopy, enemiesCopy);   //Players attack first
+                    FightingUtils.enemiesFight(enemiesCopy, playersCopy);
+                } else {
+                    FightingUtils.enemiesFight(enemiesCopy, playersCopy);   //Enemies attack first
+                    FightingUtils.playersFight(playersCopy, enemiesCopy);
+                }
+                isOver = BattleUtils.isFightOver(playersCopy, enemiesCopy);
+            }
+
+            analysis.add(BattleUtils.winnerTeam(playersCopy, enemiesCopy), round, simCounter);
+
+        }
+    }
+
+
+    private boolean checkForStartingErrors() {
         if (players == null || players.isEmpty()) {
             try {
                 throw new Exception("Battle : Can not start battle, because players is null or empty!");
@@ -83,61 +110,7 @@ public class Battle {
             }
         }
 
-        for(int i = 1; i <= this.iterations_max ; i++) {
-
-            playersCopy = CopyUtils.copyPlayers(players);      //copying still not work our right :/
-            enemiesCopy = CopyUtils.copyEnemies(enemies);
-            OutputUtils.printPlayers(playersCopy);
-            OutputUtils.printEnemies(enemiesCopy);
-
-            byte switcher = (byte) ThreadLocalRandom.current().nextInt(0, 1);
-            /*
-            just choosing who is first. Not every Round just every simulation.
-            We don't want the same team attacks right after her last attack!
-             */
-
-            boolean endOfFight = false;
-
-            int round = 0;                  //counting the rounds. Both teams fight once in a round.
-
-            while (endOfFight != true){
-
-                round++;
-
-                if(switcher == 1) {
-                    FightingUtils.playersFight(playersCopy, enemiesCopy);   //Player attacks
-                    FightingUtils.enemiesFight(enemiesCopy, playersCopy);
-                } else {
-                    FightingUtils.enemiesFight(enemiesCopy, playersCopy);
-                    FightingUtils.playersFight(playersCopy, enemiesCopy);
-                }
-
-
-                endOfFight = BattleUtils.checkIfFightIsOver(playersCopy, enemiesCopy);
-            }
-
-            String winners = winnerTeam(playersCopy, enemiesCopy);
-
-
-            fightResults = fightResults + "Simulation #" + i + "\n" + winners + " won in Round #" + round + "\n\n";
-            this.results.add(fightResults);
-        }
-    }
-
-
-    private String winnerTeam(List<Player> players, List<Enemy> enemies){
-
-        int playersAlive = 0;
-        int enemiesAlive = 0;
-
-        for(Player p : players){
-            if(p.getLp() > 0){ playersAlive++;}
-        }
-        for(Enemy e : enemies){
-            if(e.getLp() > 0){ enemiesAlive++;}
-        }
-        if(playersAlive == 0 && enemiesAlive == 0){return "ERROR: Both teams are dead!";} else if(playersAlive == 0){return "Enemies";}
-        return "Players";
+        return false;
     }
 
 
@@ -190,19 +163,11 @@ public class Battle {
         Battle.players = players;
     }
 
-    public List<String> getResults() {
-        return results;
-    }
-
-    public void setResults(List<String> results) {
-        this.results = results;
-    }
-
     public synchronized String getSummary() {
         return summary;
     }
 
     public synchronized void setSummary(String summary) {
-        this.summary = summary;
+        Battle.summary = summary;
     }
 }

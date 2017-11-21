@@ -26,6 +26,10 @@ public final class OutputUtils {
         //System.out.println(this.getSummary());
     }
 
+    public static String fightResult(String winners, int round, int simNum) {
+        return "Simulation #" + simNum + "\n" + winners + " won in Round #" + round + "\n\n";
+    }
+
     public static String printPlayers(List<Player> players) {
         StringBuilder s = new StringBuilder();
         for (Player p : players) {

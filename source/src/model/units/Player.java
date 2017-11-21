@@ -8,15 +8,15 @@ import java.lang.reflect.Method;
 public class Player extends Unit implements Comparable<Player> {
 
     public Player(String name, int lp, int damage, int attackChance, int defense) {
-        super("PLAYER",name,lp,damage,attackChance,defense);
+        super("PLAYER", name, lp, damage, attackChance, defense);
     }
 
     public Player(String name, int lp, int damage, int attackChance, int defense, String description) {
-        super("PLAYER",name,lp,damage,attackChance,defense,description);
+        super("PLAYER", name, lp, damage, attackChance, defense, description);
     }
 
-    public Player(Player p){
-        super("PLAYER",p.getName(),p.getLp(),p.getDamage(),p.getAttackChance(),p.getDefense(),p. getDescription());
+    public Player(Player p) {
+        super("PLAYER", p.getName(), p.getLp(), p.getDamage(), p.getAttackChance(), p.getDefense(), p.getDescription());
     }
 
     public Player() {
@@ -44,25 +44,25 @@ public class Player extends Unit implements Comparable<Player> {
                 + "\t, LP: " + this.getLp()
                 + "\t, Defense: " + this.getDefense()
                 + "\t, Damage: " + this.getDamage()
-                + "\t, Attack Chance: " + this.getAttackChance() ;
+                + "\t, Attack Chance: " + this.getAttackChance();
 
         return s;
     }
 
     @Override
-    public boolean equals(Object object){
+    public boolean equals(Object object) {
 
-        if(object == null)return false;
+        if (object == null) return false;
 
         if (object instanceof Player) {
 
             Player player2 = (Player) object;
 
-            if(!(this.getName().equals(player2.getName()))) return false;
-            if(!(this.getLp() == player2.getLp())) return false;
-            if(!(this.getDamage() == player2.getDamage()))return false;
-            if(!(this.getAttackChance() == player2.getAttackChance())) return false;
-            if(!(this.getDefense() == player2.getDefense()))return false;
+            if (!(this.getName().equals(player2.getName()))) return false;
+            if (!(this.getLp() == player2.getLp())) return false;
+            if (!(this.getDamage() == player2.getDamage())) return false;
+            if (!(this.getAttackChance() == player2.getAttackChance())) return false;
+            if (!(this.getDefense() == player2.getDefense())) return false;
             return this.getDescription().equals(player2.getDescription());
         }
 
@@ -71,7 +71,7 @@ public class Player extends Unit implements Comparable<Player> {
 
     @Override
     public int compareTo(Player o) {
-        if(!this.equals(o)){
+        if (!this.equals(o)) {
             return 1;
         }
 
@@ -81,7 +81,7 @@ public class Player extends Unit implements Comparable<Player> {
 
     // -------------------------------------- PUBLIC METHODS ------------------------------------------
 
-    public String toSavableFormat(){
+    public String toSavableFormat() {
         String s = getType() + ";" +
                 this.getName() + ";" +
                 this.getLp() + ";" +

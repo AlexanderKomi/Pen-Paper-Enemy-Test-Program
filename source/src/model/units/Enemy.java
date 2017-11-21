@@ -1,31 +1,31 @@
 package model.units;
 
-public class Enemy extends Unit implements Comparable<Enemy>{
+public class Enemy extends Unit implements Comparable<Enemy> {
 
     // Armor and bonus are not yet implemented in the attack/ defense methods
     private int armor;
     private String bonus;
 
     public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance) {
-        super("ENEMY", name,lp, damage,attackChance, defense);
+        super("ENEMY", name, lp, damage, attackChance, defense);
         this.armor = armor;
         this.bonus = "";
     }
 
     public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance, String bonus) {
-        super("ENEMY", name,lp, damage,attackChance, defense);
+        super("ENEMY", name, lp, damage, attackChance, defense);
         this.armor = armor;
         this.bonus = bonus;
     }
 
     public Enemy(String name, int lp, int defense, int armor, int damage, int attackChance, String bonus, String description) {
-        super("ENEMY",name,lp,damage,attackChance,defense,description);
+        super("ENEMY", name, lp, damage, attackChance, defense, description);
         this.armor = armor;
         this.bonus = bonus;
     }
 
-    public Enemy(Enemy e){
-        super("ENEMY",e.getName(),e.getLp(),e.getDamage(),e.getAttackChance(),e.getDefense(),e. getDescription());
+    public Enemy(Enemy e) {
+        super("ENEMY", e.getName(), e.getLp(), e.getDamage(), e.getAttackChance(), e.getDefense(), e.getDescription());
         this.armor = e.getArmor();
         this.bonus = e.getBonus();
     }
@@ -55,29 +55,30 @@ public class Enemy extends Unit implements Comparable<Enemy>{
     }
 
     @Override
-    public boolean equals(Object object){
+    public boolean equals(Object object) {
 
-        if(object == null)return false;
+        if (object == null) return false;
 
         if (object instanceof Enemy) {
 
             Enemy enemy = (Enemy) object;
 
-            if(!(this.getName().equals(enemy.getName()))) return false;
-            if(!(this.getLp() == enemy.getLp())) return false;
-            if(!(this.getDamage() == enemy.getDamage()))return false;
-            if(!(this.getAttackChance() == enemy.getAttackChance())) return false;
-            if(!(this.getDefense() == enemy.getDefense()))return false;
-            if(!(this.getArmor() == enemy.getArmor()))return false;
-            if(!(this.getBonus().equals(enemy.getBonus())))return false;
+            if (!(this.getName().equals(enemy.getName()))) return false;
+            if (!(this.getLp() == enemy.getLp())) return false;
+            if (!(this.getDamage() == enemy.getDamage())) return false;
+            if (!(this.getAttackChance() == enemy.getAttackChance())) return false;
+            if (!(this.getDefense() == enemy.getDefense())) return false;
+            if (!(this.getArmor() == enemy.getArmor())) return false;
+            if (!(this.getBonus().equals(enemy.getBonus()))) return false;
             return this.getDescription().equals(enemy.getDescription());
         }
 
         return false;
     }
+
     @Override
     public int compareTo(Enemy o) {
-        if(!this.equals(o)){
+        if (!this.equals(o)) {
             return 1;
         }
         return 0;
@@ -103,7 +104,7 @@ public class Enemy extends Unit implements Comparable<Enemy>{
 
     // -------------------------------------- PUBLIC METHODS ------------------------------------------
 
-    public String toSavableFormat(){
+    public String toSavableFormat() {
         String s = this.getType() + ";" +
                 this.getName() + ";" +
                 this.getLp() + ";" +

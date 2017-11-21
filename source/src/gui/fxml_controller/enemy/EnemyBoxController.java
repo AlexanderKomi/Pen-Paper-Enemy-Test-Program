@@ -35,7 +35,7 @@ public class EnemyBoxController extends VBox {
 
 
     public void addToCheckboxes(Enemy enemy) {
-        if(!this.checkboxes.contains(new CheckBox(enemy.getName()))){
+        if (!this.checkboxes.contains(new CheckBox(enemy.getName()))) {
             CheckBox c = new CheckBox(enemy.getName());
             c.setSelected(false);
             c.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -44,8 +44,7 @@ public class EnemyBoxController extends VBox {
             });
             this.checkboxes.add(c);
             EnemyBox.getChildren().add(c);
-        }
-        else{
+        } else {
             System.out.println("PlayerBoxController : addToCheckbox : Already contains this player.");
         }
     }
@@ -70,18 +69,18 @@ public class EnemyBoxController extends VBox {
 
     //--------------------------------- PRIVATE METHODS --------------------------------
 
-    private void deselectOtherBoxes(CheckBox checky){
-        for(CheckBox c : this.getCheckboxes()){
-            if(!c.equals(checky)){
+    private void deselectOtherBoxes(CheckBox checky) {
+        for (CheckBox c : this.getCheckboxes()) {
+            if (!c.equals(checky)) {
                 c.setSelected(false);
             }
         }
     }
 
-    private boolean isCheckBoxSelectable(CheckBox checky){
+    private boolean isCheckBoxSelectable(CheckBox checky) {
 
-        for(CheckBox c : this.getCheckboxes()){
-            if(!c.equals(checky)) {
+        for (CheckBox c : this.getCheckboxes()) {
+            if (!c.equals(checky)) {
                 if (c.isSelected()) {
                     return false;
                 }
@@ -103,8 +102,8 @@ public class EnemyBoxController extends VBox {
     }
 
     public String getSelected() {
-        for(CheckBox c : this.checkboxes){
-            if(c.isSelected()){
+        for (CheckBox c : this.checkboxes) {
+            if (c.isSelected()) {
                 return c.getText();
             }
         }

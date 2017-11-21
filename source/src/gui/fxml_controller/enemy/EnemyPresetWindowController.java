@@ -34,7 +34,7 @@ public class EnemyPresetWindowController {
     //--------------------------------- FXML METHODS -----------------------------------
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.ioController = new IOController();
         this.enemyList = new LinkedList<>();
     }
@@ -45,19 +45,19 @@ public class EnemyPresetWindowController {
     }
 
     @FXML
-    public void loadButtonPressed(){
+    public void loadButtonPressed() {
         Enemy e = this.ioController.loadEnemy();
         addToPresetsCheckBoxes(e);
     }
 
     @FXML
-    public void saveButtonPressed(){
+    public void saveButtonPressed() {
         String selectedCheckBox = this.EnemyBoxController.getSelected();
         System.out.println("saveButtonPressed : " + selectedCheckBox);
 
-        for(Enemy e : this.enemyList){
+        for (Enemy e : this.enemyList) {
 
-            if(e.getName().equals(selectedCheckBox)){
+            if (e.getName().equals(selectedCheckBox)) {
 
                 this.ioController.saveEnemy(e);
                 break;
@@ -67,7 +67,9 @@ public class EnemyPresetWindowController {
     }
 
     @FXML
-    public void cancelButtonPressed() {this.cancelButton.getScene().getWindow().hide();}
+    public void cancelButtonPressed() {
+        this.cancelButton.getScene().getWindow().hide();
+    }
 
     //--------------------------------- PRIVATE METHODS --------------------------------
 
@@ -90,7 +92,6 @@ public class EnemyPresetWindowController {
 
 
     //--------------------------------- GETTER AND SETTER -------------------------------
-
 
 
 }

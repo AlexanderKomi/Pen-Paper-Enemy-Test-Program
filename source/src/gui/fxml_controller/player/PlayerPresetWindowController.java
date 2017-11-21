@@ -14,14 +14,18 @@ public class PlayerPresetWindowController {
 
     //-------------------------------- FXML MEMBERS -----------------------------------
 
-    @FXML Button selectButton, loadButton,saveButton,cancelButton;
+    @FXML
+    Button selectButton, loadButton, saveButton, cancelButton;
 
-    @FXML VBox PlayerBox;
+    @FXML
+    VBox PlayerBox;
 
-    @FXML TextArea descriptionField;
+    @FXML
+    TextArea descriptionField;
 
     //FXML Controller
-    @FXML private PlayerBoxController PlayerBoxController;
+    @FXML
+    private PlayerBoxController PlayerBoxController;
     private IOController ioController;
     private List<Player> playerList;
 
@@ -31,7 +35,7 @@ public class PlayerPresetWindowController {
     //--------------------------------- FXML METHODS -----------------------------------
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.ioController = new IOController();
         this.playerList = new LinkedList<>();
     }
@@ -42,25 +46,24 @@ public class PlayerPresetWindowController {
     }
 
     @FXML
-    public void loadButtonPressed(){
+    public void loadButtonPressed() {
         Player p = this.ioController.loadPlayer();
-        if(!p.equals( new Player() )){
+        if (!p.equals(new Player())) {
             addToPresetsCheckBoxes(p);
-        }
-        else{
+        } else {
             System.out.println("The loaded Player, is a default constructed player, so it will not be added to the selectable options.");
         }
 
     }
 
     @FXML
-    public void saveButtonPressed(){
+    public void saveButtonPressed() {
         String selectedCheckBox = this.PlayerBoxController.getSelected();
         System.out.println("saveButtonPressed : " + selectedCheckBox);
 
-        for(Player p : this.getPlayerList()){
+        for (Player p : this.getPlayerList()) {
 
-            if(p.getName().equals(selectedCheckBox)){
+            if (p.getName().equals(selectedCheckBox)) {
 
                 this.ioController.savePlayer(p);
                 break;
@@ -71,7 +74,9 @@ public class PlayerPresetWindowController {
     }
 
     @FXML
-    public void cancelButtonPressed() {this.cancelButton.getScene().getWindow().hide();}
+    public void cancelButtonPressed() {
+        this.cancelButton.getScene().getWindow().hide();
+    }
 
     //--------------------------------- PRIVATE METHODS --------------------------------
 

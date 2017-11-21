@@ -18,11 +18,10 @@ public class IOController {
     }
 
     public void savePlayer(Player p) {
-        if(p.equals(null) ){
+        if (p.equals(null)) {
             System.out.println("Player is null - > Player will not be saved.");
             return;
-        }
-        else if(p.equals(new Player())){
+        } else if (p.equals(new Player())) {
             System.out.println("Player is default constructor, so will not be saved.");
             return;
         }
@@ -37,11 +36,10 @@ public class IOController {
     }
 
     public void saveEnemy(Enemy e) {
-        if(e.equals(null)){
+        if (e.equals(null)) {
             System.out.println("Enemy is null - > Enemy will not be saved.");
             return;
-        }
-        else if(e.equals(new Enemy())){
+        } else if (e.equals(new Enemy())) {
             System.out.println("Enemy is default constructor, so will not be saved.");
             return;
         }
